@@ -1,0 +1,16 @@
+{
+  "name": "@clankgsters/typescript-config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Unlicense",
+  "files": [
+    "base.json",
+    "library-pack.json",
+    "node-tools.json"
+  ],
+  "exports": {
+    "./base.json": "./base.json",
+    "./library-pack.json": "./library-pack.json",
+    "./node-tools.json": "./node-tools.json"
+  }
+}

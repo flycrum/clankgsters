@@ -1,0 +1,23 @@
+{
+  "name": "@clankgsters/vite-plus-config",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Unlicense",
+  "files": [
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    "./mono-base-format-config": "./src/mono-base-format-config.ts",
+    "./mono-base-lint-config": "./src/mono-base-lint-config.ts",
+    "./mono-base-vitest-node-config": "./src/mono-base-vitest-node-config.ts",
+    "./mono-base-vitest-spec-d-typecheck-config": "./src/mono-base-vitest-spec-d-typecheck-config.ts"
+  },
+  "devDependencies": {
+    "@clankgsters/typescript-config": "workspace:*",
+    "oxfmt": "0.41.0",
+    "oxlint": "1.56.0",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

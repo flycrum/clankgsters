@@ -1,6 +1,6 @@
-import { expect, test } from "vite-plus/test";
-import { greeting } from "../src/index.js";
+import { expect, test } from 'vite-plus/test';
+import { greeting } from '../src/index.js';
 
-test("greeting", () => {
-  expect(greeting()).toBe("clankgsters-sync");
+test('greeting', () => {
+  expect(greeting()).toBe('clankgsters-sync');
 });

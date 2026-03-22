@@ -24,12 +24,41 @@ importers:
 
   .:
     devDependencies:
+      '@clankgsters/vite-plus-config':
+        specifier: workspace:*
+        version: link:configs/vite-plus-config
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.1.13(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0))
+
+  configs/typescript-config: {}
+
+  configs/vite-plus-config:
+    devDependencies:
+      '@clankgsters/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      oxfmt:
+        specifier: 0.41.0
+        version: 0.41.0
+      oxlint:
+        specifier: 1.56.0
+        version: 1.56.0(oxlint-tsgolint@0.17.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
       vite-plus:
         specifier: 'catalog:'
         version: 0.1.13(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0)(typescript@5.9.3)(vite@8.0.1(@types/node@24.12.0)(esbuild@0.27.4)(tsx@4.21.0))
 
   packages/clankgsters-sync:
     devDependencies:
+      '@clankgsters/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/typescript-config
+      '@clankgsters/vite-plus-config':
+        specifier: workspace:*
+        version: link:../../configs/vite-plus-config
       '@types/node':
         specifier: 'catalog:'
         version: 24.12.0
@@ -58,6 +87,12 @@ importers:
         specifier: ^4.19.0
         version: 4.21.0
     devDependencies:
+      '@clankgsters/typescript-config':
+        specifier: workspace:*
+        version: link:../../configs/typescript-config
+      '@clankgsters/vite-plus-config':
+        specifier: workspace:*
+        version: link:../../configs/vite-plus-config
       '@types/node':
         specifier: 'catalog:'
         version: 24.12.0
