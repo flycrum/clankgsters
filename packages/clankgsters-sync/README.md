@@ -10,15 +10,24 @@ So, welcome to **Clankgsters**—your badass solution to:
 - 🎛️ Running **one shared spec** across **many agent front-ends**—the fancy switches stay installed, merely un-flipped at first boot
 
 <img
-  src="assets/story-sm.jpg"
+  src="../../assets/story-sm.jpg"
   alt="Three-panel pixel comic: a small robot with a glowing face and wild blue hair looks puzzled at Claude, Codex, and Cursor; then powers up with the names; then floats at ease as the tools orbit calmly."
 />
 
-## Monorepo (Vite+)
+## Technicals
 
-This repository is a **pnpm workspace** organized around the publishable sync package **[`@clankgsters/sync`](packages/clankgsters-sync/README.md)** (`packages/clankgsters-sync`). Tooling follows **[Vite+](https://viteplus.dev/)**—the unified **`vp`** CLI for install, check, test, pack/build, and monorepo tasks—so day-to-day work looks like `vp install`, `vp check`, and `vp test` from the repo root.
+# `@clankgsters/sync`
 
-- **`packages/clankgsters-sync`** — Node + TypeScript (`tsx` scripts, `vp pack` for npm)
-- **`packages/clankgsters-sync-integration-tests`** — private integration harness and tests against the sync package
+Node-first package for Clankgsters sync logic: **TypeScript `scripts/`** run with **`tsx`** (see `package.json` → `sync:*`), and the **publishable surface** is built with **`vp pack`** into `dist/`.
 
-Prereqs: **Node 22.12+** and global **`vp`** ([install](https://viteplus.dev/guide/)). Then: `vp install`, `vp check`, `vp test`.
+## Commands (from repo root)
+
+```bash
+vp run --filter @clankgsters/sync sync:hello
+vp run --filter @clankgsters/sync test
+vp run --filter @clankgsters/sync build
+```
+
+Or `cd` into this package and run the same `vp` / `pnpm` scripts locally.
+
+See the [Vite+ guide](https://viteplus.dev/guide/) for the full toolchain.

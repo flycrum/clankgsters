@@ -1,0 +1,41 @@
+{
+  "name": "@clankgsters/sync",
+  "version": "0.0.1",
+  "description": "Node tooling and TypeScript scripts for Clankgsters sync workflows (publishable).",
+  "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flycrum/clankgsters.git",
+    "directory": "packages/clankgsters-sync"
+  },
+  "files": [
+    "dist",
+    "scripts"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "check": "vp check",
+    "dev": "vp pack --watch",
+    "sync:hello": "tsx scripts/hello.ts",
+    "test": "vp test",
+    "prepublishOnly": "vp pack"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "7.0.0-dev.20260316.1",
+    "tsx": "^4.19.0",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

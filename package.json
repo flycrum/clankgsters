@@ -1,0 +1,19 @@
+{
+  "name": "clankgsters",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo for Clankgsters agent tooling (Vite+).",
+  "type": "module",
+  "scripts": {
+    "check": "vp check",
+    "test": "vp run @clankgsters/sync#build && vp run -r test",
+    "build": "vp run -r build"
+  },
+  "devDependencies": {
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "packageManager": "pnpm@10.32.1"
+}
