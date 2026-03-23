@@ -30,15 +30,26 @@
     "source.fixAll.eslint": "never",
     "source.fixAll.oxc": "explicit"
   },
-  // Oxc reads formatter options from vite.config.ts (`fmt` block) for repo-wide consistency.
+  // Oxc loads JSONC configs (see root `.oxfmtrc.jsonc` / `.oxlintrc.jsonc`); `vp check` still uses `vite.config.ts`.
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.formatOnSave": true,
   // Oxfmt does not support partial formatting, so always format full files.
   "editor.formatOnSaveMode": "file",
   // ESLint can still report diagnostics, but should not format in this Oxc-first workspace.
   "eslint.format.enable": false,
-  // Oxc reads formatter options from vite.config.ts (`fmt` block) for repo-wide consistency.
-  "oxc.fmt.configPath": "./vite.config.ts",
+  // Built-in JSON/JSONC validator warns on trailing commas unless the schema sets `allowTrailingCommas` (see `configs/oxc-editor-json-schema/*.schema.json`).
+  "json.schemas": [
+    {
+      "fileMatch": ["**/.oxlintrc.jsonc"],
+      "url": "./configs/oxc-editor-json-schema/oxlintrc.schema.json"
+    },
+    {
+      "fileMatch": ["**/.oxfmtrc.jsonc"],
+      "url": "./configs/oxc-editor-json-schema/oxfmtrc.schema.json"
+    }
+  ],
+  "oxc.configPath": "./.oxlintrc.jsonc",
+  "oxc.fmt.configPath": "./.oxfmtrc.jsonc",
   // Disable Prettier in this workspace to avoid transient reformat flicker on save.
   "prettier.enable": false,
   "workbench.colorCustomizations": {

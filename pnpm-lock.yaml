@@ -59,6 +59,9 @@ importers:
       '@clankgsters/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.12.0
       oxfmt:
         specifier: 0.41.0
         version: 0.41.0
