@@ -1,0 +1,60 @@
+{
+  // Force Oxc for JS/TS so user-level Prettier defaults cannot take over in this repo.
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  // Keep JSON/JSONC/Markdown stable while editing; avoid formatter churn in config/docs files.
+  "[json]": {
+    "editor.formatOnSave": false
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": false
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
+  },
+  "[mdx]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  // Use Oxc fixes on save and explicitly disable ESLint fixers to prevent "formatter fights".
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "never",
+    "source.fixAll.oxc": "explicit"
+  },
+  // Oxc reads formatter options from vite.config.ts (`fmt` block) for repo-wide consistency.
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true,
+  // Oxfmt does not support partial formatting, so always format full files.
+  "editor.formatOnSaveMode": "file",
+  // ESLint can still report diagnostics, but should not format in this Oxc-first workspace.
+  "eslint.format.enable": false,
+  // Oxc reads formatter options from vite.config.ts (`fmt` block) for repo-wide consistency.
+  "oxc.fmt.configPath": "./vite.config.ts",
+  // Disable Prettier in this workspace to avoid transient reformat flicker on save.
+  "prettier.enable": false,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#6d3b03",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveBackground": "#4c2902",
+    "titleBar.inactiveForeground": "#ffffff99",
+    "statusBar.background": "#D97706",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.noFolderBackground": "#6d3b03",
+    "statusBar.debuggingBackground": "#dd851f",
+    "statusBar.debuggingForeground": "#ffffff",
+    "activityBar.background": "#6d3b03",
+    "activityBar.foreground": "#ffffff",
+    "activityBar.inactiveForeground": "#ffffff80",
+    "activityBarBadge.background": "#D97706",
+    "activityBarBadge.foreground": "#ffffff"
+  }
+}

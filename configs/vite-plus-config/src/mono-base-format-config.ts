@@ -8,6 +8,8 @@ import type { FormatConfig } from 'oxfmt';
  */
 export const monoBaseFormatConfig: FormatConfig = {
   printWidth: 100,
+  tabWidth: 2,
+  useTabs: false,
   singleQuote: true,
   trailingComma: 'es5',
   semi: true,
