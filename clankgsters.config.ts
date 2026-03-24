@@ -11,7 +11,7 @@ const clankgsters = clankgstersConfig.define({
     //   superagent: clankgstersConfig.defineAgent({
     //     name: "superagent",
     //     syncBehaviorPresets: {
-    //       localMarketplaceSync: true,
+    //       MarketplaceJsonSyncPreset: true,
     //     },
     //   }),
     // },

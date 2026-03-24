@@ -19,9 +19,7 @@ describe('processAgentQueueMachine', () => {
           agents: {
             cursor: {
               enabled: true,
-              behaviors: [
-                { enabled: true, manifestKey: 'rulesSymlink', name: 'rulesSymlink', options: {} },
-              ],
+              behaviors: [{ enabled: true, behaviorName: 'RulesSymlinkSyncPreset', options: {} }],
             },
           },
           excluded: [],

@@ -1,9 +1,9 @@
 import { ok, type Result } from 'neverthrow';
 import path from 'node:path';
-import { syncFs } from '../../common/sync-fs.js';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import { syncManifest } from '../run/sync-manifest.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { syncFs } from '../../../common/sync-fs.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import { syncManifest } from '../../run/sync-manifest.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 function isExcluded(relPath: string, excluded: string[]): boolean {
   if (excluded.includes(relPath)) return true;
@@ -33,14 +33,14 @@ function listSourceDirsWithContextFile(
 }
 
 /** Creates/removes symlinks from root context files into agent-native context filenames. */
-export class MarkdownContextSymlinkSyncBehavior extends SyncBehaviorBase {
+export class MarkdownContextSymlinkSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     if (context.mode === 'clear') {
       if (context.manifestEntry != null)
         syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
       return ok(undefined);
     }
-    if (context.behavior.enabled === false) {
+    if (context.behaviorConfig.enabled === false) {
       if (context.manifestEntry != null)
         syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
       return ok(undefined);
@@ -61,7 +61,7 @@ export class MarkdownContextSymlinkSyncBehavior extends SyncBehaviorBase {
       ...(presetConfig.CONSTANTS.GITIGNORE_ENTRY == null
         ? {}
         : { gitignoreEntry: presetConfig.CONSTANTS.GITIGNORE_ENTRY }),
-      ...(context.behavior.options as Record<string, unknown>),
+      ...(context.behaviorConfig.options as Record<string, unknown>),
     };
     const dirs = listSourceDirsWithContextFile(
       context.outputRoot,
@@ -76,14 +76,10 @@ export class MarkdownContextSymlinkSyncBehavior extends SyncBehaviorBase {
       symlinks.push(path.relative(context.outputRoot, targetPath).replace(/\\/g, '/'));
     }
 
-    context.registerManifestEntry(
-      context.agentName,
-      context.behavior.manifestKey ?? context.behavior.name,
-      {
-        options,
-        symlinks,
-      }
-    );
+    context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      options,
+      symlinks,
+    });
     return ok(undefined);
   }
 }

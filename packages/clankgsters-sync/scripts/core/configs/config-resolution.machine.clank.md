@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 State machine for config loading lifecycle: source resolution, merge, and validated output.
 

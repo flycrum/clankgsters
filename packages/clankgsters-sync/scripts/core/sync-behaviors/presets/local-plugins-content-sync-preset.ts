@@ -1,13 +1,13 @@
 import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
-import { syncFs } from '../../common/sync-fs.js';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import { syncManifest } from '../run/sync-manifest.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { syncFs } from '../../../common/sync-fs.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import { syncManifest } from '../../run/sync-manifest.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 /** Syncs plugin content directories (rules/commands/skills/agents) into agent-local content roots. */
-export class LocalPluginsContentSyncBehavior extends SyncBehaviorBase {
+export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
   private isExcluded(relPath: string, excluded: string[]): boolean {
     return excluded.includes(relPath);
   }
@@ -15,7 +15,7 @@ export class LocalPluginsContentSyncBehavior extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     if (context.manifestEntry != null)
       syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
-    if (context.mode === 'clear' || context.behavior.enabled === false) return ok(undefined);
+    if (context.mode === 'clear' || context.behaviorConfig.enabled === false) return ok(undefined);
 
     const symlinks: string[] = [];
     const fsAutoRemoval: string[] = [];
@@ -62,15 +62,11 @@ export class LocalPluginsContentSyncBehavior extends SyncBehaviorBase {
       }
     }
 
-    context.registerManifestEntry(
-      context.agentName,
-      context.behavior.manifestKey ?? context.behavior.name,
-      {
-        options: context.behavior.options,
-        symlinks,
-        fsAutoRemoval,
-      }
-    );
+    context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      options: context.behaviorConfig.options,
+      symlinks,
+      fsAutoRemoval,
+    });
     return ok(undefined);
   }
 }

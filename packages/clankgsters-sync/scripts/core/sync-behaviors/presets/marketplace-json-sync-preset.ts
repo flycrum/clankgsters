@@ -1,10 +1,10 @@
 import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import type { MarketplaceSourceFormat } from '../agents/agent-presets/agent-preset.config.js';
-import { syncManifest } from '../run/sync-manifest.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import type { MarketplaceSourceFormat } from '../../agents/agent-presets/agent-preset.config.js';
+import { syncManifest } from '../../run/sync-manifest.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 interface MarketplacePluginEntry {
   description?: string;
@@ -31,7 +31,7 @@ function formatMarketplacePluginSource(
  * Writes a local marketplace json file and records plugin metadata in the unified manifest.
  * Marketplace `name` comes from `resolvedConfig.sourceDefaults.localMarketplaceName` (see `clankgstersConfigSchema.sourceDefaults`).
  */
-export class MarketplaceJsonSyncBehavior extends SyncBehaviorBase {
+export class MarketplaceJsonSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const localMarketplaceName = context.resolvedConfig.sourceDefaults.localMarketplaceName;
@@ -40,7 +40,7 @@ export class MarketplaceJsonSyncBehavior extends SyncBehaviorBase {
       marketplaceFile: presetConfig.CONSTANTS.MARKETPLACE_FILE,
       marketplaceName: localMarketplaceName,
       sourceFormat: presetConfig.CONSTANTS.MARKETPLACE_SOURCE_FORMAT,
-      ...(context.behavior.options as Record<string, unknown>),
+      ...(context.behaviorConfig.options as Record<string, unknown>),
     };
     const sourceFormat: MarketplaceSourceFormat =
       mergedOptions.sourceFormat === 'relative' ? 'relative' : 'prefixed';
@@ -48,7 +48,7 @@ export class MarketplaceJsonSyncBehavior extends SyncBehaviorBase {
     const marketplaceFile = presetConfig.CONSTANTS.MARKETPLACE_FILE;
     const targetPath = path.join(context.outputRoot, marketplaceFile);
 
-    if (context.mode === 'clear' || context.behavior.enabled === false) {
+    if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
       syncManifest.teardownEntry(context.outputRoot, {
         fsAutoRemoval: [marketplaceFile],
       });
@@ -77,14 +77,10 @@ export class MarketplaceJsonSyncBehavior extends SyncBehaviorBase {
     fs.mkdirSync(path.dirname(targetPath), { recursive: true });
     fs.writeFileSync(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 
-    context.registerManifestEntry(
-      context.agentName,
-      context.behavior.manifestKey ?? context.behavior.name,
-      {
-        options,
-        customData: { plugins },
-      }
-    );
+    context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      options,
+      customData: { plugins },
+    });
     return ok(undefined);
   }
 }

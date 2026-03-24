@@ -1,32 +1,28 @@
-import { LocalPluginCacheBustBehavior } from './local-plugin-cache-bust-behavior.js';
-import { LocalPluginsContentSyncBehavior } from './local-plugins-content-sync-behavior.js';
-import { MarkdownContextSymlinkSyncBehavior } from './markdown-context-symlink-sync-behavior.js';
-import { MarkdownSectionSyncBehavior } from './markdown-section-sync-behavior.js';
-import { MarketplaceJsonSyncBehavior } from './marketplace-json-sync-behavior.js';
-import { RulesSymlinkSyncBehavior } from './rules-symlink-sync-behavior.js';
-import { SettingsSyncBehavior } from './settings-sync-behavior.js';
-import { SkillsDirectorySyncBehavior } from './skills-directory-sync-behavior.js';
+import { LocalPluginCacheBustPreset } from './presets/local-plugin-cache-bust-preset.js';
+import { LocalPluginsContentSyncPreset } from './presets/local-plugins-content-sync-preset.js';
+import { MarkdownContextSymlinkSyncPreset } from './presets/markdown-context-symlink-sync-preset.js';
+import { MarkdownSectionSyncPreset } from './presets/markdown-section-sync-preset.js';
+import { MarketplaceJsonSyncPreset } from './presets/marketplace-json-sync-preset.js';
+import { RulesSymlinkSyncPreset } from './presets/rules-symlink-sync-preset.js';
+import { SettingsSyncPreset } from './presets/settings-sync-preset.js';
+import { SkillsDirectorySyncPreset } from './presets/skills-directory-sync-preset.js';
 import type { SyncBehaviorClassRef } from './sync-behavior-base.js';
 
-/** Built-in behavior class registry keyed by stable behavior ids from config. */
+const SYNC_BEHAVIOR_PRESETS: SyncBehaviorClassRef[] = [
+  LocalPluginCacheBustPreset,
+  LocalPluginsContentSyncPreset,
+  MarkdownContextSymlinkSyncPreset,
+  MarkdownSectionSyncPreset,
+  MarketplaceJsonSyncPreset,
+  RulesSymlinkSyncPreset,
+  SettingsSyncPreset,
+  SkillsDirectorySyncPreset,
+];
+
+/** Built-in behavior preset registry: `behaviorName` must equal each class’s `name` (e.g. `LocalPluginCacheBustPreset`). */
 export const syncBehaviorRegistry = {
   resolve(behaviorName: string): SyncBehaviorClassRef | null {
-    const registry: Record<string, SyncBehaviorClassRef> = {
-      cacheBust: LocalPluginCacheBustBehavior,
-      commands: LocalPluginsContentSyncBehavior,
-      markdownContextSymlink: MarkdownContextSymlinkSyncBehavior,
-      localContentSync: LocalPluginsContentSyncBehavior,
-      localMarketplaceSync: MarketplaceJsonSyncBehavior,
-      localPluginsContentSync: LocalPluginsContentSyncBehavior,
-      markdownSectionSync: MarkdownSectionSyncBehavior,
-      marketplaceJson: MarketplaceJsonSyncBehavior,
-      rules: RulesSymlinkSyncBehavior,
-      rulesSymlink: RulesSymlinkSyncBehavior,
-      settingsSync: SettingsSyncBehavior,
-      skills: SkillsDirectorySyncBehavior,
-      skillsDirectorySync: SkillsDirectorySyncBehavior,
-      skillsSync: SkillsDirectorySyncBehavior,
-    };
-    return registry[behaviorName] ?? null;
+    const found = SYNC_BEHAVIOR_PRESETS.find((Ctor) => Ctor.name === behaviorName);
+    return found ?? null;
   },
 };

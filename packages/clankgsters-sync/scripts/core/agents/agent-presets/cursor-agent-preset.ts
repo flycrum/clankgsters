@@ -7,11 +7,10 @@ const { CONSTANTS } = cursorAgentPresetConfig;
 export const cursorAgentPreset: ClankgstersAgentConfig = {
   enabled: true,
   behaviors: [
-    { enabled: true, manifestKey: 'skillsDirectorySync', name: 'skillsSync', options: {} },
+    { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
     {
       enabled: true,
-      manifestKey: 'localPluginsContentSync',
-      name: 'localContentSync',
+      behaviorName: 'LocalPluginsContentSyncPreset',
       options: {
         customHandler: {},
         requiredManifestKey: CONSTANTS.SETTINGS_MANIFEST_KEY,

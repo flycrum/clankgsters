@@ -5,18 +5,17 @@ import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { processAgentBehaviorsMachine } from './process-agent-behaviors.machine.js';
 
 describe('processAgentBehaviorsMachine', () => {
-  test('invokes perBehavior machine for each behavior', async () => {
+  test('invokes runPerBehaviorMachine for each behavior', async () => {
     const actor = createActor(processAgentBehaviorsMachine, {
       input: {
         agentName: 'cursor',
         behaviors: [
-          { enabled: true, manifestKey: 'rulesSymlink', name: 'rulesSymlink', options: {} },
-          { enabled: true, manifestKey: 'skillsSync', name: 'skillsSync', options: {} },
+          { enabled: true, behaviorName: 'RulesSymlinkSyncPreset', options: {} },
+          { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
         ],
         discoveredMarketplaces: [],
-        enabled: true,
         excluded: [],
-        manifestByBehavior: {},
+        manifestByBehaviorName: {},
         mode: 'sync',
         outputRoot: process.cwd(),
         registerManifestEntry: () => {},

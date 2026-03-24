@@ -8,47 +8,86 @@ import type { DiscoveredMarketplace } from '../run/sync-discover-agents.js';
 import type { SyncManifestEntry } from '../run/sync-manifest.js';
 import type { SyncBehaviorOutcome } from '../sync-behaviors/behavior-outcome.js';
 import {
-  perBehaviorMachine,
-  type PerBehaviorObservation,
-} from '../sync-behaviors/per-behavior.machine.js';
+  runPerBehaviorMachine,
+  type RunPerBehaviorObservation,
+} from '../sync-behaviors/run-per-behavior.machine.js';
 import { agentAdapterBase } from './agent-adapter-base.js';
 import type { AgentQueueOutcome } from './agent-queue-outcome.js';
 
+/**
+ * High-level observation from {@link processAgentBehaviorsMachine} (adapter lifecycle and behavior queue), distinct from {@link RunPerBehaviorObservation} behavior-stage events.
+ */
 export interface ProcessAgentBehaviorsObservation {
+  /** Agent currently being processed. */
   agentName: string;
+  /** Machine stage label (e.g. `agent.createAdapter`, `agent.runBehavior`). */
   eventName: string;
+  /** Optional structured detail for the event (e.g. `behaviorName` on `agent.runBehavior`). */
   payload?: Record<string, unknown>;
 }
 
+/**
+ * Input to {@link processAgentBehaviorsMachine}: one agent’s behaviors, manifest slice, and sync/clear mode.
+ */
 export interface ProcessAgentBehaviorsMachineInput {
+  /** Name of the agent entry from resolved config (e.g. `claude`, `cursor`). */
   agentName: string;
+  /** Preset configs executed in order; each child sees `mode` from this input (clear vs sync). */
   behaviors: ClankgstersBehaviorConfig[];
+  /** Plugins/marketplaces discovered for this run; passed into each behavior preset. */
   discoveredMarketplaces: DiscoveredMarketplace[];
-  enabled: boolean;
+  /** Repo-relative paths/globs excluded from sync outputs. */
   excluded: string[];
-  manifestByBehavior: Record<string, SyncManifestEntry>;
+  /** Prior manifest entries for this agent keyed by config `behaviorName` (preset class name). */
+  manifestByBehaviorName: Record<string, SyncManifestEntry>;
+  /**
+   * Whether behaviors perform sync work or teardown-only clear. The queue sets `clear` when the agent
+   * is disabled while the overall run is sync; this input does not carry a separate `enabled` flag.
+   */
   mode: 'sync' | 'clear';
-  onObservation?: (event: ProcessAgentBehaviorsObservation | PerBehaviorObservation) => void;
+  /** Optional hook for adapter- and queue-level observations plus forwarded behavior-stage events. */
+  onObservation?: (event: ProcessAgentBehaviorsObservation | RunPerBehaviorObservation) => void;
+  /** Root directory for agent outputs (settings, symlinks, marketplace file, etc.). */
   outputRoot: string;
+  /**
+   * Upserts one behavior’s manifest entry for this agent (used by presets during sync).
+   * @param agentName - Agent key in the unified manifest.
+   * @param behaviorName - Preset class name / {@link ClankgstersBehaviorConfig.behaviorName}.
+   * @param entry - Symlinks, options, and teardown hints to persist.
+   */
   registerManifestEntry: (
     agentName: string,
-    behaviorManifestKey: string,
+    behaviorName: string,
     entry: SyncManifestEntry
   ) => void;
+  /** Repository root used for discovery-relative paths. */
   repoRoot: string;
+  /** Fully resolved sync config (source defaults, agents map, paths). */
   resolvedConfig: ClankgstersConfig;
+  /** Cross-behavior mutable bag for the current agent run (e.g. shared preset state). */
   sharedState: Map<string, unknown>;
 }
 
+/** XState context while {@link processAgentBehaviorsMachine} steps through adapter + behavior actors. */
 interface ProcessAgentBehaviorsMachineContext {
+  /** Outcomes from each completed `runPerBehaviorMachine` child, in run order. */
   behaviorOutcomes: SyncBehaviorOutcome[];
+  /** Set when adapter or a behavior actor throws; surfaced on the failed final state. */
   errorMessage: string | null;
+  /** Index into `input.behaviors` for the next queued behavior. */
   index: number;
+  /** Immutable input snapshot for this machine instance. */
   input: ProcessAgentBehaviorsMachineInput;
 }
 
 type ProcessAgentBehaviorsMachineEvent = { type: 'xstate.init' };
 
+/**
+ * Forwards a {@link ProcessAgentBehaviorsObservation} to `input.onObservation` when the callback is set.
+ * @param input - Machine input carrying `agentName` and the optional observer.
+ * @param eventName - Stage label for this observation.
+ * @param payload - Optional extra fields merged into the observation object.
+ */
 function emitObservation(
   input: ProcessAgentBehaviorsMachineInput,
   eventName: string,
@@ -63,11 +102,11 @@ function emitObservation(
 
 /**
  * Processes one agent’s sync lifecycle: adapter hooks, then each configured behavior in order via
- * {@link perBehaviorMachine} child actors.
+ * {@link runPerBehaviorMachine} child actors.
  *
  * Invariants:
  * - Behavior order is deterministic.
- * - Each behavior runs as its own child actor (`perBehaviorMachine`).
+ * - Each behavior runs as its own child actor (`runPerBehaviorMachine`).
  * - Adapter lifecycle runs before the behavior loop.
  */
 export const processAgentBehaviorsMachine = setup({
@@ -94,21 +133,21 @@ export const processAgentBehaviorsMachine = setup({
         input,
       }: {
         input: {
-          behavior: ClankgstersBehaviorConfig;
+          behaviorConfig: ClankgstersBehaviorConfig;
           behaviorsInput: ProcessAgentBehaviorsMachineInput;
         };
       }) => {
         emitObservation(input.behaviorsInput, 'agent.runBehavior', {
-          behaviorName: input.behavior.name,
+          behaviorName: input.behaviorConfig.behaviorName,
         });
-        const behaviorManifestKey = input.behavior.manifestKey ?? input.behavior.name;
-        const actor = createActor(perBehaviorMachine, {
+        const behaviorName = input.behaviorConfig.behaviorName;
+        const actor = createActor(runPerBehaviorMachine, {
           input: {
             agentName: input.behaviorsInput.agentName,
-            behavior: input.behavior,
+            behaviorConfig: input.behaviorConfig,
             discoveredMarketplaces: input.behaviorsInput.discoveredMarketplaces,
             excluded: input.behaviorsInput.excluded,
-            manifestEntry: input.behaviorsInput.manifestByBehavior[behaviorManifestKey],
+            manifestEntry: input.behaviorsInput.manifestByBehaviorName[behaviorName],
             mode: input.behaviorsInput.mode,
             onObservation: input.behaviorsInput.onObservation,
             outputRoot: input.behaviorsInput.outputRoot,
@@ -126,7 +165,7 @@ export const processAgentBehaviorsMachine = setup({
         if ('success' in output) return output;
         return {
           agent: output.input.agentName,
-          behavior: output.input.behaviorName,
+          behaviorName: output.input.behaviorName,
           success: output.errorMessage == null,
         };
       }
@@ -168,7 +207,7 @@ export const processAgentBehaviorsMachine = setup({
       invoke: {
         src: 'runQueuedBehavior',
         input: ({ context }) => ({
-          behavior: context.input.behaviors[context.index] as ClankgstersBehaviorConfig,
+          behaviorConfig: context.input.behaviors[context.index] as ClankgstersBehaviorConfig,
           behaviorsInput: context.input,
         }),
         onDone: {

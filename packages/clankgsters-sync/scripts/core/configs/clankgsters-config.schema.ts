@@ -2,13 +2,14 @@ import { z } from 'zod';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 
 const clankgstersBehaviorSchema = z.object({
-  /** Stable behavior id used by the behavior registry (e.g. `rulesSymlink`, `settingsSync`). */
-  name: z.string().min(1),
+  /**
+   * Preset class name used as registry id and as the key under each agent in `sync-manifest.json` (e.g.
+   * `RulesSymlinkSyncPreset`, `SettingsSyncPreset`).
+   */
+  behaviorName: z.string().min(1),
   /** Optional switch to disable a behavior while keeping its options in config. */
   enabled: z.boolean().optional().default(true),
-  /** Optional manifest key override; defaults to `name` when omitted. */
-  manifestKey: z.string().optional(),
-  /** Serializable behavior options passed to the concrete behavior implementation. */
+  /** Serializable behavior options passed to the concrete preset implementation. */
   options: z.record(z.string(), z.unknown()).optional().default({}),
 });
 
@@ -83,7 +84,7 @@ export const clankgstersConfigSchema = {
   /** Schema for one agent entry under `ClankgstersConfig.agents`. */
   agent: clankgstersAgentSchema,
   /** Schema for one behavior definition under `ClankgstersAgentConfig.behaviors`. */
-  behavior: clankgstersBehaviorSchema,
+  behaviorSchema: clankgstersBehaviorSchema,
   /** Schema for the merged root config object (logging, agents map, paths, etc.). */
   config: clankgstersConfigSchemaValue,
   /** Schema for source/layout defaults used by discovery and context behaviors. */

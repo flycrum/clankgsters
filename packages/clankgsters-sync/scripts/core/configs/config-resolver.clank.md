@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Merges config layers by source priority and validates final shape with Zod.
 

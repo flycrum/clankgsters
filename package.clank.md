@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Root monorepo scripts coordinate package-level sync and e2e test flows.
 

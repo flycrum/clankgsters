@@ -13,7 +13,7 @@ const config = clankgstersConfig.define({
     codex: true,
     custom: {
       testagent: clankgstersConfig.defineAgent({
-        behaviors: ['skillsSync', 'markdownSectionSync'],
+        behaviors: ['SkillsDirectorySyncPreset', 'MarkdownSectionSyncPreset'],
         name: 'testagent',
       }),
     },

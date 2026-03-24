@@ -1,6 +1,6 @@
 # Clankgsters
 
-🛸 Greetings, humans! My manual says **Claude**, **Codex**, and **Cursor** are coding agents your type often struggle to uniformly use as skills, context, and other [insert buzzword]. Acknowledged—I'm here to serve your digital needs!
+🛸 Greetings, humans! My manual informs me that **Claude**, **Codex**, and **Cursor** are coding agents your type often struggle to uniformly use as skills, context, and other [insert buzzword]. Acknowledged—I'm here to serve your digital needs!
 
 So, welcome to **Clankgsters**—your badass solution to:
 

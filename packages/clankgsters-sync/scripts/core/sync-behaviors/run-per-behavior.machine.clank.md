@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Represents one behavior lifecycle as explicit machine states (`syncSetup`, `syncRun`, `syncTeardown`).
 

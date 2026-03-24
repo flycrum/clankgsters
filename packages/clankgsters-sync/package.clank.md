@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 `@clankgsters/sync` is the publishable sync runtime package. `scripts/` is intentionally included in published files because consumers execute these entry scripts.
 

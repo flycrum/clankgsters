@@ -1,11 +1,11 @@
 import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 /** Syncs the per-agent IDE settings JSON (e.g. `.cursor/settings.json`, `.claude/settings.json`) with `extraKnownMarketplaces` and `enabledPlugins` from discovered plugins. */
-export class SettingsSyncBehavior extends SyncBehaviorBase {
+export class SettingsSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const localMarketplaceName = context.resolvedConfig.sourceDefaults.localMarketplaceName;
@@ -13,11 +13,11 @@ export class SettingsSyncBehavior extends SyncBehaviorBase {
       manifestKey: presetConfig.CONSTANTS.SETTINGS_MANIFEST_KEY,
       marketplaceName: localMarketplaceName,
       settingsFile: presetConfig.CONSTANTS.SETTINGS_FILE,
-      ...(context.behavior.options as Record<string, unknown>),
+      ...(context.behaviorConfig.options as Record<string, unknown>),
     };
     const settingsRelPath = presetConfig.CONSTANTS.SETTINGS_FILE;
     const settingsPath = path.join(context.outputRoot, settingsRelPath);
-    if (context.mode === 'clear' || context.behavior.enabled === false) {
+    if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
       if (!fs.existsSync(settingsPath)) return ok(undefined);
       const parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
       delete parsed.enabledPlugins;
@@ -51,13 +51,9 @@ export class SettingsSyncBehavior extends SyncBehaviorBase {
     parsed.enabledPlugins = enabledPlugins;
     fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
 
-    context.registerManifestEntry(
-      context.agentName,
-      context.behavior.manifestKey ?? context.behavior.name,
-      {
-        options,
-      }
-    );
+    context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      options,
+    });
     return ok(undefined);
   }
 }

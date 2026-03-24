@@ -8,15 +8,20 @@ import type {
   ClankgstersSourceDefaultsConfig,
 } from './clankgsters-config.schema.js';
 
+/**
+ * One behavior slot before normalization: preset class name string, or a partial {@link ClankgstersBehaviorConfig} object.
+ */
+export type ClankgstersBehaviorEntryInput = string | Partial<ClankgstersBehaviorConfig>;
+
 /** Input accepted by `defineAgent` before behavior/option normalization. */
 export interface DefineAgentInput {
+  /** Ordered behavior list: each entry is a `behaviorName` string or a partial behavior config. */
+  behaviors?: ClankgstersBehaviorEntryInput[];
   /** Optional enabled flag; defaults to `true`. */
   enabled?: boolean;
   /** Optional runtime name override; defaults to the top-level `agents` key name. */
   name?: string;
-  /** Ordered behavior list by id string or explicit behavior object. */
-  behaviors?: Array<string | Partial<ClankgstersBehaviorConfig>>;
-  /** Optional preset-style behavior toggles (POC-style) that map to concrete behavior ids. */
+  /** Optional preset-style toggles: keys are `behaviorName` strings (preset class names). */
   syncBehaviorPresets?: Partial<Record<string, boolean>>;
 }
 
@@ -34,58 +39,33 @@ export interface ClankgstersConfigInput extends Omit<
   Partial<ClankgstersConfig>,
   'agents' | 'sourceDefaults'
 > {
+  /**
+   * Named coding-agent entries (`claude`, `cursor`, `codex`, …) plus optional `custom`; values may be
+   * booleans, {@link DefineAgentInput}, or full {@link ClankgstersAgentConfig} before {@link clankgstersConfig.normalizeAgentsConfig}.
+   */
   agents?: ClankgstersAgentsConfigInput;
+  /** Partial overrides for discovery paths, marketplace name, skill filename, and related layout defaults merged into schema defaults. */
   sourceDefaults?: Partial<ClankgstersSourceDefaultsConfig>;
 }
 
-/**
- * Maps user-facing preset keys (`syncBehaviorPresets`) and matching behavior strings to the
- * canonical runtime behavior `name` registered in `sync-behavior-registry.ts` when the two
- * differ. Used when expanding preset booleans and when normalizing string entries in
- * `toBehaviorConfig`.
- */
-const behaviorPresetAliases: Record<string, string> = {
-  claudeLocalPluginCacheBust: 'cacheBust',
-  localMarketplaceSync: 'marketplaceJson',
-  localPluginsContentSync: 'localContentSync',
-  markdownSectionSync: 'markdownSectionSync',
-  rulesSymlink: 'rulesSymlink',
-  settingsSync: 'settingsSync',
-  skillsDirectorySync: 'skillsSync',
-};
-
-/**
- * Maps runtime behavior `name` → manifest key written under each agent in the resolved sync manifest JSON
- * when the persisted key must differ (historical or stable JSON field names). If absent, the manifest
- * key defaults to `name` in `toBehaviorConfig`. Example: `marketplaceJson` is stored as
- * `localMarketplaceSync`.
- */
-const behaviorManifestKeyAliases: Record<string, string> = {
-  localContentSync: 'localPluginsContentSync',
-  marketplaceJson: 'localMarketplaceSync',
-  skillsSync: 'skillsDirectorySync',
-};
-
 function toBehaviorConfig(
-  behavior: string | Partial<ClankgstersBehaviorConfig>
+  behaviorEntry: ClankgstersBehaviorEntryInput
 ): ClankgstersBehaviorConfig | null {
-  if (typeof behavior === 'string' && behavior.length > 0) {
-    const name = behaviorPresetAliases[behavior] ?? behavior;
+  if (typeof behaviorEntry === 'string' && behaviorEntry.length > 0) {
     return {
       enabled: true,
-      manifestKey: behaviorManifestKeyAliases[name] ?? name,
-      name,
+      behaviorName: behaviorEntry,
       options: {},
     };
   }
-  if (!isPlainObject(behavior)) return null;
-  const behaviorRecord = behavior as Partial<ClankgstersBehaviorConfig>;
-  const name = typeof behaviorRecord.name === 'string' ? behaviorRecord.name : null;
-  if (name == null || name.length === 0) return null;
+  if (!isPlainObject(behaviorEntry)) return null;
+  const behaviorRecord = behaviorEntry as Partial<ClankgstersBehaviorConfig>;
+  const behaviorName =
+    typeof behaviorRecord.behaviorName === 'string' ? behaviorRecord.behaviorName : null;
+  if (behaviorName == null || behaviorName.length === 0) return null;
   return {
+    behaviorName,
     enabled: behaviorRecord.enabled ?? true,
-    manifestKey: behaviorRecord.manifestKey,
-    name,
     options: (isPlainObject(behaviorRecord.options) ? behaviorRecord.options : {}) as Record<
       string,
       unknown
@@ -99,8 +79,7 @@ function behaviorsFromSyncBehaviorPresets(input: DefineAgentInput): ClankgstersB
   const out: ClankgstersBehaviorConfig[] = [];
   for (const [presetName, enabled] of Object.entries(syncBehaviorPresets)) {
     if (enabled !== true) continue;
-    const behaviorName = behaviorPresetAliases[presetName] ?? presetName;
-    const normalized = toBehaviorConfig(behaviorName);
+    const normalized = toBehaviorConfig(presetName);
     if (normalized != null) out.push(normalized);
   }
   return out;
@@ -131,7 +110,7 @@ function toAgentConfig(
   if (!isPlainObject(entry)) return null;
   const inputBehaviors = Array.isArray(entry.behaviors) ? entry.behaviors : [];
   const normalizedBehaviors = inputBehaviors
-    .map((behavior) => toBehaviorConfig(behavior as string | Partial<ClankgstersBehaviorConfig>))
+    .map((behaviorEntry) => toBehaviorConfig(behaviorEntry))
     .filter((behavior): behavior is ClankgstersBehaviorConfig => behavior != null);
   const presetBehaviors = behaviorsFromSyncBehaviorPresets(entry as DefineAgentInput);
   const mergedBehaviors = [...normalizedBehaviors, ...presetBehaviors];

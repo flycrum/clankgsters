@@ -16,60 +16,80 @@ import {
 } from './sync-behavior-base.js';
 import { syncBehaviorRegistry } from './sync-behavior-registry.js';
 
-export interface PerBehaviorObservation {
+/**
+ * Observation emitted at each stage (`syncSetup`, `syncRun`, `syncTeardown`) of one behavior run for an agent.
+ */
+export interface RunPerBehaviorObservation {
+  /** Agent whose behavior is executing. */
   agentName: string;
+  /** Config `behaviorName` (preset class name), matching {@link ClankgstersBehaviorConfig.behaviorName}. */
   behaviorName: string;
+  /** Lifecycle stage label for this observation. */
   eventName: string;
 }
 
-export interface PerBehaviorMachineInput {
+/** Input for {@link runPerBehaviorMachine}: one `ClankgstersBehaviorConfig` slice plus shared run context. */
+interface RunPerBehaviorMachineInput {
+  /** Agent key from resolved config. */
   agentName: string;
-  behavior: ClankgstersBehaviorConfig;
+  /** Single resolved behavior definition (`behaviorName`, `options`, `enabled`). */
+  behaviorConfig: ClankgstersBehaviorConfig;
+  /** Marketplaces/plugins discovered for this sync run. */
   discoveredMarketplaces: DiscoveredMarketplace[];
+  /** Repo-relative exclude globs forwarded to presets. */
   excluded: string[];
+  /** Loaded manifest entry for this agent + `behaviorConfig.behaviorName`, if any. */
   manifestEntry?: SyncManifestEntry;
+  /** Sync vs clear/teardown semantics for preset hooks. */
   mode: 'sync' | 'clear';
-  onObservation?: (event: PerBehaviorObservation) => void;
+  /** Optional hook for behavior-stage observations. */
+  onObservation?: (event: RunPerBehaviorObservation) => void;
+  /** Root for agent outputs (symlinks, generated JSON, etc.). */
   outputRoot: string;
+  /** Writes or updates one behavior’s persisted manifest entry for this agent. */
   registerManifestEntry: RegisterBehaviorManifestEntry;
+  /** Repository root. */
   repoRoot: string;
+  /** Full resolved sync configuration. */
   resolvedConfig: ClankgstersConfig;
+  /** Mutable map shared across behaviors for the current agent invocation. */
   sharedState: Map<string, unknown>;
 }
 
-interface PerBehaviorMachineContext {
+interface RunPerBehaviorMachineContext {
   errorMessage: string | null;
-  input: PerBehaviorMachineInput;
+  input: RunPerBehaviorMachineInput;
 }
 
-type PerBehaviorMachineEvent = { type: 'xstate.init' };
+type RunPerBehaviorMachineEvent = { type: 'xstate.init' };
 
 function observe(
-  input: PerBehaviorMachineInput,
+  input: RunPerBehaviorMachineInput,
   eventName: string,
   logger = clankLogger.getLogger()
 ): void {
   logger.debug(
-    { agent: input.agentName, behavior: input.behavior.name, eventName },
+    { agent: input.agentName, behaviorName: input.behaviorConfig.behaviorName, eventName },
     'behavior stage'
   );
   input.onObservation?.({
     agentName: input.agentName,
-    behaviorName: input.behavior.name,
+    behaviorName: input.behaviorConfig.behaviorName,
     eventName,
   });
 }
 
 function runHook(
-  input: PerBehaviorMachineInput,
-  hook: (behavior: SyncBehaviorBase, context: SyncBehaviorRunContext) => Result<void, Error>
+  input: RunPerBehaviorMachineInput,
+  hook: (instance: SyncBehaviorBase, context: SyncBehaviorRunContext) => Result<void, Error>
 ): void {
-  const behaviorClass = syncBehaviorRegistry.resolve(input.behavior.name);
-  if (behaviorClass == null) throw new Error(`unknown behavior: ${input.behavior.name}`);
-  const behavior = syncBehaviorBase.create(behaviorClass);
+  const behaviorClass = syncBehaviorRegistry.resolve(input.behaviorConfig.behaviorName);
+  if (behaviorClass == null)
+    throw new Error(`unknown behavior: ${input.behaviorConfig.behaviorName}`);
+  const behaviorInstance = syncBehaviorBase.create(behaviorClass);
   const context: SyncBehaviorRunContext = {
     agentName: input.agentName,
-    behavior: input.behavior,
+    behaviorConfig: input.behaviorConfig,
     discoveredMarketplaces: input.discoveredMarketplaces,
     excluded: input.excluded,
     manifestEntry: input.manifestEntry,
@@ -80,34 +100,34 @@ function runHook(
     resolvedConfig: input.resolvedConfig,
     sharedState: input.sharedState,
   };
-  const result = hook(behavior, context);
+  const result = hook(behaviorInstance, context);
   if (result.isErr()) throw result.error;
 }
 
-export const perBehaviorMachine = setup({
+export const runPerBehaviorMachine = setup({
   types: {
-    context: {} as PerBehaviorMachineContext,
-    events: {} as PerBehaviorMachineEvent,
-    input: {} as PerBehaviorMachineInput,
+    context: {} as RunPerBehaviorMachineContext,
+    events: {} as RunPerBehaviorMachineEvent,
+    input: {} as RunPerBehaviorMachineInput,
     output: {} as SyncBehaviorOutcome,
   },
   actors: {
-    syncSetup: fromPromise(async ({ input }: { input: PerBehaviorMachineInput }) => {
+    syncSetup: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
       observe(input, 'syncSetup');
-      runHook(input, (behavior, context) => behavior.syncSetupBefore(context));
+      runHook(input, (behaviorInstance, context) => behaviorInstance.syncSetupBefore(context));
     }),
-    syncRun: fromPromise(async ({ input }: { input: PerBehaviorMachineInput }) => {
+    syncRun: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
       observe(input, 'syncRun');
-      runHook(input, (behavior, context) => behavior.syncRun(context));
+      runHook(input, (behaviorInstance, context) => behaviorInstance.syncRun(context));
     }),
-    syncTeardown: fromPromise(async ({ input }: { input: PerBehaviorMachineInput }) => {
+    syncTeardown: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
       observe(input, 'syncTeardown');
-      runHook(input, (behavior, context) => behavior.syncTeardownAfter(context));
+      runHook(input, (behaviorInstance, context) => behaviorInstance.syncTeardownAfter(context));
     }),
   },
 }).createMachine({
   /** @xstate-layout N4IgpgJg5mDOIC5QAcwCcBCYAWBDAbgJYD2aAsrgMbaEB2YAdLAJ62UDKYALgK7IDEEYvQZ18xANaNUmHARLkqNESzadeyBGOKVcXErQDaABgC6J04hTFYhfcKsgAHogBMAZgAcDAGwBGAHY-AE5PVx9XAFYAFgiAGhBmNzCGV2N3Pz9jMMiAgJ8AXwKEmSw8IlIKajpGVQ5uPn50NFIGZAAbPQAzUgBbNvQy+UqlGqZWeo0tWnFdeyMzC0dkGzsDRxcED29-INDwqNjXBKSEaL9IhgD042DoyMjggMifdyKSwbkKxWqVCYAlHi0QTCRjaKQDWTlBRVZS1AFA6azPQGCxLJAgFa2eYbRCPAKpcKPDLuHwvXInRB+dzBBhPMmk4zGALuaLuVzvTGfaEjX7wtiA4HNVodbp9SFDb6wsZ1QVInQo4RoszLVY4jGbfGEsnBElkskBSlbFkMaL5SLs2LRVzRYIc4pcqHDH5w8ZsAAqYFwaCEAHdgUIRODpNzndK-h6vT7iP75XNUYsVRisWsHBrEE9aTTPLamT5bgFQkbPO4rrbgnbop5gn4fKE-JzSl8YaMI5RPd6-UK0C00G1Olwemh+k2eS6ZRMO9HY9p40rE5Zk2r1umEJmGNnc8Z85nPEbqX5UuXrqTPAFrdkig7aMQIHBlqGpa2wKrsSvQJsALQ+I2fy4VgDAMAwtG0fFs+TdSY+FfVNaFxM5jkSRAaVpO1gh8PIzRzTwMNAp0nwg2UgRg9UP0Qc5SzSDJoliC1nhidwjSiAkT0yC0wkzQoHVHMNn0gqcuxI99nEQZ5aVcPwz2rc9PHSYJ9wuU1zWMDxglyOtgjwyVwNdQMXyXN80zIhBMjyBgYjrVxq3zLx0OLQ9y1CXUfBoqzSS05teVdLpcEIdpICEoyRJMwICQsu1rPSaymLuVJ0iyG01NcKzPCvAogA */
-  id: 'perBehaviorMachine',
+  id: 'runPerBehaviorMachine',
   context: ({ input }) => ({
     errorMessage: null,
     input,
@@ -157,7 +177,7 @@ export const perBehaviorMachine = setup({
       type: 'final',
       output: ({ context }) => ({
         agent: context.input.agentName,
-        behavior: context.input.behavior.name,
+        behaviorName: context.input.behaviorConfig.behaviorName,
         success: true,
       }),
     },
@@ -165,7 +185,7 @@ export const perBehaviorMachine = setup({
       type: 'final',
       output: ({ context }) => ({
         agent: context.input.agentName,
-        behavior: context.input.behavior.name,
+        behaviorName: context.input.behaviorConfig.behaviorName,
         success: false,
       }),
     },

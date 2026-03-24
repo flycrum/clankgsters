@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Private package for sandbox-driven e2e tests of `@clankgsters/sync`.
 

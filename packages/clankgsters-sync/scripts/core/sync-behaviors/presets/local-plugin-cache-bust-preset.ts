@@ -2,15 +2,15 @@ import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 interface MarketplaceJson {
   plugins?: Array<{ name: string; version?: string }>;
 }
 
 /** Clears local plugin cache directories after marketplace changes when an agent defines cache path segments. */
-export class LocalPluginCacheBustBehavior extends SyncBehaviorBase {
+export class LocalPluginCacheBustPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const marketplacePath = path.join(context.outputRoot, presetConfig.CONSTANTS.MARKETPLACE_FILE);

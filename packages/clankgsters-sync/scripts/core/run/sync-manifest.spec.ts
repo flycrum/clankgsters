@@ -6,12 +6,12 @@ import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { syncManifest } from './sync-manifest.js';
 
 describe('syncManifest', () => {
-  test('registerEntry upserts by behavior key', () => {
+  test('registerEntry upserts by behavior name', () => {
     const initial = syncManifest.emptyManifest();
-    const result = syncManifest.registerEntry(initial, 'cursor', 'rulesSymlink', true);
+    const result = syncManifest.registerEntry(initial, 'cursor', 'RulesSymlinkSyncPreset', true);
     expect(result.isOk()).toBe(true);
     if (result.isErr()) return;
-    expect(result.value.cursor?.rulesSymlink).toBe(true);
+    expect(result.value.cursor?.RulesSymlinkSyncPreset).toBe(true);
   });
 
   test('writes and reads unified manifest json', () => {
@@ -23,13 +23,13 @@ describe('syncManifest', () => {
     );
     const writeResult = syncManifest.write(manifestPath, {
       claude: {
-        settingsSync: true,
+        SettingsSyncPreset: true,
       },
     });
     expect(writeResult.isOk()).toBe(true);
     const loadResult = syncManifest.load(manifestPath);
     expect(loadResult.isOk()).toBe(true);
     if (loadResult.isErr()) return;
-    expect(loadResult.value.claude?.settingsSync).toBe(true);
+    expect(loadResult.value.claude?.SettingsSyncPreset).toBe(true);
   });
 });

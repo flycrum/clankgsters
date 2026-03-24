@@ -63,13 +63,13 @@ export const processAgentQueueMachine = setup({
           mode: 'sync' | 'clear';
           discoveredMarketplaces: DiscoveredMarketplace[];
           excluded: string[];
-          manifestByBehavior: Record<string, SyncManifestEntry>;
+          manifestByBehaviorName: Record<string, SyncManifestEntry>;
           onObservation?: (event: ProcessAgentBehaviorsObservation) => void;
           outputRoot: string;
           queueItem: ClankgstersDefinedAgent;
           registerManifestEntry: (
             agentName: string,
-            behaviorManifestKey: string,
+            behaviorName: string,
             entry: SyncManifestEntry
           ) => void;
           repoRoot: string;
@@ -82,9 +82,8 @@ export const processAgentQueueMachine = setup({
             agentName: input.queueItem.name,
             behaviors: input.queueItem.config.behaviors ?? [],
             discoveredMarketplaces: input.discoveredMarketplaces,
-            enabled: input.queueItem.config.enabled ?? true,
             excluded: input.excluded,
-            manifestByBehavior: input.manifestByBehavior,
+            manifestByBehaviorName: input.manifestByBehaviorName,
             mode: input.mode,
             onObservation: input.onObservation,
             outputRoot: input.outputRoot,
@@ -139,18 +138,18 @@ export const processAgentQueueMachine = setup({
         input: ({ context }) => ({
           discoveredMarketplaces: context.input.discoveredMarketplaces,
           excluded: context.input.excluded,
-          manifestByBehavior:
+          manifestByBehaviorName:
             context.input.manifest[context.queue[context.index]?.name ?? ''] ?? {},
           mode:
             context.queue[context.index]?.config.enabled === false ? 'clear' : context.input.mode,
           onObservation: context.input.onObservation,
           outputRoot: context.input.outputRoot,
           queueItem: context.queue[context.index] as ClankgstersDefinedAgent,
-          registerManifestEntry: (agentName, behaviorManifestKey, entry) => {
+          registerManifestEntry: (agentName, behaviorName, entry) => {
             const currentAgentManifest = context.input.manifest[agentName] ?? {};
             context.input.manifest[agentName] = {
               ...currentAgentManifest,
-              [behaviorManifestKey]: entry,
+              [behaviorName]: entry,
             };
           },
           repoRoot: context.input.repoRoot,

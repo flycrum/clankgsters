@@ -8,23 +8,37 @@ import type { SyncManifestEntry } from '../run/sync-manifest.js';
 
 /** Callback used by sync behaviors to upsert one manifest entry during `sync` mode. */
 export type RegisterBehaviorManifestEntry = (
+  /** Key for this agent in the unified sync manifest. */
   agentName: string,
-  behaviorManifestKey: string,
+  /** Preset class name; must match {@link ClankgstersBehaviorConfig.behaviorName}. */
+  behaviorName: string,
+  /** Structured payload (symlinks, options, teardown hints) to persist or replace. */
   entry: SyncManifestEntry
 ) => void;
 
 /** Runtime context passed to every sync behavior hook execution. */
 export interface SyncBehaviorRunContext {
+  /** Agent being synced (e.g. `claude`, `cursor`). */
   agentName: string;
-  behavior: ClankgstersBehaviorConfig;
+  /** Resolved behavior definition for this run (registry id, options, enabled flag). */
+  behaviorConfig: ClankgstersBehaviorConfig;
+  /** Repo-relative paths excluded from generated outputs. */
   excluded: string[];
+  /** Previously stored manifest entry for this `(agentName, behaviorName)` pair, if any. */
   manifestEntry: SyncManifestEntry | undefined;
+  /** Sync vs clear/teardown mode for this invocation. */
   mode: 'sync' | 'clear';
+  /** Root directory for agent-local outputs. */
   outputRoot: string;
+  /** Persists one behavior slice into the unified manifest. */
   registerManifestEntry: RegisterBehaviorManifestEntry;
+  /** Repository root for discovery-relative paths. */
   repoRoot: string;
+  /** Fully resolved sync configuration. */
   resolvedConfig: ClankgstersConfig;
+  /** Per-agent scratch map shared across behavior presets in one run. */
   sharedState: Map<string, unknown>;
+  /** Marketplaces and plugins discovered for this sync. */
   discoveredMarketplaces: DiscoveredMarketplace[];
 }
 
@@ -39,7 +53,7 @@ export class SyncBehaviorBase {
     return ok(undefined);
   }
 
-  /** Main work for this `(agentName, behaviorName)` pair (defaults to no-op `ok`). */
+  /** Main work for this `(agentName, behaviorConfig.behaviorName)` pair (defaults to no-op `ok`). */
   syncRun(_context: SyncBehaviorRunContext): Result<void, Error> {
     return ok(undefined);
   }

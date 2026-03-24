@@ -9,7 +9,7 @@ describe('clankgstersConfig', () => {
         claude: true,
         custom: {
           yoyo: clankgstersConfig.defineAgent({
-            behaviors: ['skillsSync'],
+            behaviors: ['SkillsDirectorySyncPreset'],
             enabled: true,
           }),
         },
@@ -20,7 +20,7 @@ describe('clankgstersConfig', () => {
       },
     });
     expect(config.agents?.claude?.enabled).toBe(true);
-    expect(config.agents?.yoyo?.behaviors[0]?.name).toBe('skillsSync');
+    expect(config.agents?.yoyo?.behaviors[0]?.behaviorName).toBe('SkillsDirectorySyncPreset');
     expect(config.sourceDefaults?.sourceDir).toBe('.yoyo');
     expect(config.sourceDefaults?.markdownContextFileName).toBe('YOYO.md');
     expect(config.sourceDefaults?.localMarketplaceName).toBe(
@@ -44,12 +44,12 @@ describe('clankgstersConfig', () => {
           superagent: clankgstersConfig.defineAgent({
             name: 'superagent',
             syncBehaviorPresets: {
-              localMarketplaceSync: true,
+              MarketplaceJsonSyncPreset: true,
             },
           }),
         },
       },
     });
-    expect(config.agents?.superagent?.behaviors[0]?.name).toBe('marketplaceJson');
+    expect(config.agents?.superagent?.behaviors[0]?.behaviorName).toBe('MarketplaceJsonSyncPreset');
   });
 });

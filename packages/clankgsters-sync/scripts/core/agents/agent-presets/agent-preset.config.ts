@@ -1,4 +1,4 @@
-/** How each plugin `source` is written in marketplace JSON: `./`-prefixed vs plain repo-relative (see `MarketplaceJsonSyncBehavior`). */
+/** How each plugin `source` is written in marketplace JSON: `./`-prefixed vs plain repo-relative (see `MarketplaceJsonSyncPreset`). */
 export type MarketplaceSourceFormat = 'prefixed' | 'relative';
 
 /**
@@ -29,7 +29,7 @@ export interface AgentPresetConfig {
     MARKDOWN_SECTION_HEADING?: string;
     /** Relative path to this agent’s marketplace JSON (e.g. `.codex/marketplace.json`). */
     MARKETPLACE_FILE: string;
-    /** How plugin `source` paths are formatted in marketplace JSON (see `MarketplaceJsonSyncBehavior`). */
+    /** How plugin `source` paths are formatted in marketplace JSON (see `MarketplaceJsonSyncPreset`). */
     MARKETPLACE_SOURCE_FORMAT: MarketplaceSourceFormat;
     /** Native skills directory for this agent (e.g. `.codex/skills`). */
     NATIVE_SKILLS_DIR: string;

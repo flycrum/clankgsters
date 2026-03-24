@@ -1,29 +1,25 @@
 import { ok, type Result } from 'neverthrow';
 import path from 'node:path';
-import { syncFs } from '../../common/sync-fs.js';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
-import { syncDiscover } from '../run/sync-discover-agents.js';
-import { syncManifest } from '../run/sync-manifest.js';
-import { SyncBehaviorBase, type SyncBehaviorRunContext } from './sync-behavior-base.js';
+import { syncFs } from '../../../common/sync-fs.js';
+import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import { syncDiscover } from '../../run/sync-discover-agents.js';
+import { syncManifest } from '../../run/sync-manifest.js';
+import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 /** Syncs skills directories from source defaults into agent-native skill directories via symlinks. */
-export class SkillsDirectorySyncBehavior extends SyncBehaviorBase {
+export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const nativeSkillsDirRel = presetConfig.CONSTANTS.NATIVE_SKILLS_DIR;
     if (context.manifestEntry != null)
       syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
-    if (context.mode === 'clear' || context.behavior.enabled === false) return ok(undefined);
+    if (context.mode === 'clear' || context.behaviorConfig.enabled === false) return ok(undefined);
 
     if (!presetConfig.CONSTANTS.SKILLS_SYNC_ENABLED) {
-      context.registerManifestEntry(
-        context.agentName,
-        context.behavior.manifestKey ?? context.behavior.name,
-        {
-          options: context.behavior.options,
-          symlinks: [],
-        }
-      );
+      context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+        options: context.behaviorConfig.options,
+        symlinks: [],
+      });
       return ok(undefined);
     }
 
@@ -42,14 +38,10 @@ export class SkillsDirectorySyncBehavior extends SyncBehaviorBase {
       symlinks.push(path.relative(context.outputRoot, targetPath).replace(/\\/g, '/'));
     }
 
-    context.registerManifestEntry(
-      context.agentName,
-      context.behavior.manifestKey ?? context.behavior.name,
-      {
-        options: context.behavior.options,
-        symlinks,
-      }
-    );
+    context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      options: context.behaviorConfig.options,
+      symlinks,
+    });
     return ok(undefined);
   }
 }

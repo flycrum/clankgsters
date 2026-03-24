@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Defines source-layer abstraction for config loading with explicit source priority.
 

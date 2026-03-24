@@ -16,7 +16,7 @@ export type SyncManifestEntry =
       symlinks?: string[];
     };
 
-/** Full manifest shape: agent -> behavior manifest key -> entry payload. */
+/** Full manifest shape: agent -> behavior name (preset class name) -> entry payload. */
 export type SyncManifest = Record<string, Record<string, SyncManifestEntry>>;
 
 /**
@@ -56,11 +56,11 @@ export const syncManifest = {
       return err(error instanceof Error ? error : new Error(String(error)));
     }
   },
-  /** Returns a new manifest with one behavior entry upserted for a specific agent/manifest key. */
+  /** Returns a new manifest with one behavior entry upserted for a specific agent / behavior name. */
   registerEntry(
     manifest: SyncManifest,
     agent: string,
-    behaviorKey: string,
+    behaviorName: string,
     entry: SyncManifestEntry
   ): Result<SyncManifest, Error> {
     const existing = manifest[agent] ?? {};
@@ -68,7 +68,7 @@ export const syncManifest = {
       ...manifest,
       [agent]: {
         ...existing,
-        [behaviorKey]: entry,
+        [behaviorName]: entry,
       },
     });
   },

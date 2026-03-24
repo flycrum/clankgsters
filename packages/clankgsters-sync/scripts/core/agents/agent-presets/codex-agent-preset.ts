@@ -9,19 +9,17 @@ export const codexAgentPreset: ClankgstersAgentConfig = {
   behaviors: [
     {
       enabled: true,
-      manifestKey: 'markdownContextSymlink',
-      name: 'markdownContextSymlink',
+      behaviorName: 'MarkdownContextSymlinkSyncPreset',
       options: {
         targetFile: CONSTANTS.MARKDOWN_CONTEXT_TARGET_FILE_NAME,
         gitignoreComment: CONSTANTS.GITIGNORE_COMMENT,
         gitignoreEntry: CONSTANTS.GITIGNORE_ENTRY,
       },
     },
-    { enabled: true, manifestKey: 'skillsDirectorySync', name: 'skillsSync', options: {} },
+    { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
     {
       enabled: true,
-      manifestKey: 'markdownSectionSync',
-      name: 'markdownSectionSync',
+      behaviorName: 'MarkdownSectionSyncPreset',
       options: {
         agentsFile: CONSTANTS.MARKDOWN_SECTION_FILE,
         sectionHeading: CONSTANTS.MARKDOWN_SECTION_HEADING,

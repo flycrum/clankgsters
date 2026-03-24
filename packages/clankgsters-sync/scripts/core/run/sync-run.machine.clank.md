@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Top-level sync session machine coordinating config resolution, agent execution, and manifest persistence.
 

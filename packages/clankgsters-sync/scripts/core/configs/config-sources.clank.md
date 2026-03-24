@@ -1,4 +1,4 @@
-## Purpose
+# Purpose
 
 Defines concrete config providers for team TS config, local TS config, and env overrides.
 

@@ -1,5 +1,5 @@
 /**
- * Disable Claude rules test case: claude with rulesSymlink disabled + one custom agent (codex-like); cursor and codex disabled.
+ * Disable Claude rules test case: claude with RulesSymlinkSyncPreset disabled + one custom agent (codex-like); cursor and codex disabled.
  */
 
 import { clankgstersConfig } from '../../../clankgsters-sync/config/index.js';
@@ -9,11 +9,11 @@ const config = clankgstersConfig.define({
   agents: {
     claude: clankgstersConfig.defineAgent({
       behaviors: [
-        'markdownContextSymlink',
-        'skillsSync',
-        'marketplaceJson',
-        'settingsSync',
-        'cacheBust',
+        'MarkdownContextSymlinkSyncPreset',
+        'SkillsDirectorySyncPreset',
+        'MarketplaceJsonSyncPreset',
+        'SettingsSyncPreset',
+        'LocalPluginCacheBustPreset',
       ],
       name: 'claude',
     }),
@@ -21,7 +21,7 @@ const config = clankgstersConfig.define({
     codex: false,
     custom: {
       testagent: clankgstersConfig.defineAgent({
-        behaviors: ['skillsSync', 'markdownSectionSync'],
+        behaviors: ['SkillsDirectorySyncPreset', 'MarkdownSectionSyncPreset'],
         name: 'testagent',
       }),
     },
@@ -31,6 +31,6 @@ const config = clankgstersConfig.define({
 export const testCase = e2eTestCase.define({
   config,
   description:
-    'Claude with rulesSymlink disabled plus one codex-like custom agent; cursor and codex disabled.',
+    'Claude with RulesSymlinkSyncPreset disabled plus one codex-like custom agent; cursor and codex disabled.',
   jsonPath: 'test-cases/disable-claude-rules.json',
 });
