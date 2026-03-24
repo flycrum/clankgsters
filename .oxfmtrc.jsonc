@@ -1,0 +1,19 @@
+{
+  // Keep in sync with `configs/vite-plus-config/src/mono-base-format-config.ts` (Vite+ `fmt` source of truth).
+  // This file exists so the Oxc VS Code extension can load formatter options without importing `vite.config.ts`.
+  "$schema": "./configs/oxc-editor-json-schema/oxfmtrc.schema.json",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "semi": true,
+  "overrides": [
+    {
+      "files": ["**/package.json"],
+      "options": {
+        "trailingComma": "none",
+      },
+    },
+  ],
+}
