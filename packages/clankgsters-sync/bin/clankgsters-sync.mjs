@@ -14,7 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const packageRoot = path.resolve(__dirname, '..');
-const scriptPath = path.join(packageRoot, 'scripts/clankgsters-sync.start.ts');
+const scriptPath = path.join(packageRoot, 'scripts/clankgsters-sync.run.ts');
 const require = createRequire(import.meta.url);
 const tsxLoader = require.resolve('tsx');
 const result = spawnSync(

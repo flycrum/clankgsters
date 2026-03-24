@@ -8,7 +8,7 @@
     "build": "vp run -r build",
     "check": "vp check",
     "clankgsters-sync:clear": "pnpm -F @clankgsters/sync run clankgsters-sync:clear",
-    "clankgsters-sync:start": "pnpm -F @clankgsters/sync run clankgsters-sync:start",
+    "clankgsters-sync:run": "pnpm -F @clankgsters/sync run clankgsters-sync:run",
     "test": "vp run @clankgsters/sync#build && vp run -r test",
     "test:e2e": "pnpm -F @clankgsters/sync-e2e run test:e2e"
   },

@@ -1,6 +1,5 @@
 /**
  * Canonical public identifiers for the clankgsters sync package and artifacts it writes.
- *
  * Import this module instead of inlining `clankgsters-sync` so renames stay consistent.
  */
 export const clankgstersIdentity = {
@@ -9,6 +8,20 @@ export const clankgstersIdentity = {
    * Matches the published CLI binary name (`package.json` → `bin`).
    */
   LOCAL_MARKETPLACE_NAME: 'clankgsters-sync',
+
+  /**
+   * Default repo-relative directory for generated sync artifacts (e.g. unified `sync-manifest.json`).
+   * Override via `syncCacheDir` in `clankgsters.config.ts` or `CLANKGSTERS_SYNC_CACHE_DIR`.
+   */
+  SYNC_CACHE_DIR: '.clankgsters-cache',
+
+  /** Filename for the unified sync manifest inside {@link SYNC_CACHE_DIR} (or a custom `syncCacheDir`). */
+  SYNC_MANIFEST_FILE_NAME: 'sync-manifest.json',
+
+  /** Default repo-relative manifest path: `{@link SYNC_CACHE_DIR}/{@link SYNC_MANIFEST_FILE_NAME}`. */
+  get defaultSyncManifestRelativePath(): string {
+    return `${clankgstersIdentity.SYNC_CACHE_DIR}/${clankgstersIdentity.SYNC_MANIFEST_FILE_NAME}`;
+  },
 
   /**
    * Token in e2e expected-manifest JSON; {@link clankgstersIdentity.resolveFixtureStrings} substitutes {@link LOCAL_MARKETPLACE_NAME}.

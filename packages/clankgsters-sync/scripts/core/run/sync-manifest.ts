@@ -2,6 +2,7 @@ import { isPlainObject } from 'lodash-es';
 import { err, ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
+import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { syncFs } from '../../common/sync-fs.js';
 
 /** One behavior entry in the unified sync manifest (boolean marker or structured payload). */
@@ -28,7 +29,10 @@ export type SyncManifest = Record<string, Record<string, SyncManifestEntry>>;
 export const syncManifest = {
   /** Absolute path to the manifest JSON under `repoRoot`, using `overridePath` or the default relative file. */
   getManifestPath(repoRoot: string, overridePath?: string): string {
-    return path.resolve(repoRoot, overridePath ?? '.clank/sync-manifest.json');
+    return path.resolve(
+      repoRoot,
+      overridePath ?? clankgstersIdentity.defaultSyncManifestRelativePath
+    );
   },
   /** Reads and validates the manifest object from disk; missing/invalid files resolve to an empty manifest. */
   load(manifestPath: string): Result<SyncManifest, Error> {

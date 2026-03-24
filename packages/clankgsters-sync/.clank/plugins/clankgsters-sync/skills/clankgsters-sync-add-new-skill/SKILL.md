@@ -14,4 +14,4 @@ Use this skill when you need to **create or update an Agent Skill** under `.clan
 3. Optional: **scripts/** (runnable helpers), **references/**, **assets/** as needed
 4. Keep the skill focused: one concern, clear when-to-use; link to rules or docs for detail per [clankgsters-sync-writing-rules-commands-skills](../../rules/clankgsters-sync-writing-rules-commands-skills.md)
 5. Prefix skill folder name with plugin scope if desired (e.g. `clankgsters-sync-add-new-skill`) per [clankgsters-sync-file-naming](../../rules/clankgsters-sync-file-naming.md)
-6. After adding or modifying skills under `.clank/skills/`, run sync from repo root so Claude receives them under `.claude/skills/`: `pnpm clankgsters-sync:start` (or per-agent). Cursor and Codex discover `.clank/skills/` natively
+6. After adding or modifying skills under `.clank/skills/`, run sync from repo root so Claude receives them under `.claude/skills/`: `pnpm clankgsters-sync:run` (or per-agent). Cursor and Codex discover `.clank/skills/` natively

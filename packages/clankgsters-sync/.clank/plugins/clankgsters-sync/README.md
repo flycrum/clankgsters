@@ -28,7 +28,7 @@ Driver plugin for **[@clankgsters/sync](https://github.com/flycrum/clankgsters/t
 The npm package **`@clankgsters/sync`** runs TypeScript entry scripts that:
 
 - Resolve **`clankgsters.config.ts`** (and optional local config), then walk enabled agents and behaviors.
-- Write `.claude-plugin/marketplace.json` and related manifest entries under **`.clank/sync-manifest.json`**.
+- Write `.claude-plugin/marketplace.json` and related manifest entries under **`.clankgsters-cache/sync-manifest.json`**.
 - For **Cursor**: mirror plugin content into `.cursor/` (rules as `.mdc` with frontmatter where required).
 - For **Codex**: maintain the **packages** section in **`AGENTS.override.md`** (section heading comes from preset/behavior options in config).
 - **`sourceDefaults.localMarketplaceName`** defaults to **`clankgsters-sync`** (same string as this plugin folder name); override in config if needed.
@@ -62,7 +62,7 @@ Full package docs: [packages/clankgsters-sync/README.md](../../README.md). Curso
 
 ## Configuration (repo)
 
-- **Root config:** `clankgsters.config.ts` — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `.clank` layout paths), `syncManifestPath`, `loggingEnabled`.
+- **Root config:** `clankgsters.config.ts` — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `.clank` layout paths), `syncCacheDir`, `syncManifestPath`, `loggingEnabled`.
 - **Env:** `CLANKGSTERS_REPO_ROOT` — repo root for sync (tests, published CLI, linked installs). **`CLANKGSTERS_LOGGING_ENABLED`** — optional file logging to `.clank/logs/clankgsters-sync.log` (see **pino-logger** plugin).
 
 ---
@@ -71,10 +71,10 @@ Full package docs: [packages/clankgsters-sync/README.md](../../README.md). Curso
 
 | Command                       | Purpose                                                         |
 | ----------------------------- | --------------------------------------------------------------- |
-| `pnpm clankgsters-sync:start` | Run sync (root `package.json` delegates to `@clankgsters/sync`) |
+| `pnpm clankgsters-sync:run`   | Run sync (root `package.json` delegates to `@clankgsters/sync`) |
 | `pnpm clankgsters-sync:clear` | Clear mode                                                      |
 
-Package scripts are `clankgsters-sync:start` / `clankgsters-sync:clear` inside `packages/clankgsters-sync/package.json` (tsx entrypoints).
+Package scripts are `clankgsters-sync:run` / `clankgsters-sync:clear` inside `packages/clankgsters-sync/package.json` (tsx entrypoints).
 
 ---
 

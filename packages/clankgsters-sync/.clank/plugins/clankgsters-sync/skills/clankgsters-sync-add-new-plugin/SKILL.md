@@ -14,4 +14,4 @@ Use this skill when you need to **create or update an agents plugin for the loca
 3. Put context in **rules/** as `.md` only; prefix rule filenames with plugin name per [clankgsters-sync-file-naming](../../rules/clankgsters-sync-file-naming.md). **CLANK.md** must exist only at the plugin root — do not place CLANK.md inside rules/ or any other subdirectory
 4. Optional: commands/, skills/, agents/, hooks/ per [plugin README](../../README.md). Same file-naming prefix for content files
 5. Keep rules/commands/skills DRY and lean per [clankgsters-sync-writing-rules-commands-skills](../../rules/clankgsters-sync-writing-rules-commands-skills.md)
-6. After adding or modifying a plugin, run sync from repo root: `pnpm clankgsters-sync:start` (monorepo root) or the equivalent from your package. Sync discovers plugins automatically; no hand-edit of marketplace list
+6. After adding or modifying a plugin, run sync from repo root: `pnpm clankgsters-sync:run` (monorepo root) or the equivalent from your package. Sync discovers plugins automatically; no hand-edit of marketplace list

@@ -18,7 +18,7 @@ Use this skill when you need to **run the Clankgsters sync scripts** (sync or cl
 Implementation lives in **`@clankgsters/sync`** (`packages/clankgsters-sync`). From **monorepo root**:
 
 ```bash
-pnpm clankgsters-sync:start
+pnpm clankgsters-sync:run
 pnpm clankgsters-sync:clear
 ```
 

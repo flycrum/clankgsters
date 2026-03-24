@@ -55,7 +55,7 @@ const behaviorPresetAliases: Record<string, string> = {
 };
 
 /**
- * Maps runtime behavior `name` → manifest key written under each agent in `.clank/sync-manifest.json`
+ * Maps runtime behavior `name` → manifest key written under each agent in the resolved sync manifest JSON
  * when the persisted key must differ (historical or stable JSON field names). If absent, the manifest
  * key defaults to `name` in `toBehaviorConfig`. Example: `marketplaceJson` is stored as
  * `localMarketplaceSync`.
@@ -199,6 +199,7 @@ export const clankgstersConfig = {
           config.sourceDefaults?.localMarketplaceName ?? clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
         skillFileName: config.sourceDefaults?.skillFileName ?? 'SKILL.md',
       },
+      syncCacheDir: config.syncCacheDir ?? clankgstersIdentity.SYNC_CACHE_DIR,
     };
   },
   normalizeAgentsConfig,

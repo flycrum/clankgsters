@@ -15,7 +15,7 @@ Use this skill when you need to **diagnose sync or clear failures** or **trace f
 ## Enable logging
 
 1. **Env (one-off)**  
-   `CLANKGSTERS_LOGGING_ENABLED=true pnpm clankgsters-sync:start`  
+   `CLANKGSTERS_LOGGING_ENABLED=true pnpm clankgsters-sync:run`  
    (or `clankgsters-sync:clear`)
 
 2. **Config**  

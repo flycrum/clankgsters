@@ -10,7 +10,7 @@
 ## Script Contracts
 
 - `clankgsters-sync:clear` runs clear mode entry script.
-- `clankgsters-sync:start` runs the main sync session entry script.
+- `clankgsters-sync:run` runs the main sync session entry script.
 - These script names are delegated from the repository root `package.json`; keep names stable.
 - Keep `scripts`, `dependencies`, `devDependencies`, and `peerDependencies` alpha-numerically sorted.
 

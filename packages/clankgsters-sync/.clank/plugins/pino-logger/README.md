@@ -40,7 +40,7 @@ export default {
 - Env overrides config when set
 
 ```bash
-CLANKGSTERS_LOGGING_ENABLED=true pnpm clankgsters-sync:start
+CLANKGSTERS_LOGGING_ENABLED=true pnpm clankgsters-sync:run
 ```
 
 ---

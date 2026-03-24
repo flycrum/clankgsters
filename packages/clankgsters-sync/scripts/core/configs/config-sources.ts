@@ -41,10 +41,11 @@ const envSource: ClankgstersConfigSource = {
   id: 'env',
   /** Runs after file-based sources (10, 20); lower `priority` sorts earlier. */
   priority: 30,
-  /** Partial config from `CLANKGSTERS_*` env vars (e.g. `CLANKGSTERS_MARKDOWN_CONTEXT_FILE_NAME`; `CLANKGSTERS_ROOT_CONTEXT_FILE` still accepted). */
+  /** Partial config from `CLANKGSTERS_*` env vars (e.g. `CLANKGSTERS_SYNC_CACHE_DIR`, `CLANKGSTERS_MARKDOWN_CONTEXT_FILE_NAME`; `CLANKGSTERS_ROOT_CONTEXT_FILE` still accepted). */
   load(): Partial<ClankgstersConfig> {
     const loggingEnabled = parseUtils.parseBool(process.env.CLANKGSTERS_LOGGING_ENABLED);
     const syncOutputRoot = process.env.CLANKGSTERS_SYNC_OUTPUT_ROOT;
+    const syncCacheDir = process.env.CLANKGSTERS_SYNC_CACHE_DIR;
     const syncManifestPath = process.env.CLANKGSTERS_SYNC_MANIFEST_PATH;
     const sourceDir = process.env.CLANKGSTERS_SOURCE_DIR;
     const markdownContextFileName =
@@ -54,6 +55,9 @@ const envSource: ClankgstersConfigSource = {
     if (loggingEnabled != null) source.loggingEnabled = loggingEnabled;
     if (typeof syncOutputRoot === 'string' && syncOutputRoot.length > 0) {
       source.syncOutputRoot = syncOutputRoot;
+    }
+    if (typeof syncCacheDir === 'string' && syncCacheDir.length > 0) {
+      source.syncCacheDir = syncCacheDir;
     }
     if (typeof syncManifestPath === 'string' && syncManifestPath.length > 0) {
       source.syncManifestPath = syncManifestPath;

@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vite-plus/test';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { syncManifest } from './sync-manifest.js';
 
 describe('syncManifest', () => {
@@ -15,7 +16,11 @@ describe('syncManifest', () => {
 
   test('writes and reads unified manifest json', () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'clank-sync-manifest-'));
-    const manifestPath = path.join(tempDir, '.clank/sync-manifest.json');
+    const manifestPath = path.join(
+      tempDir,
+      clankgstersIdentity.SYNC_CACHE_DIR,
+      clankgstersIdentity.SYNC_MANIFEST_FILE_NAME
+    );
     const writeResult = syncManifest.write(manifestPath, {
       claude: {
         settingsSync: true,

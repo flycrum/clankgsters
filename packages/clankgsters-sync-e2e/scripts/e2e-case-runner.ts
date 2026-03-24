@@ -62,12 +62,7 @@ export async function runOneE2eCase(options: RunOneE2eCaseOptions): Promise<RunO
     }
   }
 
-  const syncCode = await runCommand(
-    'pnpm',
-    ['clankgsters-sync:start'],
-    options.repoRoot,
-    commandEnv
-  );
+  const syncCode = await runCommand('pnpm', ['clankgsters-sync:run'], options.repoRoot, commandEnv);
   if (syncCode !== 0) {
     errorLines.push(printLine.error(`${options.name}: sync failed with exit code ${syncCode}`));
   }

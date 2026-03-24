@@ -33,7 +33,8 @@ describe('processAgentQueueMachine', () => {
             skillsDir: 'skills',
             sourceDir: '.clank',
           },
-          syncManifestPath: '.clank/sync-manifest.json',
+          syncCacheDir: clankgstersIdentity.SYNC_CACHE_DIR,
+          syncManifestPath: clankgstersIdentity.defaultSyncManifestRelativePath,
         },
       },
     });

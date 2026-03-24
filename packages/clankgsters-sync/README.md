@@ -38,7 +38,7 @@ See the [Vite+ guide](https://viteplus.dev/guide/) for the full toolchain.
 
 Sync loads `clankgsters.config.ts` from the **repository root** (the tree that contains your app’s `.clank/` marketplace), not from `process.cwd()` alone.
 
-- **Default:** repo root is derived from the `@clankgsters/sync` package location (so `pnpm -F @clankgsters/sync run clankgsters-sync:start` from the monorepo root still finds the root `clankgsters.config.ts`).
+- **Default:** repo root is derived from the `@clankgsters/sync` package location (so `pnpm -F @clankgsters/sync run clankgsters-sync:run` from the monorepo root still finds the root `clankgsters.config.ts`).
 - **`CLANKGSTERS_REPO_ROOT`:** optional absolute path override (sandboxes, tests, or when you need an explicit root).
 - **Published CLI:** `clankgsters-sync` (see `package.json` → `bin`) sets `CLANKGSTERS_REPO_ROOT` to the **current working directory** and runs the sync entry with this package’s `tsx` loader (for global or linked installs).
 

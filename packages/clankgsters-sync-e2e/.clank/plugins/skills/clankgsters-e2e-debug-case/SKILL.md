@@ -18,7 +18,7 @@ description: Diagnose a failing e2e case by comparing expected JSON to actual ma
    ```
 
 2. **Expected:** `scripts/test-cases/<name>.json`  
-   **Actual:** `sandboxes/.tests/failed-<name>/.clank/sync-manifest.json` (unless `syncManifestPath` overrides)
+   **Actual:** `sandboxes/.tests/failed-<name>/.clankgsters-cache/sync-manifest.json` (unless `syncManifestPath` overrides)
 
 3. Diff mentally or with the same rules as `scripts/utils/diff-manifest.ts` (added / removed / modified paths).
 

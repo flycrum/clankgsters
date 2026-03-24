@@ -7,7 +7,7 @@
 **Steps:**
 
 1. Enable logging (`loggingEnabled` in `clankgsters.config.ts` or `CLANKGSTERS_LOGGING_ENABLED=true`). See [pino-logger README](../README.md).
-2. Run sync: `pnpm clankgsters-sync:start` (or clear).
+2. Run sync: `pnpm clankgsters-sync:run` (or clear).
 3. **Live tail:** `tail -f .clank/logs/clankgsters-sync.log`
 4. **Last lines:** `tail -n 50 .clank/logs/clankgsters-sync.log`
 5. **Pretty JSON:** `tail -n 20 .clank/logs/clankgsters-sync.log | jq .`

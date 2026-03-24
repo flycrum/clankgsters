@@ -29,7 +29,7 @@
     "build": "vp pack",
     "check": "vp check",
     "clankgsters-sync:clear": "tsx scripts/clankgsters-sync.clear.ts",
-    "clankgsters-sync:start": "tsx scripts/clankgsters-sync.start.ts",
+    "clankgsters-sync:run": "tsx scripts/clankgsters-sync.run.ts",
     "dev": "vp pack --watch",
     "prepublishOnly": "vp pack",
     "test": "vp test"
