@@ -19,4 +19,4 @@ Shared reference for the **@clankgsters/sync-e2e** harness: test case layout, ma
 
 ## Where sync writes
 
-Repo root for the run is the sandbox (`CLANKGSTERS_REPO_ROOT`), so discovery is limited to that tree’s `.clank/plugins`. Default manifest path: **`.clankgsters-cache/sync-manifest.json`** under the sandbox (override via `syncManifestPath` in config).
+Repo root for the run is the sandbox (`CLANKGSTERS_REPO_ROOT`), so discovery is limited to that tree’s configured source layouts (nested + shorthand variants for plugins/skills, including optional `.local` directories). Default manifest path: **`.clankgsters-cache/sync-manifest.json`** under the sandbox (override via `syncManifestPath` in config).

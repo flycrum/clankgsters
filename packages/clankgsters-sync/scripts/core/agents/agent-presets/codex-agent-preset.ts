@@ -9,7 +9,7 @@ export const codexAgentPreset: ClankgstersAgentConfig = {
   behaviors: [
     {
       enabled: true,
-      behaviorName: 'MarkdownContextSymlinkSyncPreset',
+      behaviorName: 'MarkdownSymlinkSyncPreset',
       options: {
         targetFile: CONSTANTS.MARKDOWN_CONTEXT_TARGET_FILE_NAME,
         gitignoreComment: CONSTANTS.GITIGNORE_COMMENT,

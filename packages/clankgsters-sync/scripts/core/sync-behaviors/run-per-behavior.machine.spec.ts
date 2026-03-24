@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vite-plus/test';
 import { createActor } from 'xstate';
 import { actorHelpers } from '../../common/actor-helpers.js';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
+import { clankgstersConfigDefaults } from '../configs/clankgsters-config.defaults.js';
 import { runPerBehaviorMachine } from './run-per-behavior.machine.js';
 
 describe('runPerBehaviorMachine', () => {
@@ -9,7 +10,11 @@ describe('runPerBehaviorMachine', () => {
     const actor = createActor(runPerBehaviorMachine, {
       input: {
         agentName: 'cursor',
-        behaviorConfig: { enabled: true, behaviorName: 'RulesSymlinkSyncPreset', options: {} },
+        behaviorConfig: {
+          enabled: true,
+          behaviorName: 'AgentRulesSymlinkSyncPreset',
+          options: {},
+        },
         discoveredMarketplaces: [],
         excluded: [],
         manifestEntry: undefined,
@@ -21,14 +26,7 @@ describe('runPerBehaviorMachine', () => {
           agents: {},
           excluded: [],
           loggingEnabled: false,
-          sourceDefaults: {
-            localMarketplaceName: clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
-            pluginsDir: 'plugins',
-            markdownContextFileName: 'CLANK.md',
-            skillFileName: 'SKILL.md',
-            skillsDir: 'skills',
-            sourceDir: '.clank',
-          },
+          sourceDefaults: { ...clankgstersConfigDefaults.CONSTANTS.sourceDefaults },
           syncCacheDir: clankgstersIdentity.SYNC_CACHE_DIR,
           syncManifestPath: clankgstersIdentity.defaultSyncManifestRelativePath,
         },

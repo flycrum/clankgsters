@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vite-plus/test';
 import { createActor } from 'xstate';
 import { actorHelpers } from '../../common/actor-helpers.js';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
+import { clankgstersConfigDefaults } from '../configs/clankgsters-config.defaults.js';
 import { processAgentQueueMachine } from './process-agent-queue.machine.js';
 
 describe('processAgentQueueMachine', () => {
@@ -19,18 +20,13 @@ describe('processAgentQueueMachine', () => {
           agents: {
             cursor: {
               enabled: true,
-              behaviors: [{ enabled: true, behaviorName: 'RulesSymlinkSyncPreset', options: {} }],
+              behaviors: [
+                { enabled: true, behaviorName: 'AgentRulesSymlinkSyncPreset', options: {} },
+              ],
             },
           },
           excluded: [],
-          sourceDefaults: {
-            localMarketplaceName: clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
-            pluginsDir: 'plugins',
-            markdownContextFileName: 'CLANK.md',
-            skillFileName: 'SKILL.md',
-            skillsDir: 'skills',
-            sourceDir: '.clank',
-          },
+          sourceDefaults: { ...clankgstersConfigDefaults.CONSTANTS.sourceDefaults },
           syncCacheDir: clankgstersIdentity.SYNC_CACHE_DIR,
           syncManifestPath: clankgstersIdentity.defaultSyncManifestRelativePath,
         },

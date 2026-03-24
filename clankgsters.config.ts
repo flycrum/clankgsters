@@ -7,14 +7,14 @@ const clankgsters = clankgstersConfig.define({
     claude: true,
     cursor: true,
     codex: true,
-    // custom: {
-    //   superagent: clankgstersConfig.defineAgent({
-    //     name: "superagent",
-    //     syncBehaviorPresets: {
-    //       MarketplaceJsonSyncPreset: true,
-    //     },
-    //   }),
-    // },
+    custom: {
+      superagent: clankgstersConfig.defineAgent({
+        name: 'superagent',
+        syncBehaviorPresets: {
+          AgentMarketplaceJsonSyncPreset: true,
+        },
+      }),
+    },
   },
   excluded: ['packages/clankgsters-sync-e2e/sandboxes', 'dist', '.git', '.next', 'node_modules'],
 });

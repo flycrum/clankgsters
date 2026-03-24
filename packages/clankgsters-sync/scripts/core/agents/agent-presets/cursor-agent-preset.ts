@@ -10,11 +10,11 @@ export const cursorAgentPreset: ClankgstersAgentConfig = {
     { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
     {
       enabled: true,
-      behaviorName: 'LocalPluginsContentSyncPreset',
+      behaviorName: 'PluginsDirectorySyncPreset',
       options: {
         customHandler: {},
-        requiredManifestKey: CONSTANTS.SETTINGS_MANIFEST_KEY,
-        targetRoot: CONSTANTS.LOCAL_CONTENT_TARGET_ROOT,
+        requiredManifestKey: CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
+        targetRoot: CONSTANTS.PLUGINS_DIRECTORY_TARGET_ROOT,
       },
     },
   ],

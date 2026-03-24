@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vite-plus/test';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { clankgstersConfig } from './clankgsters-config.js';
+import { clankgstersConfigDefaults } from './clankgsters-config.defaults.js';
 import { clankgstersConfigResolver } from './config-resolver.js';
 
 describe('clankgstersConfigResolver', () => {
@@ -16,8 +17,12 @@ describe('clankgstersConfigResolver', () => {
     expect(result.value.resolvedConfig.syncManifestPath).toBe(
       clankgstersIdentity.defaultSyncManifestRelativePath
     );
-    expect(result.value.resolvedConfig.sourceDefaults.sourceDir).toBe('.clank');
-    expect(result.value.resolvedConfig.sourceDefaults.markdownContextFileName).toBe('CLANK.md');
+    expect(result.value.resolvedConfig.sourceDefaults.sourceDir).toBe(
+      clankgstersConfigDefaults.CONSTANTS.sourceDefaults.sourceDir
+    );
+    expect(result.value.resolvedConfig.sourceDefaults.markdownContextFileName).toBe(
+      clankgstersConfigDefaults.CONSTANTS.sourceDefaults.markdownContextFileName
+    );
     expect(result.value.resolvedConfig.sourceDefaults.localMarketplaceName).toBe(
       clankgstersIdentity.LOCAL_MARKETPLACE_NAME
     );

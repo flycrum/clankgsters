@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vite-plus/test';
 import { createActor } from 'xstate';
 import { actorHelpers } from '../../common/actor-helpers.js';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
+import { clankgstersConfigDefaults } from '../configs/clankgsters-config.defaults.js';
 import { processAgentBehaviorsMachine } from './process-agent-behaviors.machine.js';
 
 describe('processAgentBehaviorsMachine', () => {
@@ -10,7 +11,7 @@ describe('processAgentBehaviorsMachine', () => {
       input: {
         agentName: 'cursor',
         behaviors: [
-          { enabled: true, behaviorName: 'RulesSymlinkSyncPreset', options: {} },
+          { enabled: true, behaviorName: 'AgentRulesSymlinkSyncPreset', options: {} },
           { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
         ],
         discoveredMarketplaces: [],
@@ -24,14 +25,7 @@ describe('processAgentBehaviorsMachine', () => {
           agents: {},
           excluded: [],
           loggingEnabled: false,
-          sourceDefaults: {
-            localMarketplaceName: clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
-            pluginsDir: 'plugins',
-            markdownContextFileName: 'CLANK.md',
-            skillFileName: 'SKILL.md',
-            skillsDir: 'skills',
-            sourceDir: '.clank',
-          },
+          sourceDefaults: { ...clankgstersConfigDefaults.CONSTANTS.sourceDefaults },
           syncCacheDir: clankgstersIdentity.SYNC_CACHE_DIR,
           syncManifestPath: clankgstersIdentity.defaultSyncManifestRelativePath,
         },

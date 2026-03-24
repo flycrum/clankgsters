@@ -5,7 +5,13 @@ import path from 'node:path';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { syncFs } from '../../common/sync-fs.js';
 
-/** One behavior entry in the unified sync manifest (boolean marker or structured payload). */
+/**
+ * One behavior entry in the unified sync manifest (boolean marker or structured payload).
+ *
+ * Convention for layout-aware presets:
+ * - `symlinks` / `fsAutoRemoval` remain flattened unions used by clear teardown
+ * - `customData` may store per-layout slices (e.g. `nestedRegular`, `nestedLocal`, `shorthandRegular`, `shorthandLocal`)
+ */
 export type SyncManifestEntry =
   | true
   | {

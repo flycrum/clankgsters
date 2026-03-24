@@ -9,7 +9,7 @@ export const claudeAgentPreset: ClankgstersAgentConfig = {
   behaviors: [
     {
       enabled: true,
-      behaviorName: 'MarkdownContextSymlinkSyncPreset',
+      behaviorName: 'MarkdownSymlinkSyncPreset',
       options: {
         targetFile: CONSTANTS.MARKDOWN_CONTEXT_TARGET_FILE_NAME,
         gitignoreComment: CONSTANTS.GITIGNORE_COMMENT,
@@ -18,30 +18,30 @@ export const claudeAgentPreset: ClankgstersAgentConfig = {
     },
     {
       enabled: true,
-      behaviorName: 'MarketplaceJsonSyncPreset',
+      behaviorName: 'AgentMarketplaceJsonSyncPreset',
       options: {
-        manifestKey: CONSTANTS.SETTINGS_MANIFEST_KEY,
-        marketplaceFile: CONSTANTS.MARKETPLACE_FILE,
-        sourceFormat: CONSTANTS.MARKETPLACE_SOURCE_FORMAT,
+        manifestKey: CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
+        marketplaceFile: CONSTANTS.AGENT_MARKETPLACE_FILE,
+        sourceFormat: CONSTANTS.AGENT_MARKETPLACE_SOURCE_FORMAT,
       },
     },
     {
       enabled: true,
-      behaviorName: 'RulesSymlinkSyncPreset',
+      behaviorName: 'AgentRulesSymlinkSyncPreset',
       options: {
-        rulesDir: CONSTANTS.RULES_DIR,
-        syncManifest: CONSTANTS.RULES_SYNC_MANIFEST,
+        rulesDir: CONSTANTS.AGENT_RULES_DIR,
+        syncManifest: CONSTANTS.AGENT_RULES_SYNC_MANIFEST,
       },
     },
     { enabled: true, behaviorName: 'SkillsDirectorySyncPreset', options: {} },
     {
       enabled: true,
-      behaviorName: 'SettingsSyncPreset',
+      behaviorName: 'AgentSettingsSyncPreset',
       options: {
-        manifestKey: CONSTANTS.SETTINGS_MANIFEST_KEY,
-        settingsFile: CONSTANTS.SETTINGS_FILE,
+        manifestKey: CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
+        settingsFile: CONSTANTS.AGENT_SETTINGS_FILE,
       },
     },
-    { enabled: true, behaviorName: 'LocalPluginCacheBustPreset', options: {} },
+    { enabled: true, behaviorName: 'PluginsCacheBustSyncPreset', options: {} },
   ],
 };

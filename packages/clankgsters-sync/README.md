@@ -36,7 +36,7 @@ See the [Vite+ guide](https://viteplus.dev/guide/) for the full toolchain.
 
 ## Repo root resolution
 
-Sync loads `clankgsters.config.ts` from the **repository root** (the tree that contains your app’s `.clank/` marketplace), not from `process.cwd()` alone.
+Sync loads `clankgsters.config.ts` from the **repository root** (the tree that contains your source layouts such as `.clank/` and shorthand siblings like `.clank-plugins`), not from `process.cwd()` alone.
 
 - **Default:** repo root is derived from the `@clankgsters/sync` package location (so `pnpm -F @clankgsters/sync run clankgsters-sync:run` from the monorepo root still finds the root `clankgsters.config.ts`).
 - **`CLANKGSTERS_REPO_ROOT`:** optional absolute path override (sandboxes, tests, or when you need an explicit root).

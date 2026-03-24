@@ -8,7 +8,7 @@ import { e2eTestCase } from '../define-e2e-test-case.js';
 const config = clankgstersConfig.define({
   agents: {
     claude: clankgstersConfig.defineAgent({
-      behaviors: ['MarkdownContextSymlinkSyncPreset'],
+      behaviors: ['MarkdownSymlinkSyncPreset'],
       name: 'claude',
     }),
     cursor: false,

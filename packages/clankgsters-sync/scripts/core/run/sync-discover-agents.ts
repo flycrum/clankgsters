@@ -1,36 +1,47 @@
+import { isPlainObject } from 'lodash-es';
 import { err, ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
-import { isPlainObject } from 'lodash-es';
 import path from 'node:path';
 import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
 import type { ClankgstersSourceDefaultsConfig } from '../configs/clankgsters-config.schema.js';
+import { syncSourceLayouts, type SyncSourceLayoutKey } from './sync-source-layouts.js';
 
 /** Per-plugin manifest presence map keyed by agent name. */
 export type PluginManifestMap = Record<string, boolean>;
 
 /** One plugin discovered under a source marketplace plugins directory. */
 export interface DiscoveredPlugin {
+  /** Plugin description read from first discovered agent manifest, when present. */
   description?: string;
+  /** Presence map of agent plugin manifests for this plugin directory. */
   manifests: PluginManifestMap;
+  /** Display name from manifest `name`, falling back to directory name. */
   manifestName?: string;
+  /** Directory basename for this plugin under its marketplace. */
   name: string;
+  /** Absolute filesystem path to this plugin directory. */
   path: string;
+  /** Repo-relative plugin path used for marketplace `source` links and docs. */
   relativePath: string;
+  /** Version from first discovered agent manifest, when present. */
   version?: string;
 }
 
 /** Marketplace node discovered at root or in nested packages. */
 export interface DiscoveredMarketplace {
+  /** Human-friendly label shown in markdown/package sections and diagnostics. */
   label: string;
+  /** Source layout classification for this marketplace directory. */
+  layout: SyncSourceLayoutKey;
+  /** Plugin entries discovered under `pluginsDir` for this marketplace. */
   plugins: DiscoveredPlugin[];
+  /** Absolute filesystem path to the marketplace plugins directory. */
   pluginsDir: string;
+  /** Repo-relative path to `pluginsDir`. */
   relativePath: string;
 }
 
-function normalizeRel(value: string): string {
-  return value.replace(/\\/g, '/');
-}
-
+/** Reads plugin metadata (`name`, `description`, `version`) from one manifest file. */
 function readManifestInfo(manifestPath: string): {
   description?: string;
   manifestName?: string;
@@ -50,64 +61,28 @@ function readManifestInfo(manifestPath: string): {
   }
 }
 
-function getResolvedSourcePath(defaults: ClankgstersSourceDefaultsConfig): {
-  pluginsPath: string;
-  skillsPath: string;
-} {
-  const sourceDir = defaults.sourceDir.replace(/\/+$/g, '');
-  return {
-    pluginsPath: normalizeRel(path.posix.join(sourceDir, defaults.pluginsDir)),
-    skillsPath: normalizeRel(path.posix.join(sourceDir, defaults.skillsDir)),
-  };
+/**
+ * Discovers plugins under one marketplace directory and filters them by manifest presence for known agents.
+ * Returned plugin entries include resolved metadata and repo-relative source paths.
+ */
+interface DiscoverPluginsInDirInput {
+  agentNames: string[];
+  excluded: string[];
+  pluginsDir: string;
+  relativePluginsPath: string;
 }
 
-function findPluginsDirs(repoRoot: string, pluginsPath: string, excluded: string[]): string[] {
-  const found = new Set<string>();
-  const segments = pluginsPath.split('/').filter((segment) => segment.length > 0);
-  const excludedSet = new Set(excluded);
-
-  const walk = (dir: string): void => {
-    let entries: fs.Dirent[];
-    try {
-      entries = fs.readdirSync(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      if (!entry.isDirectory()) continue;
-      const fullPath = path.join(dir, entry.name);
-      const rel = normalizeRel(path.relative(repoRoot, fullPath));
-      if (excludedSet.has(entry.name) || excludedSet.has(rel)) continue;
-      const maybePluginsPath = path.join(fullPath, ...segments);
-      if (fs.existsSync(maybePluginsPath) && fs.statSync(maybePluginsPath).isDirectory()) {
-        found.add(maybePluginsPath);
-      }
-      walk(fullPath);
-    }
-  };
-
-  const rootPlugins = path.join(repoRoot, ...segments);
-  if (fs.existsSync(rootPlugins) && fs.statSync(rootPlugins).isDirectory()) {
-    found.add(rootPlugins);
-  }
-  walk(repoRoot);
-  return [...found];
-}
-
-function discoverPluginsInDir(
-  repoRoot: string,
-  pluginsDir: string,
-  relativePluginsPath: string,
-  agentNames: string[],
-  excluded: string[]
-): DiscoveredPlugin[] {
+function discoverPluginsInDir(input: DiscoverPluginsInDirInput): DiscoveredPlugin[] {
+  const excludedSet = new Set(input.excluded);
+  const { agentNames, pluginsDir, relativePluginsPath } = input;
   const entries = fs.readdirSync(pluginsDir, { withFileTypes: true });
   const plugins: DiscoveredPlugin[] = [];
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
     const pluginPath = path.join(pluginsDir, entry.name);
-    const pluginRelativePath = normalizeRel(path.join(relativePluginsPath, entry.name));
-    const excludedSet = new Set(excluded);
+    const pluginRelativePath = syncSourceLayouts.normalizeRel(
+      path.join(relativePluginsPath, entry.name)
+    );
     if (excludedSet.has(entry.name) || excludedSet.has(pluginRelativePath)) continue;
     const manifests: PluginManifestMap = {};
     let firstManifestPath: string | null = null;
@@ -134,8 +109,12 @@ function discoverPluginsInDir(
   return plugins.sort((left, right) => left.name.localeCompare(right.name));
 }
 
+/** Discovery helpers for marketplace lookup used by sync run machines and behavior presets. */
 export const syncDiscover = {
-  /** Discovers plugin marketplaces from source defaults and filters plugins by manifest presence for known agent names. */
+  /**
+   * Discovers plugin marketplaces from source defaults and filters plugins by manifest presence for known agent names.
+   * Marketplaces are tagged with a sync source layout key for downstream per-layout behavior handling.
+   */
   discoverMarketplaces(input: {
     agentNames: string[];
     excluded: string[];
@@ -143,28 +122,34 @@ export const syncDiscover = {
     sourceDefaults: ClankgstersSourceDefaultsConfig;
   }): Result<DiscoveredMarketplace[], Error> {
     try {
-      const paths = getResolvedSourcePath(input.sourceDefaults);
-      const pluginDirs = findPluginsDirs(input.repoRoot, paths.pluginsPath, input.excluded);
-      const marketplaces = pluginDirs.map((pluginsDir) => {
-        const relativePath = normalizeRel(path.relative(input.repoRoot, pluginsDir));
-        return {
-          label:
-            relativePath === paths.pluginsPath ? 'Root marketplace' : `${relativePath} marketplace`,
-          plugins: discoverPluginsInDir(
-            input.repoRoot,
+      const paths = syncSourceLayouts.getResolvedSourcePath(input.sourceDefaults);
+      const sourceLayoutPaths = syncSourceLayouts.discoverSourceLayoutPaths(input);
+      const marketplaces = syncSourceLayouts.SYNC_SOURCE_LAYOUT_KEYS.flatMap((layout) =>
+        sourceLayoutPaths.pluginsByLayout[layout].map((pluginsDir) => {
+          const relativePath = syncSourceLayouts.normalizeRel(
+            path.relative(input.repoRoot, pluginsDir)
+          );
+          const isRootNestedRegular = relativePath === paths.nestedPluginsPath;
+          const label = isRootNestedRegular
+            ? 'Root marketplace'
+            : `${relativePath} marketplace (${layout})`;
+          return {
+            label,
+            layout,
+            plugins: discoverPluginsInDir({
+              agentNames: input.agentNames,
+              excluded: input.excluded,
+              pluginsDir,
+              relativePluginsPath: relativePath,
+            }),
             pluginsDir,
             relativePath,
-            input.agentNames,
-            input.excluded
-          ),
-          pluginsDir,
-          relativePath,
-        };
-      });
+          };
+        })
+      );
       return ok(marketplaces);
     } catch (error) {
       return err(error instanceof Error ? error : new Error(String(error)));
     }
   },
-  getResolvedSourcePath,
 };

@@ -1,10 +1,11 @@
 import { z } from 'zod';
 import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
+import { clankgstersConfigDefaults } from './clankgsters-config.defaults.js';
 
 const clankgstersBehaviorSchema = z.object({
   /**
    * Preset class name used as registry id and as the key under each agent in `sync-manifest.json` (e.g.
-   * `RulesSymlinkSyncPreset`, `SettingsSyncPreset`).
+   * `AgentRulesSymlinkSyncPreset`, `AgentSettingsSyncPreset`).
    */
   behaviorName: z.string().min(1),
   /** Optional switch to disable a behavior while keeping its options in config. */
@@ -22,38 +23,63 @@ const clankgstersAgentSchema = z.object({
 
 const clankgstersSourceDefaultsSchema = z.object({
   /** Root source directory for marketplace content (default: `.clank`). */
-  sourceDir: z.string().optional().default('.clank'),
-  /** Plugins directory under sourceDir (default: `plugins`). */
-  pluginsDir: z.string().optional().default('plugins'),
-  /** Skills directory under sourceDir (default: `skills`). */
-  skillsDir: z.string().optional().default('skills'),
+  sourceDir: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.sourceDir),
+  /**
+   * Plugins directory name under `sourceDir` (default: `plugins`).
+   *
+   * Discovery supports both nested and shorthand layouts:
+   * - Nested: `{sourceDir}/{pluginsDir}` and `{sourceDir}/{pluginsDir}.local`
+   * - Shorthand sibling: `{sourceDir}-{pluginsDir}` and `{sourceDir}-{pluginsDir}.local`
+   */
+  pluginsDir: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.pluginsDir),
+  /**
+   * Skills directory name under `sourceDir` (default: `skills`).
+   *
+   * Discovery supports both nested and shorthand layouts:
+   * - Nested: `{sourceDir}/{skillsDir}` and `{sourceDir}/{skillsDir}.local`
+   * - Shorthand sibling: `{sourceDir}-{skillsDir}` and `{sourceDir}-{skillsDir}.local`
+   */
+  skillsDir: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.skillsDir),
   /**
    * Repo-relative path to the canonical context markdown (default `CLANK.md`).
    * May be a basename (e.g. `CLANK.md`) or a nested path (e.g. `docs/guide.md`) depending on layout.
    */
-  markdownContextFileName: z.string().optional().default('CLANK.md'),
+  markdownContextFileName: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.markdownContextFileName),
   /**
    * `name` for generated local marketplace JSON and related manifest/settings linkage
    * (default {@link clankgstersIdentity.LOCAL_MARKETPLACE_NAME}).
    */
-  localMarketplaceName: z.string().optional().default(clankgstersIdentity.LOCAL_MARKETPLACE_NAME),
+  localMarketplaceName: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.localMarketplaceName),
   /** Marker filename that identifies a skill directory (default: `SKILL.md`). */
-  skillFileName: z.string().optional().default('SKILL.md'),
+  skillFileName: z
+    .string()
+    .optional()
+    .default(clankgstersConfigDefaults.CONSTANTS.sourceDefaults.skillFileName),
 });
 
 const clankgstersConfigSchemaValueBase = z.object({
-  /** Enables file logging for sync scripts when true. */
-  loggingEnabled: z.boolean().optional().default(false),
   /** Named agent entries (coding-agent front-ends) and their behavior definitions. */
   agents: z.record(z.string(), clankgstersAgentSchema).default({}),
+  /** Enables file logging for sync scripts when true. */
+  loggingEnabled: z.boolean().optional().default(false),
   /** Global source/layout defaults used by discovery and selected behaviors. */
   sourceDefaults: clankgstersSourceDefaultsSchema.default({
-    localMarketplaceName: clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
-    markdownContextFileName: 'CLANK.md',
-    pluginsDir: 'plugins',
-    skillFileName: 'SKILL.md',
-    skillsDir: 'skills',
-    sourceDir: '.clank',
+    ...clankgstersConfigDefaults.CONSTANTS.sourceDefaults,
   }),
   /** Paths or globs excluded from sync/discovery (repo-relative strings). */
   excluded: z.array(z.string()).optional().default([]),
@@ -61,7 +87,7 @@ const clankgstersConfigSchemaValueBase = z.object({
    * Repo-relative directory for generated sync cache (default {@link clankgstersIdentity.SYNC_CACHE_DIR}).
    * When `syncManifestPath` is omitted, it defaults to `{syncCacheDir}/{@link clankgstersIdentity.SYNC_MANIFEST_FILE_NAME}`.
    */
-  syncCacheDir: z.string().optional().default(clankgstersIdentity.SYNC_CACHE_DIR),
+  syncCacheDir: z.string().optional().default(clankgstersConfigDefaults.CONSTANTS.syncCacheDir),
   /** Path to the sync manifest JSON, relative to the repo root unless absolute; defaults under `syncCacheDir`. */
   syncManifestPath: z.string().optional(),
   /** Optional root for sync outputs (e.g. logs); defaults to repo root when unset. */

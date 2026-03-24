@@ -4,18 +4,18 @@ import path from 'node:path';
 import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
-/** Syncs the per-agent IDE settings JSON (e.g. `.cursor/settings.json`, `.claude/settings.json`) with `extraKnownMarketplaces` and `enabledPlugins` from discovered plugins. */
-export class SettingsSyncPreset extends SyncBehaviorBase {
+/** Syncs per-agent IDE settings JSON with `extraKnownMarketplaces` and `enabledPlugins`. */
+export class AgentSettingsSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const localMarketplaceName = context.resolvedConfig.sourceDefaults.localMarketplaceName;
     const options = {
-      manifestKey: presetConfig.CONSTANTS.SETTINGS_MANIFEST_KEY,
+      manifestKey: presetConfig.CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
       marketplaceName: localMarketplaceName,
-      settingsFile: presetConfig.CONSTANTS.SETTINGS_FILE,
+      settingsFile: presetConfig.CONSTANTS.AGENT_SETTINGS_FILE,
       ...(context.behaviorConfig.options as Record<string, unknown>),
     };
-    const settingsRelPath = presetConfig.CONSTANTS.SETTINGS_FILE;
+    const settingsRelPath = presetConfig.CONSTANTS.AGENT_SETTINGS_FILE;
     const settingsPath = path.join(context.outputRoot, settingsRelPath);
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
       if (!fs.existsSync(settingsPath)) return ok(undefined);

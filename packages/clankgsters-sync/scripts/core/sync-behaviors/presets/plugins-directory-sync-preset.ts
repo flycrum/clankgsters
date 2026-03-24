@@ -3,11 +3,33 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { syncFs } from '../../../common/sync-fs.js';
 import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
+import type { SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
+interface PluginsDirectoryLayoutEntry {
+  fsAutoRemoval: string[];
+  symlinks: string[];
+}
+
+function emptyLayoutEntry(): PluginsDirectoryLayoutEntry {
+  return { symlinks: [], fsAutoRemoval: [] };
+}
+
+function createPluginsDirectoryCustomData(): Record<
+  SyncSourceLayoutKey,
+  PluginsDirectoryLayoutEntry
+> {
+  return {
+    nestedRegular: emptyLayoutEntry(),
+    nestedLocal: emptyLayoutEntry(),
+    shorthandRegular: emptyLayoutEntry(),
+    shorthandLocal: emptyLayoutEntry(),
+  };
+}
+
 /** Syncs plugin content directories (rules/commands/skills/agents) into agent-local content roots. */
-export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
+export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
   private isExcluded(relPath: string, excluded: string[]): boolean {
     return excluded.includes(relPath);
   }
@@ -19,16 +41,18 @@ export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
 
     const symlinks: string[] = [];
     const fsAutoRemoval: string[] = [];
+    const customData = createPluginsDirectoryCustomData();
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const targetRoot = path.join(
       context.outputRoot,
-      presetConfig.CONSTANTS.LOCAL_CONTENT_TARGET_ROOT ?? `.${context.agentName}`
+      presetConfig.CONSTANTS.PLUGINS_DIRECTORY_TARGET_ROOT ?? `.${context.agentName}`
     );
     syncFs.ensureDir(targetRoot);
 
     for (const marketplace of context.discoveredMarketplaces) {
       for (const plugin of marketplace.plugins) {
         if (plugin.manifests[context.agentName] !== true) continue;
+        const layout = marketplace.layout;
         const commandsDir = path.join(plugin.path, 'commands');
         for (const commandFile of syncFs
           .readdirWithTypes(commandsDir)
@@ -39,6 +63,7 @@ export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
           if (this.isExcluded(targetRel, context.excluded)) continue;
           syncFs.symlinkRelative(sourcePath, targetPath);
           symlinks.push(targetRel);
+          customData[layout].symlinks.push(targetRel);
         }
 
         const rulesDir = path.join(plugin.path, 'rules');
@@ -54,10 +79,11 @@ export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
           syncFs.ensureDir(path.dirname(targetPath));
           fs.writeFileSync(
             targetPath,
-            `${presetConfig.CONSTANTS.RULES_MARKDOWN_FRONTMATTER ?? ''}${markdown}`,
+            `${presetConfig.CONSTANTS.AGENT_RULES_MARKDOWN_FRONTMATTER ?? ''}${markdown}`,
             'utf8'
           );
           fsAutoRemoval.push(targetRel);
+          customData[layout].fsAutoRemoval.push(targetRel);
         }
       }
     }
@@ -66,6 +92,7 @@ export class LocalPluginsContentSyncPreset extends SyncBehaviorBase {
       options: context.behaviorConfig.options,
       symlinks,
       fsAutoRemoval,
+      customData,
     });
     return ok(undefined);
   }

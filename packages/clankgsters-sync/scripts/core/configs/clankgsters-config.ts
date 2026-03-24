@@ -1,6 +1,6 @@
 import { isPlainObject } from 'lodash-es';
-import { clankgstersIdentity } from '../../common/clankgsters-identity.js';
 import { agentPresets } from '../agents/agent-presets.js';
+import { clankgstersConfigDefaults } from './clankgsters-config.defaults.js';
 import type {
   ClankgstersAgentConfig,
   ClankgstersBehaviorConfig,
@@ -170,15 +170,26 @@ export const clankgstersConfig = {
       ...config,
       agents: normalizeAgentsConfig(config.agents),
       sourceDefaults: {
-        sourceDir: config.sourceDefaults?.sourceDir ?? '.clank',
-        pluginsDir: config.sourceDefaults?.pluginsDir ?? 'plugins',
-        skillsDir: config.sourceDefaults?.skillsDir ?? 'skills',
-        markdownContextFileName: config.sourceDefaults?.markdownContextFileName ?? 'CLANK.md',
+        sourceDir:
+          config.sourceDefaults?.sourceDir ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.sourceDir,
+        pluginsDir:
+          config.sourceDefaults?.pluginsDir ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.pluginsDir,
+        skillsDir:
+          config.sourceDefaults?.skillsDir ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.skillsDir,
+        markdownContextFileName:
+          config.sourceDefaults?.markdownContextFileName ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.markdownContextFileName,
         localMarketplaceName:
-          config.sourceDefaults?.localMarketplaceName ?? clankgstersIdentity.LOCAL_MARKETPLACE_NAME,
-        skillFileName: config.sourceDefaults?.skillFileName ?? 'SKILL.md',
+          config.sourceDefaults?.localMarketplaceName ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.localMarketplaceName,
+        skillFileName:
+          config.sourceDefaults?.skillFileName ??
+          clankgstersConfigDefaults.CONSTANTS.sourceDefaults.skillFileName,
       },
-      syncCacheDir: config.syncCacheDir ?? clankgstersIdentity.SYNC_CACHE_DIR,
+      syncCacheDir: config.syncCacheDir ?? clankgstersConfigDefaults.CONSTANTS.syncCacheDir,
     };
   },
   normalizeAgentsConfig,

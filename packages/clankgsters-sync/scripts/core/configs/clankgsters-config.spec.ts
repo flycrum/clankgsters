@@ -44,12 +44,14 @@ describe('clankgstersConfig', () => {
           superagent: clankgstersConfig.defineAgent({
             name: 'superagent',
             syncBehaviorPresets: {
-              MarketplaceJsonSyncPreset: true,
+              AgentMarketplaceJsonSyncPreset: true,
             },
           }),
         },
       },
     });
-    expect(config.agents?.superagent?.behaviors[0]?.behaviorName).toBe('MarketplaceJsonSyncPreset');
+    expect(config.agents?.superagent?.behaviors[0]?.behaviorName).toBe(
+      'AgentMarketplaceJsonSyncPreset'
+    );
   });
 });

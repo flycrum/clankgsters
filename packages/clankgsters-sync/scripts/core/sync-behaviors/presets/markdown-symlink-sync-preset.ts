@@ -33,7 +33,7 @@ function listSourceDirsWithContextFile(
 }
 
 /** Creates/removes symlinks from root context files into agent-native context filenames. */
-export class MarkdownContextSymlinkSyncPreset extends SyncBehaviorBase {
+export class MarkdownSymlinkSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     if (context.mode === 'clear') {
       if (context.manifestEntry != null)

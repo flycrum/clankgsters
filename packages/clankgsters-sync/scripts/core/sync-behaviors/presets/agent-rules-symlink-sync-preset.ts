@@ -6,10 +6,10 @@ import { syncManifest } from '../../run/sync-manifest.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 /** Symlinks plugin `rules` markdown files into an agent-native rules directory. */
-export class RulesSymlinkSyncPreset extends SyncBehaviorBase {
+export class AgentRulesSymlinkSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
-    const rulesDirRel = presetConfig.CONSTANTS.RULES_DIR;
+    const rulesDirRel = presetConfig.CONSTANTS.AGENT_RULES_DIR;
     const rulesDir = path.join(context.outputRoot, rulesDirRel);
 
     if (context.manifestEntry != null)

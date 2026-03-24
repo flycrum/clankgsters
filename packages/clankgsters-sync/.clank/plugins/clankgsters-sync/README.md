@@ -1,6 +1,6 @@
 # clankgsters-sync plugin
 
-Driver plugin for **[@clankgsters/sync](https://github.com/flycrum/clankgsters/tree/main/packages/clankgsters-sync)**: discovers root and nested `.clank/plugins/`, writes marketplace manifests for Claude and Codex, syncs plugin content into `.cursor/` (rules, commands, skills, agents), and symlinks plugin rules into `.claude/rules/`.
+Driver plugin for **[@clankgsters/sync](https://github.com/flycrum/clankgsters/tree/main/packages/clankgsters-sync)**: discovers root and nested plugin/skill sources (including `.local` + shorthand layouts), writes marketplace manifests for Claude and Codex, syncs plugin content into `.cursor/` (rules, commands, skills, agents), and symlinks plugin rules into `.claude/rules/`.
 
 ---
 
@@ -62,7 +62,11 @@ Full package docs: [packages/clankgsters-sync/README.md](../../README.md). Curso
 
 ## Configuration (repo)
 
-- **Root config:** `clankgsters.config.ts` — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `.clank` layout paths), `syncCacheDir`, `syncManifestPath`, `loggingEnabled`.
+- **Root config:** `clankgsters.config.ts` — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `sourceDir`, `pluginsDir`, `skillsDir`), `syncCacheDir`, `syncManifestPath`, `loggingEnabled`.
+- **Source layout conventions:** for each source root, sync reads nested + shorthand variants for plugins and skills:
+  - Nested: `{sourceDir}/{pluginsDir}`, `{sourceDir}/{pluginsDir}.local`, `{sourceDir}/{skillsDir}`, `{sourceDir}/{skillsDir}.local`
+  - Shorthand siblings: `{sourceDir}-{pluginsDir}`, `{sourceDir}-{pluginsDir}.local`, `{sourceDir}-{skillsDir}`, `{sourceDir}-{skillsDir}.local`
+  - `.local` variants are intended for uncommitted, developer-specific content.
 - **Env:** `CLANKGSTERS_REPO_ROOT` — repo root for sync (tests, published CLI, linked installs). **`CLANKGSTERS_LOGGING_ENABLED`** — optional file logging to `.clank/logs/clankgsters-sync.log` (see **pino-logger** plugin).
 
 ---

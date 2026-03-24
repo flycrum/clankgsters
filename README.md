@@ -25,3 +25,7 @@ This repository is a **pnpm workspace** organized around the publishable sync pa
 - **`packages/clankgsters-sync-e2e`** — private e2e harness and tests against the sync package (`@clankgsters/sync-e2e`)
 
 Prereqs: **Node 22.12+** and global **`vp`** ([install](https://viteplus.dev/guide/)). Then: `vp install`, `vp check`, `vp test`.
+
+## One more thing...for you humanoid
+
+Not only does this monorepo contain the source for the Clankgsters sync system, we're also a customer and use it to create, modify, and maintain our codebase! 😎

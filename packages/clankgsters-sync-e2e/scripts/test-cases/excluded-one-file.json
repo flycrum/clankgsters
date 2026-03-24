@@ -1,6 +1,6 @@
 {
   "claude": {
-    "MarkdownContextSymlinkSyncPreset": {
+    "MarkdownSymlinkSyncPreset": {
       "options": {
         "sourceFile": "CLANK.md",
         "targetFile": "CLAUDE.md",
@@ -9,7 +9,7 @@
       },
       "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
     },
-    "MarketplaceJsonSyncPreset": {
+    "AgentMarketplaceJsonSyncPreset": {
       "options": {
         "manifestKey": "claude",
         "marketplaceFile": ".claude-plugin/marketplace.json",
@@ -17,23 +17,34 @@
         "sourceFormat": "prefixed"
       },
       "customData": {
-        "plugins": [
-          {
-            "name": "nested",
-            "source": "./packages/app/.clank/plugins/nested",
-            "description": "Fake nested plugin under packages/app for e2e test sandbox.",
-            "version": "0.1.0"
-          },
-          {
-            "name": "root",
-            "source": "./.clank/plugins/root",
-            "description": "Fake root plugin for e2e test sandbox.",
-            "version": "0.1.0"
-          }
-        ]
+        "nestedRegular": {
+          "plugins": [
+            {
+              "name": "nested",
+              "source": "./packages/app/.clank/plugins/nested",
+              "description": "Fake nested plugin under packages/app for e2e test sandbox.",
+              "version": "0.1.0"
+            },
+            {
+              "name": "root",
+              "source": "./.clank/plugins/root",
+              "description": "Fake root plugin for e2e test sandbox.",
+              "version": "0.1.0"
+            }
+          ]
+        },
+        "nestedLocal": {
+          "plugins": []
+        },
+        "shorthandRegular": {
+          "plugins": []
+        },
+        "shorthandLocal": {
+          "plugins": []
+        }
       }
     },
-    "RulesSymlinkSyncPreset": {
+    "AgentRulesSymlinkSyncPreset": {
       "options": {
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgsters-claude-sync.json"
@@ -42,9 +53,23 @@
     },
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": [".claude/skills/sample-skill"]
+      "symlinks": [".claude/skills/sample-skill"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [".claude/skills/sample-skill"]
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
-    "SettingsSyncPreset": {
+    "AgentSettingsSyncPreset": {
       "options": {
         "manifestKey": "claude",
         "marketplaceName": "__CLANKGSTERS_LOCAL_MARKETPLACE_NAME__",
@@ -55,20 +80,52 @@
   "cursor": {
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": []
+      "symlinks": [],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": []
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
-    "LocalPluginsContentSyncPreset": {
+    "PluginsDirectorySyncPreset": {
       "options": {
         "customHandler": {},
         "requiredManifestKey": "cursor",
         "targetRoot": ".cursor"
       },
       "symlinks": [".cursor/commands/nested/nested-cmd.md"],
-      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [".cursor/commands/nested/nested-cmd.md"],
+          "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+        },
+        "nestedLocal": {
+          "symlinks": [],
+          "fsAutoRemoval": []
+        },
+        "shorthandRegular": {
+          "symlinks": [],
+          "fsAutoRemoval": []
+        },
+        "shorthandLocal": {
+          "symlinks": [],
+          "fsAutoRemoval": []
+        }
+      }
     }
   },
   "codex": {
-    "MarkdownContextSymlinkSyncPreset": {
+    "MarkdownSymlinkSyncPreset": {
       "options": {
         "sourceFile": "CLANK.md",
         "targetFile": "AGENTS.md",
@@ -79,7 +136,21 @@
     },
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": []
+      "symlinks": [],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": []
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
     "MarkdownSectionSyncPreset": {
       "options": {
@@ -91,7 +162,21 @@
   "testagent": {
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": []
+      "symlinks": [],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": []
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
     "MarkdownSectionSyncPreset": {
       "options": {

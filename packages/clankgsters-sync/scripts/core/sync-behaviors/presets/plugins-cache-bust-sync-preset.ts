@@ -9,11 +9,17 @@ interface MarketplaceJson {
   plugins?: Array<{ name: string; version?: string }>;
 }
 
-/** Clears local plugin cache directories after marketplace changes when an agent defines cache path segments. */
-export class LocalPluginCacheBustPreset extends SyncBehaviorBase {
+/**
+ * Clears agent home-directory plugin cache directories after marketplace changes.
+ * This does not mutate repo-local source directories such as `.clank/plugins.local`.
+ */
+export class PluginsCacheBustSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
     const presetConfig = agentPresetConfigs.resolve(context.agentName);
-    const marketplacePath = path.join(context.outputRoot, presetConfig.CONSTANTS.MARKETPLACE_FILE);
+    const marketplacePath = path.join(
+      context.outputRoot,
+      presetConfig.CONSTANTS.AGENT_MARKETPLACE_FILE
+    );
     if (!fs.existsSync(marketplacePath)) return ok(undefined);
     let parsed: MarketplaceJson;
     try {
@@ -21,12 +27,12 @@ export class LocalPluginCacheBustPreset extends SyncBehaviorBase {
     } catch {
       return ok(undefined);
     }
-    if ((presetConfig.CONSTANTS.LOCAL_PLUGIN_CACHE_SEGMENTS?.length ?? 0) === 0) {
+    if ((presetConfig.CONSTANTS.PLUGINS_CACHE_SEGMENTS?.length ?? 0) === 0) {
       return ok(undefined);
     }
     const cacheBase = path.join(
       os.homedir(),
-      ...(presetConfig.CONSTANTS.LOCAL_PLUGIN_CACHE_SEGMENTS ?? [])
+      ...(presetConfig.CONSTANTS.PLUGINS_CACHE_SEGMENTS ?? [])
     );
     for (const plugin of parsed.plugins ?? []) {
       const pluginCache = plugin.version

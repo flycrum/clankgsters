@@ -1,6 +1,6 @@
 {
   "claude": {
-    "MarkdownContextSymlinkSyncPreset": {
+    "MarkdownSymlinkSyncPreset": {
       "options": {
         "sourceFile": "CLANK.md",
         "targetFile": "CLAUDE.md",
@@ -11,9 +11,23 @@
     },
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": [".claude/skills/sample-skill"]
+      "symlinks": [".claude/skills/sample-skill"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [".claude/skills/sample-skill"]
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
-    "MarketplaceJsonSyncPreset": {
+    "AgentMarketplaceJsonSyncPreset": {
       "options": {
         "manifestKey": "claude",
         "marketplaceFile": ".claude-plugin/marketplace.json",
@@ -21,23 +35,34 @@
         "sourceFormat": "prefixed"
       },
       "customData": {
-        "plugins": [
-          {
-            "name": "nested",
-            "source": "./packages/app/.clank/plugins/nested",
-            "description": "Fake nested plugin under packages/app for e2e test sandbox.",
-            "version": "0.1.0"
-          },
-          {
-            "name": "root",
-            "source": "./.clank/plugins/root",
-            "description": "Fake root plugin for e2e test sandbox.",
-            "version": "0.1.0"
-          }
-        ]
+        "nestedRegular": {
+          "plugins": [
+            {
+              "name": "nested",
+              "source": "./packages/app/.clank/plugins/nested",
+              "description": "Fake nested plugin under packages/app for e2e test sandbox.",
+              "version": "0.1.0"
+            },
+            {
+              "name": "root",
+              "source": "./.clank/plugins/root",
+              "description": "Fake root plugin for e2e test sandbox.",
+              "version": "0.1.0"
+            }
+          ]
+        },
+        "nestedLocal": {
+          "plugins": []
+        },
+        "shorthandRegular": {
+          "plugins": []
+        },
+        "shorthandLocal": {
+          "plugins": []
+        }
       }
     },
-    "SettingsSyncPreset": {
+    "AgentSettingsSyncPreset": {
       "options": {
         "manifestKey": "claude",
         "marketplaceName": "__CLANKGSTERS_LOCAL_MARKETPLACE_NAME__",
@@ -48,7 +73,21 @@
   "testagent": {
     "SkillsDirectorySyncPreset": {
       "options": {},
-      "symlinks": []
+      "symlinks": [],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": []
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
     },
     "MarkdownSectionSyncPreset": {
       "options": {
