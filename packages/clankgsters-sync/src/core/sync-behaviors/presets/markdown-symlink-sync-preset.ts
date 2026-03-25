@@ -70,10 +70,11 @@ export class MarkdownSymlinkSyncPreset extends SyncBehaviorBase {
     const markdownContextFileName = context.resolvedConfig.sourceDefaults.markdownContextFileName;
     const parsed = markdownSymlinkSyncPresetOptionsSchema.safeParse(context.behaviorConfig.options);
     const defaultTargetFile = context.agentsCommonValues.markdownContextFileName ?? 'AGENTS.md';
+    const rawOptions = parsed.success ? parsed.data : {};
     const optionsFallbacks = {
-      sourceFile: markdownContextFileName,
-      targetFile: defaultTargetFile,
-      ...(parsed.success ? parsed.data : {}),
+      ...rawOptions,
+      sourceFile: rawOptions.sourceFile ?? markdownContextFileName,
+      targetFile: rawOptions.targetFile ?? defaultTargetFile,
     };
     const sourceFilename = optionsFallbacks.sourceFile;
     const targetFilename = optionsFallbacks.targetFile;
