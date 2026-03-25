@@ -12,7 +12,9 @@ describe('agentPresetConfigs', () => {
   });
 
   test('resolve throws before path construction when fallback agentName is unsafe', () => {
-    expect(() => agentPresetConfigs.resolve('a/b')).toThrow(/Invalid agentName for fallback preset/);
+    expect(() => agentPresetConfigs.resolve('a/b')).toThrow(
+      /Invalid agentName for fallback preset/
+    );
     expect(() => agentPresetConfigs.resolve('..')).toThrow(/Invalid agentName for fallback preset/);
   });
 });
