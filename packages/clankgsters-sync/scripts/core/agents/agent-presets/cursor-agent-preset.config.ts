@@ -21,6 +21,6 @@ export const cursorAgentPresetConfig = {
     MARKDOWN_SECTION_HEADING: undefined,
     PLUGIN_MANIFEST_DIR: '.cursor-plugin',
     PLUGINS_DIRECTORY_TARGET_ROOT: '.cursor',
-    SKILLS_DIRECTORY_SYNC_ENABLED: false,
+    SKILLS_DIRECTORY_SYNC_ENABLED: true,
   },
 } as const satisfies AgentPresetConfig;
