@@ -7,6 +7,7 @@ import type {
 } from '../configs/clankgsters-config.schema.js';
 import type { DiscoveredMarketplace } from '../run/sync-discover-agents.js';
 import type { SyncManifestEntry } from '../run/sync-manifest.js';
+import { agentCommonValues } from '../agents/agent-presets/agent-common-values.js';
 import type { SyncBehaviorOutcome } from './behavior-outcome.js';
 import {
   SyncBehaviorBase,
@@ -84,11 +85,19 @@ function createBehaviorRunPair(input: RunPerBehaviorMachineInput): {
   runContext: SyncBehaviorRunContext;
 } {
   const behaviorClass = syncBehaviorRegistry.resolve(input.behaviorConfig.behaviorName);
-  if (behaviorClass == null)
-    throw new Error(`unknown behavior: ${input.behaviorConfig.behaviorName}`);
-  const behaviorInstance = syncBehaviorBase.create(behaviorClass);
+  const behaviorInstance =
+    behaviorClass == null ? new SyncBehaviorBase() : syncBehaviorBase.create(behaviorClass);
+  if (behaviorClass == null) {
+    clankLogger
+      .getLogger()
+      .warn(
+        { agent: input.agentName, behaviorName: input.behaviorConfig.behaviorName },
+        'unknown behavior not in registry; running no-op behavior'
+      );
+  }
   const runContext: SyncBehaviorRunContext = {
     agentName: input.agentName,
+    agentsCommonValues: agentCommonValues.resolve(input.agentName),
     behaviorConfig: input.behaviorConfig,
     discoveredMarketplaces: input.discoveredMarketplaces,
     excluded: input.excluded,

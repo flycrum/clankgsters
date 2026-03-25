@@ -1,7 +1,7 @@
 import { ok, type Result } from 'neverthrow';
 import path from 'node:path';
+import { z } from 'zod';
 import { syncFs } from '../../../common/sync-fs.js';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { syncSourceLayouts, type SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
@@ -19,18 +19,36 @@ function createSkillsCustomData(): Record<SyncSourceLayoutKey, SkillsLayoutCusto
   };
 }
 
+const skillsDirectorySyncPresetOptionsSchema = z.looseObject({
+  nativeSkillsDir: z.string().min(1).optional(),
+  skillsDirectorySyncEnabled: z.boolean().optional(),
+});
+
+/** Typed options for `SkillsDirectorySyncPreset`. */
+export interface SkillsDirectorySyncPresetOptions {
+  /** Agent-native skills output directory where skill symlinks are written. */
+  nativeSkillsDir?: string;
+  /** Controls whether the behavior writes symlinks (`true`) or emits empty manifest entries (`false`). */
+  skillsDirectorySyncEnabled?: boolean;
+}
+
 /** Syncs skills directories from source defaults into agent-native skill directories via symlinks. */
 export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
-    const nativeSkillsDirRel = presetConfig.CONSTANTS.AGENT_SKILLS_DIR;
+    const parsed = skillsDirectorySyncPresetOptionsSchema.safeParse(context.behaviorConfig.options);
+    const optionsFallbacks = {
+      nativeSkillsDir: `.${context.agentName}/skills`,
+      skillsDirectorySyncEnabled: true,
+      ...(parsed.success ? parsed.data : {}),
+    };
+    const nativeSkillsDirRel = optionsFallbacks.nativeSkillsDir;
     if (context.manifestEntry != null)
       syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) return ok(undefined);
 
-    if (!presetConfig.CONSTANTS.SKILLS_DIRECTORY_SYNC_ENABLED) {
+    if (!optionsFallbacks.skillsDirectorySyncEnabled) {
       context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-        options: context.behaviorConfig.options,
+        options: optionsFallbacks,
         symlinks: [],
         customData: createSkillsCustomData(),
       });
@@ -67,7 +85,7 @@ export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options: context.behaviorConfig.options,
+      options: optionsFallbacks,
       symlinks: [...symlinks].sort(),
       customData,
     });

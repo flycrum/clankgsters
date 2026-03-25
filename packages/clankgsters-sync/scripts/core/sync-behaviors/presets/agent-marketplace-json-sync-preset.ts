@@ -1,8 +1,7 @@
 import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
-import type { AgentMarketplaceSourceFormat } from '../../agents/agent-presets/agent-preset.config.js';
+import { z } from 'zod';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { syncSourceLayouts, type SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
@@ -22,6 +21,28 @@ interface AgentMarketplaceJson {
 
 interface AgentMarketplaceLayoutCustomData {
   plugins: AgentMarketplacePluginEntry[];
+}
+
+const AGENT_MARKETPLACE_SOURCE_FORMAT_VALUES = ['prefixed', 'relative'] as const;
+export type AgentMarketplaceSourceFormat = (typeof AGENT_MARKETPLACE_SOURCE_FORMAT_VALUES)[number];
+
+const agentMarketplaceJsonSyncPresetOptionsSchema = z.looseObject({
+  manifestKey: z.string().min(1).optional(),
+  marketplaceFile: z.string().min(1).nullable().optional(),
+  marketplaceName: z.string().min(1).optional(),
+  sourceFormat: z.enum(AGENT_MARKETPLACE_SOURCE_FORMAT_VALUES).nullable().optional(),
+});
+
+/** Typed options for `AgentMarketplaceJsonSyncPreset`. */
+export interface AgentMarketplaceJsonSyncPresetOptions {
+  /** Manifest key used by downstream settings integration bookkeeping. */
+  manifestKey?: string;
+  /** Marketplace JSON file path; `null` disables this behavior for an agent. */
+  marketplaceFile?: string | null;
+  /** Marketplace `name` value written to output JSON. */
+  marketplaceName?: string;
+  /** Plugin `source` path serialization style. */
+  sourceFormat?: AgentMarketplaceSourceFormat | null;
 }
 
 function createAgentMarketplaceCustomData(): Record<
@@ -50,19 +71,29 @@ function formatMarketplacePluginSource(
  */
 export class AgentMarketplaceJsonSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const localMarketplaceName = context.resolvedConfig.sourceDefaults.localMarketplaceName;
-    const mergedOptions = {
-      manifestKey: presetConfig.CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
-      marketplaceFile: presetConfig.CONSTANTS.AGENT_MARKETPLACE_FILE,
+    const parsed = agentMarketplaceJsonSyncPresetOptionsSchema.safeParse(
+      context.behaviorConfig.options
+    );
+    const optionsFallbacks = {
+      manifestKey: context.agentName,
+      marketplaceFile: `.${context.agentName}/marketplace.json`,
       marketplaceName: localMarketplaceName,
-      sourceFormat: presetConfig.CONSTANTS.AGENT_MARKETPLACE_SOURCE_FORMAT,
-      ...(context.behaviorConfig.options as Record<string, unknown>),
+      sourceFormat: 'prefixed' as AgentMarketplaceSourceFormat,
+      ...(parsed.success ? parsed.data : {}),
     };
-    const sourceFormat: AgentMarketplaceSourceFormat =
-      mergedOptions.sourceFormat === 'relative' ? 'relative' : 'prefixed';
-    const options = { ...mergedOptions, sourceFormat };
-    const marketplaceFile = presetConfig.CONSTANTS.AGENT_MARKETPLACE_FILE;
+    const marketplaceFile =
+      typeof optionsFallbacks.marketplaceFile === 'string'
+        ? optionsFallbacks.marketplaceFile
+        : null;
+    const sourceFormat: AgentMarketplaceSourceFormat | null =
+      optionsFallbacks.sourceFormat === 'relative'
+        ? 'relative'
+        : optionsFallbacks.sourceFormat === 'prefixed'
+          ? 'prefixed'
+          : null;
+    if (marketplaceFile == null || sourceFormat == null) return ok(undefined);
+    const resolvedOptions = { ...optionsFallbacks, marketplaceFile, sourceFormat };
     const targetPath = path.join(context.outputRoot, marketplaceFile);
 
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
@@ -93,7 +124,7 @@ export class AgentMarketplaceJsonSyncPreset extends SyncBehaviorBase {
     }
 
     const payload: AgentMarketplaceJson = {
-      name: localMarketplaceName,
+      name: resolvedOptions.marketplaceName,
       owner: { name: 'clankgsters' },
       plugins,
     };
@@ -101,7 +132,7 @@ export class AgentMarketplaceJsonSyncPreset extends SyncBehaviorBase {
     fs.writeFileSync(targetPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options,
+      options: resolvedOptions,
       customData,
     });
     return ok(undefined);

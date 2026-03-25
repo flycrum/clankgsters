@@ -1,7 +1,7 @@
 import { ok, type Result } from 'neverthrow';
 import path from 'node:path';
+import { z } from 'zod';
 import { syncFs } from '../../../common/sync-fs.js';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
@@ -32,6 +32,25 @@ function listSourceDirsWithContextFile(
   return found;
 }
 
+const markdownSymlinkSyncPresetOptionsSchema = z.looseObject({
+  gitignoreComment: z.string().nullable().optional(),
+  gitignoreEntry: z.string().nullable().optional(),
+  sourceFile: z.string().min(1).optional(),
+  targetFile: z.string().min(1).optional(),
+});
+
+/** Typed options for `MarkdownSymlinkSyncPreset`. */
+export interface MarkdownSymlinkSyncPresetOptions {
+  /** Source markdown filename used as symlink source in each discovered directory. */
+  sourceFile?: string;
+  /** Target markdown filename created as the symlink output in each discovered directory. */
+  targetFile?: string;
+  /** Optional comment block inserted ahead of gitignore entry updates. */
+  gitignoreComment?: string | null;
+  /** Optional gitignore entry to add for generated symlink outputs. */
+  gitignoreEntry?: string | null;
+}
+
 /** Creates/removes symlinks from root context files into agent-native context filenames. */
 export class MarkdownSymlinkSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
@@ -48,21 +67,16 @@ export class MarkdownSymlinkSyncPreset extends SyncBehaviorBase {
 
     if (context.manifestEntry != null)
       syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const markdownContextFileName = context.resolvedConfig.sourceDefaults.markdownContextFileName;
-    const sourceFilename = markdownContextFileName;
-    const targetFilename = presetConfig.CONSTANTS.MARKDOWN_CONTEXT_TARGET_FILE_NAME;
-    const options = {
+    const parsed = markdownSymlinkSyncPresetOptionsSchema.safeParse(context.behaviorConfig.options);
+    const defaultTargetFile = context.agentsCommonValues.markdownContextFileName ?? 'AGENTS.md';
+    const optionsFallbacks = {
       sourceFile: markdownContextFileName,
-      targetFile: presetConfig.CONSTANTS.MARKDOWN_CONTEXT_TARGET_FILE_NAME,
-      ...(presetConfig.CONSTANTS.GITIGNORE_COMMENT == null
-        ? {}
-        : { gitignoreComment: presetConfig.CONSTANTS.GITIGNORE_COMMENT }),
-      ...(presetConfig.CONSTANTS.GITIGNORE_ENTRY == null
-        ? {}
-        : { gitignoreEntry: presetConfig.CONSTANTS.GITIGNORE_ENTRY }),
-      ...(context.behaviorConfig.options as Record<string, unknown>),
+      targetFile: defaultTargetFile,
+      ...(parsed.success ? parsed.data : {}),
     };
+    const sourceFilename = optionsFallbacks.sourceFile;
+    const targetFilename = optionsFallbacks.targetFile;
     const dirs = listSourceDirsWithContextFile(
       context.outputRoot,
       sourceFilename,
@@ -77,7 +91,7 @@ export class MarkdownSymlinkSyncPreset extends SyncBehaviorBase {
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options,
+      options: optionsFallbacks,
       symlinks,
     });
     return ok(undefined);

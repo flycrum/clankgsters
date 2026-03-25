@@ -30,11 +30,18 @@
       }
     },
     "SkillsDirectorySyncPreset": {
-      "options": {},
-      "symlinks": [],
+      "options": {
+        "nativeSkillsDir": ".testagent/skills",
+        "skillsDirectorySyncEnabled": true
+      },
+      "symlinks": [
+        ".testagent/skills/sample-skill"
+      ],
       "customData": {
         "nestedRegular": {
-          "symlinks": []
+          "symlinks": [
+            ".testagent/skills/sample-skill"
+          ]
         },
         "nestedLocal": {
           "symlinks": []

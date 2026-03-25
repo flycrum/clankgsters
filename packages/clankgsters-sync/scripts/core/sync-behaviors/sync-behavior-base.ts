@@ -3,6 +3,7 @@ import type {
   ClankgstersBehaviorConfig,
   ClankgstersConfig,
 } from '../configs/clankgsters-config.schema.js';
+import type { AgentCommonValues } from '../agents/agent-presets/agent-common-values.js';
 import type { DiscoveredMarketplace } from '../run/sync-discover-agents.js';
 import type { SyncManifestEntry } from '../run/sync-manifest.js';
 
@@ -20,6 +21,8 @@ export type RegisterBehaviorManifestEntry = (
 export interface SyncBehaviorRunContext {
   /** Agent being synced (e.g. `claude`, `cursor`). */
   agentName: string;
+  /** Agent-level common values resolved from built-in presets (or safe custom fallbacks). */
+  agentsCommonValues: AgentCommonValues;
   /** Resolved behavior definition for this run (registry id, options, enabled flag). */
   behaviorConfig: ClankgstersBehaviorConfig;
   /** Repo-relative paths excluded from generated outputs. */

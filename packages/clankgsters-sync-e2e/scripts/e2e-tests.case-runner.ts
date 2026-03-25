@@ -9,11 +9,7 @@ import {
   type RunOneE2eTestsCaseOptions,
   type RunOneE2eTestsCaseResult,
 } from './e2e-tests.case-runner.config.js';
-import {
-  prefabs,
-  DefaultSandboxPrefabPreset,
-  SandboxDirNameForTestCase,
-} from './prefabs/prefabs.js';
+import { prefabs } from './prefabs/prefabs.js';
 import { diffManifest } from './utils/diff-manifest.js';
 import { fileAssertions } from './utils/file-assertions.js';
 import { printLine } from './utils/print-line.js';
@@ -60,15 +56,8 @@ export async function runOneE2eTestsCase(
   const errorLines: string[] = [];
   const imported = await import(pathToFileURL(options.testCaseTsPath).href);
   const testCase = imported.testCase as E2eTestCaseDefinition;
-  const sandboxDirectoryName = e2eTestsCaseRunnerConfig.sandboxDirectoryName;
-  const sandboxRoot = path.join(options.caseOutputRoot, sandboxDirectoryName);
-  const seeding = [
-    new SandboxDirNameForTestCase(sandboxDirectoryName, { dirName: sandboxDirectoryName }),
-    new DefaultSandboxPrefabPreset(sandboxDirectoryName, {
-      markdownContextFileName: testCase.config.sourceDefaults?.markdownContextFileName,
-    }),
-    ...(testCase.seeding ?? []),
-  ];
+  const sandboxRoot = options.caseOutputRoot;
+  const seeding = testCase.seeding ?? [];
 
   if (fs.existsSync(options.caseOutputRoot)) {
     fs.rmSync(options.caseOutputRoot, { recursive: true, force: true });
@@ -82,7 +71,7 @@ export async function runOneE2eTestsCase(
     repoRoot: options.repoRoot,
   });
 
-  const configPath = path.join(sandboxRoot, e2eTestsCaseRunnerConfig.configFileName);
+  const configPath = path.join(options.caseOutputRoot, e2eTestsCaseRunnerConfig.configFileName);
   fs.writeFileSync(configPath, toConfigFileContents(testCase.config), 'utf8');
 
   const commandEnv = {

@@ -1,5 +1,5 @@
-import { PrefabBase } from './prefab-base.js';
-import type { PrefabApplyContext } from './prefab-types.js';
+import { PrefabBase } from './common/prefab-base.js';
+import type { PrefabApplyContext } from './common/prefab-types.js';
 
 export interface FilePrefabOptions {
   /** Filename to write under `parentPaths` (extension is caller-defined). */

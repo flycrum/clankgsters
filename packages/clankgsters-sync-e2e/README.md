@@ -23,7 +23,7 @@ flowchart TD
 
 - Build each sandbox dynamically from prefab/preset classes under `scripts/prefabs/`.
 - Inject per-case config into generated sandbox `clankgsters.config.ts`.
-- Run clear then sync for each case against `CLANKGSTERS_REPO_ROOT=<case>/sandbox-template`.
+- Run clear then sync for each case against `CLANKGSTERS_REPO_ROOT=<case>`.
 - Compare expected fixture JSON in `scripts/test-cases/*.json` with generated manifest output.
 - Keep all case outputs under `sandboxes/.e2e-tests.run-results/case-{num}-{name}/` for inspection.
 

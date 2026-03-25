@@ -3,12 +3,12 @@ import {
   clankgstersIdentity,
 } from '../../../../clankgsters-sync/config/index.js';
 import { AgentPluginJsonPrefab } from '../agent-plugin-json.prefab.js';
+import { PrefabPresetBase } from '../common/prefab-preset-base.js';
+import type { PrefabExecutable } from '../common/prefab-types.js';
 import { PluginCommandMarkdownPrefab } from '../plugin-command-markdown.prefab.js';
 import { PluginRuleMarkdownPrefab } from '../plugin-rule-markdown.prefab.js';
 import { PluginSkillFilePrefab } from '../plugin-skill-file.prefab.js';
-import type { PrefabExecutable } from '../prefab-types.js';
 import { SkillFileNamePrefab } from '../skill-file-name.prefab.js';
-import { PrefabPresetBase } from './prefab-preset-base.js';
 
 export type PluginsSkillsScenarioMode = 'root-only' | 'nested-only-1' | 'root-and-nested-1';
 

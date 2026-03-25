@@ -33,6 +33,4 @@ export const e2eTestsCaseRunnerConfig = {
   manifestRelativePath: clankgstersIdentity.defaultSyncManifestRelativePath,
   /** When true, runs `clankgsters-sync:clear` before `clankgsters-sync:run` for each case. */
   runClearFirst: true,
-  /** Default dynamic sandbox directory name inside each case output root. */
-  sandboxDirectoryName: 'sandbox-template',
 };

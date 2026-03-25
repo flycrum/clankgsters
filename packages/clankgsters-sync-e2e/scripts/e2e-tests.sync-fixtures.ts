@@ -29,7 +29,7 @@ function getManifestPathForCase(sandboxRoot: string, testCase: E2eTestCaseDefini
 async function main(): Promise<void> {
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const packageRoot = path.resolve(scriptDir, '..');
-  const testCasesDir = path.join(scriptDir, 'test-cases');
+  const testCasesDir = e2eTestsPaths.getTestCasesRoot(scriptDir);
   const resultsRoot = e2eTestsPaths.getResultsRoot(packageRoot);
   const caseFiles = fs
     .readdirSync(testCasesDir)
@@ -41,7 +41,7 @@ async function main(): Promise<void> {
     const caseName = caseFile.replace(/\.ts$/, '');
     const caseDirName = e2eTestsPaths.formatCaseDirectoryName(caseIndex, caseName);
     const caseOutputRoot = path.join(resultsRoot, caseDirName);
-    const sandboxRoot = path.join(caseOutputRoot, e2eTestsPaths.SANDBOX_DEFAULT_DIR_NAME);
+    const sandboxRoot = caseOutputRoot;
     const imported = await import(pathToFileURL(path.join(testCasesDir, caseFile)).href);
     const testCase = imported.testCase as E2eTestCaseDefinition;
     const manifestPath = getManifestPathForCase(sandboxRoot, testCase);

@@ -1,4 +1,4 @@
-import type { PrefabApplyContext, PrefabExecutable } from '../prefab-types.js';
+import type { PrefabApplyContext, PrefabExecutable } from './prefab-types.js';
 
 /** Base class for presets that expand into one or more prefab instances. */
 export abstract class PrefabPresetBase<

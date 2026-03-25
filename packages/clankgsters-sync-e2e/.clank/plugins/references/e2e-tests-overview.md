@@ -9,14 +9,16 @@ Shared reference for the **@clankgsters/sync-e2e** harness: test case layout, ma
 
 ## What each case does
 
-- Clones `sandboxes/sandbox-template` to `sandboxes/.tests/current`, writes the case config as `clankgsters.config.ts`, sets **`CLANKGSTERS_REPO_ROOT`** to the sandbox, runs clear then sync, asserts manifest diff and filesystem.
-- On **pass**: removes `current`. On **failure**: renames `current` to `sandboxes/.tests/failed-<case-name>` for inspection.
+- Creates one dedicated output directory per case under `sandboxes/.e2e-tests.run-results/case-{n}-{name}`.
+- Seeds files/dirs from the case’s explicit `seeding` prefab list in `scripts/test-cases/<name>.ts`.
+- Writes `clankgsters.config.ts` into that case directory, sets **`CLANKGSTERS_REPO_ROOT`** to it, then runs clear and sync.
+- Keeps every case output directory (pass and fail) so fixture authoring/debugging is transparent.
 
 ## Case files
 
-- **Config:** `scripts/test-cases/<name>.ts` exports `testCase` from `e2eTestCase.define({ config, description, jsonPath })`. Config is built with `clankgstersConfig` from `@clankgsters/sync/config`.
+- **Config:** `scripts/test-cases/<name>.ts` exports `testCase` from `e2eTestCase.define({ config, description, jsonPath, seeding })`. Config is built with `clankgstersConfig` from `@clankgsters/sync/config`.
 - **Expected manifest:** colocated `scripts/test-cases/<name>.json` — shape of `.clankgsters-cache/sync-manifest.json` after sync (placeholders in JSON are resolved in the runner; see package `clankgstersIdentity`).
 
 ## Where sync writes
 
-Repo root for the run is the sandbox (`CLANKGSTERS_REPO_ROOT`), so discovery is limited to that tree’s configured source layouts (nested + shorthand variants for plugins/skills, including optional `.local` directories). Default manifest path: **`.clankgsters-cache/sync-manifest.json`** under the sandbox (override via `syncManifestPath` in config).
+Repo root for the run is the case output directory (`CLANKGSTERS_REPO_ROOT`), so discovery is limited to that tree’s configured source layouts (nested + shorthand variants for plugins/skills, including optional `.local` directories). Default manifest path: **`.clankgsters-cache/sync-manifest.json`** under the case output root (override via `syncManifestPath` in config).

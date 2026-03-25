@@ -1,8 +1,8 @@
 import { err, ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
+import { z } from 'zod';
 import { clankLogger } from '../../../common/logger.js';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 function settingsIoError(settingsRelPath: string, action: string, cause: unknown): Error {
@@ -12,18 +12,38 @@ function settingsIoError(settingsRelPath: string, action: string, cause: unknown
   });
 }
 
+const agentSettingsSyncPresetOptionsSchema = z.looseObject({
+  manifestKey: z.string().min(1).optional(),
+  marketplaceName: z.string().min(1).optional(),
+  settingsFile: z.string().min(1).nullable().optional(),
+});
+
+/** Typed options for `AgentSettingsSyncPreset`. */
+export interface AgentSettingsSyncPresetOptions {
+  /** Manifest key used by downstream settings integration bookkeeping. */
+  manifestKey?: string;
+  /** Local marketplace name used in `enabledPlugins` entries. */
+  marketplaceName?: string;
+  /** Repo-relative settings JSON path; `null` disables this behavior for an agent. */
+  settingsFile?: string | null;
+}
+
 /** Syncs per-agent IDE settings JSON with `extraKnownMarketplaces` and `enabledPlugins`. */
 export class AgentSettingsSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
     const localMarketplaceName = context.resolvedConfig.sourceDefaults.localMarketplaceName;
-    const options = {
-      manifestKey: presetConfig.CONSTANTS.AGENT_SETTINGS_MANIFEST_KEY,
+    const optionsParse = agentSettingsSyncPresetOptionsSchema.safeParse(
+      context.behaviorConfig.options
+    );
+    const optionsFallbacks = {
+      manifestKey: context.agentName,
       marketplaceName: localMarketplaceName,
-      settingsFile: presetConfig.CONSTANTS.AGENT_SETTINGS_FILE,
-      ...(context.behaviorConfig.options as Record<string, unknown>),
+      settingsFile: `.${context.agentName}/settings.json`,
+      ...(optionsParse.success ? optionsParse.data : {}),
     };
-    const settingsRelPath = presetConfig.CONSTANTS.AGENT_SETTINGS_FILE;
+    const settingsRelPath =
+      typeof optionsFallbacks.settingsFile === 'string' ? optionsFallbacks.settingsFile : null;
+    if (settingsRelPath == null) return ok(undefined);
     const settingsPath = path.join(context.outputRoot, settingsRelPath);
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
       if (!fs.existsSync(settingsPath)) return ok(undefined);
@@ -43,13 +63,14 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
     );
     const enabledPlugins: Record<string, boolean> = {};
     for (const plugin of plugins) {
-      enabledPlugins[`${plugin.manifestName ?? plugin.name}@${localMarketplaceName}`] = true;
+      enabledPlugins[`${plugin.manifestName ?? plugin.name}@${optionsFallbacks.marketplaceName}`] =
+        true;
     }
 
-    let parsed: Record<string, unknown> = {};
+    let settingsJson: Record<string, unknown> = {};
     if (fs.existsSync(settingsPath)) {
       try {
-        parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
+        settingsJson = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
       } catch (e) {
         clankLogger
           .getLogger()
@@ -57,7 +78,7 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
             { err: e, settingsRelPath },
             'agent settings JSON unreadable or invalid; merging from empty object'
           );
-        parsed = {};
+        settingsJson = {};
       }
     } else {
       try {
@@ -66,7 +87,7 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
         return err(settingsIoError(settingsRelPath, 'Failed to create settings directory', e));
       }
     }
-    parsed.extraKnownMarketplaces = {
+    settingsJson.extraKnownMarketplaces = {
       clankgstersSync: {
         source: {
           path: '.',
@@ -74,15 +95,15 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
         },
       },
     };
-    parsed.enabledPlugins = enabledPlugins;
+    settingsJson.enabledPlugins = enabledPlugins;
     try {
-      fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+      fs.writeFileSync(settingsPath, `${JSON.stringify(settingsJson, null, 2)}\n`, 'utf8');
     } catch (e) {
       return err(settingsIoError(settingsRelPath, 'Failed to write', e));
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options,
+      options: optionsFallbacks,
     });
     return ok(undefined);
   }

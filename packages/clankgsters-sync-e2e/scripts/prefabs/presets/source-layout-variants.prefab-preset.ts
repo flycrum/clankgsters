@@ -4,9 +4,9 @@ import {
 } from '../../../../clankgsters-sync/config/index.js';
 import { AgentPluginJsonPrefab } from '../agent-plugin-json.prefab.js';
 import { DirectoryPrefab } from '../directory-prefab.js';
-import type { PrefabExecutable } from '../prefab-types.js';
+import type { PrefabExecutable } from '../common/prefab-types.js';
 import { SkillFileNamePrefab } from '../skill-file-name.prefab.js';
-import { PrefabPresetBase } from './prefab-preset-base.js';
+import { PrefabPresetBase } from '../common/prefab-preset-base.js';
 
 export interface SourceLayoutVariantsPresetOptions {
   includeNestedLocal?: boolean;

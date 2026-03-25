@@ -24,7 +24,7 @@ async function main(): Promise<void> {
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const packageRoot = path.resolve(scriptDir, '..');
   const repoRoot = path.resolve(packageRoot, '..', '..');
-  const testCasesDir = path.join(scriptDir, 'test-cases');
+  const testCasesDir = e2eTestsPaths.getTestCasesRoot(scriptDir);
   const caseNameArg = process.argv[2];
   const testCases = fs
     .readdirSync(testCasesDir)

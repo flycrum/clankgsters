@@ -7,7 +7,10 @@
         "gitignoreComment": "\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md"
       },
-      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+      "symlinks": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ]
     },
     "AgentMarketplaceJsonSyncPreset": {
       "options": {
@@ -76,10 +79,15 @@
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgsters-claude-sync.json"
       },
-      "symlinks": [".claude/rules/root/root-rule.md"]
+      "symlinks": [
+        ".claude/rules/root/root-rule.md"
+      ]
     },
     "SkillsDirectorySyncPreset": {
-      "options": {},
+      "options": {
+        "nativeSkillsDir": ".claude/skills",
+        "skillsDirectorySyncEnabled": true
+      },
       "symlinks": [
         ".claude/skills/sample-skill",
         ".claude/skills/skill-nested-local",
@@ -89,16 +97,25 @@
       ],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".claude/skills/sample-skill", ".claude/skills/skill-nested-regular"]
+          "symlinks": [
+            ".claude/skills/sample-skill",
+            ".claude/skills/skill-nested-regular"
+          ]
         },
         "nestedLocal": {
-          "symlinks": [".claude/skills/skill-nested-local"]
+          "symlinks": [
+            ".claude/skills/skill-nested-local"
+          ]
         },
         "shorthandRegular": {
-          "symlinks": [".claude/skills/skill-shorthand-regular"]
+          "symlinks": [
+            ".claude/skills/skill-shorthand-regular"
+          ]
         },
         "shorthandLocal": {
-          "symlinks": [".claude/skills/skill-shorthand-local"]
+          "symlinks": [
+            ".claude/skills/skill-shorthand-local"
+          ]
         }
       }
     },

@@ -1,7 +1,7 @@
 import { clankgstersConfigDefaults } from '../../../../clankgsters-sync/config/index.js';
 import { MarkdownContextFileNamePrefab } from '../markdown-context-file-name.prefab.js';
-import type { PrefabExecutable } from '../prefab-types.js';
-import { PrefabPresetBase } from './prefab-preset-base.js';
+import { PrefabPresetBase } from '../common/prefab-preset-base.js';
+import type { PrefabExecutable } from '../common/prefab-types.js';
 
 export type MarkdownScenarioMode =
   | 'root-only'

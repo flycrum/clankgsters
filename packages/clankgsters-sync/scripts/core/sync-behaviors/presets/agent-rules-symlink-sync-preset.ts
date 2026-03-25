@@ -1,20 +1,40 @@
 import { ok, type Result } from 'neverthrow';
 import path from 'node:path';
+import { z } from 'zod';
 import { syncFs } from '../../../common/sync-fs.js';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
+
+const agentRulesSymlinkSyncPresetOptionsSchema = z.looseObject({
+  rulesDir: z.string().min(1).optional(),
+  syncManifest: z.string().min(1).nullable().optional(),
+});
+
+/** Typed options for `AgentRulesSymlinkSyncPreset`. */
+export interface AgentRulesSymlinkSyncPresetOptions {
+  /** Repo-relative rules directory where plugin rules symlink outputs are written. */
+  rulesDir?: string;
+  /** Optional sidecar JSON path for rules sync bookkeeping metadata. */
+  syncManifest?: string | null;
+}
 
 /** Symlinks plugin `rules` markdown files into an agent-native rules directory. */
 export class AgentRulesSymlinkSyncPreset extends SyncBehaviorBase {
   override syncRun(context: SyncBehaviorRunContext): Result<void, Error> {
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
-    const rulesDirRel = presetConfig.CONSTANTS.AGENT_RULES_DIR;
-    const rulesDir = path.join(context.outputRoot, rulesDirRel);
+    const parsed = agentRulesSymlinkSyncPresetOptionsSchema.safeParse(
+      context.behaviorConfig.options
+    );
+    const optionsFallbacks = {
+      rulesDir: null,
+      ...(parsed.success ? parsed.data : {}),
+    };
+    const rulesDirRel = optionsFallbacks.rulesDir;
 
     if (context.manifestEntry != null)
       syncManifest.teardownEntry(context.outputRoot, context.manifestEntry);
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) return ok(undefined);
+    if (rulesDirRel == null) return ok(undefined);
+    const rulesDir = path.join(context.outputRoot, rulesDirRel);
 
     syncFs.ensureDir(rulesDir);
     const symlinks: string[] = [];
@@ -35,7 +55,7 @@ export class AgentRulesSymlinkSyncPreset extends SyncBehaviorBase {
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options: context.behaviorConfig.options,
+      options: optionsFallbacks,
       symlinks,
     });
     return ok(undefined);

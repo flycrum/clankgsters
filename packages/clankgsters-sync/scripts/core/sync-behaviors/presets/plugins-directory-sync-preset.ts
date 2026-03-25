@@ -1,10 +1,10 @@
 import { ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
+import { z } from 'zod';
 import { syncFs } from '../../../common/sync-fs.js';
-import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
-import type { SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
 import { syncManifest } from '../../run/sync-manifest.js';
+import type { SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 interface PluginsDirectoryLayoutEntry {
@@ -28,6 +28,19 @@ function createPluginsDirectoryCustomData(): Record<
   };
 }
 
+const pluginsDirectorySyncPresetOptionsSchema = z.looseObject({
+  rulesMarkdownFrontmatter: z.string().nullable().optional(),
+  targetRoot: z.string().min(1).optional(),
+});
+
+/** Typed options for `PluginsDirectorySyncPreset`. */
+export interface PluginsDirectorySyncPresetOptions {
+  /** Root output directory where mirrored plugin content should be written. */
+  targetRoot?: string;
+  /** Optional frontmatter prepended when writing converted `.mdc` rules files. */
+  rulesMarkdownFrontmatter?: string | null;
+}
+
 /** Syncs plugin content directories (rules/commands/skills/agents) into agent-local content roots. */
 export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
   private isExcluded(relPath: string, excluded: string[]): boolean {
@@ -42,11 +55,15 @@ export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
     const symlinks: string[] = [];
     const fsAutoRemoval: string[] = [];
     const customData = createPluginsDirectoryCustomData();
-    const presetConfig = agentPresetConfigs.resolve(context.agentName);
-    const targetRoot = path.join(
-      context.outputRoot,
-      presetConfig.CONSTANTS.PLUGINS_DIRECTORY_TARGET_ROOT ?? `.${context.agentName}`
+    const parsed = pluginsDirectorySyncPresetOptionsSchema.safeParse(
+      context.behaviorConfig.options
     );
+    const optionsFallbacks = {
+      targetRoot: `.${context.agentName}`,
+      rulesMarkdownFrontmatter: null,
+      ...(parsed.success ? parsed.data : {}),
+    };
+    const targetRoot = path.join(context.outputRoot, optionsFallbacks.targetRoot);
     syncFs.ensureDir(targetRoot);
 
     for (const marketplace of context.discoveredMarketplaces) {
@@ -79,7 +96,7 @@ export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
           syncFs.ensureDir(path.dirname(targetPath));
           fs.writeFileSync(
             targetPath,
-            `${presetConfig.CONSTANTS.AGENT_RULES_MARKDOWN_FRONTMATTER ?? ''}${markdown}`,
+            `${optionsFallbacks.rulesMarkdownFrontmatter ?? ''}${markdown}`,
             'utf8'
           );
           fsAutoRemoval.push(targetRel);
@@ -89,7 +106,7 @@ export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
-      options: context.behaviorConfig.options,
+      options: optionsFallbacks,
       symlinks,
       fsAutoRemoval,
       customData,

@@ -2,7 +2,8 @@ import { isPlainObject } from 'lodash-es';
 import { err, ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
-import { agentPresetConfigs } from '../agents/agent-presets/agent-preset-configs.js';
+import { agentPluginManifestDir } from '../agents/agent-presets/agent-plugin-manifest-dir.js';
+import { agentCommonValues } from '../agents/agent-presets/agent-common-values.js';
 import type { ClankgstersSourceDefaultsConfig } from '../configs/clankgsters-config.schema.js';
 import { syncSourceLayouts, type SyncSourceLayoutKey } from './sync-source-layouts.js';
 
@@ -87,7 +88,14 @@ function discoverPluginsInDir(input: DiscoverPluginsInDirInput): DiscoveredPlugi
     const manifests: PluginManifestMap = {};
     let firstManifestPath: string | null = null;
     for (const agentName of agentNames) {
-      const manifestDir = agentPresetConfigs.resolve(agentName).CONSTANTS.PLUGIN_MANIFEST_DIR;
+      const manifestDir = agentPluginManifestDir.resolve(
+        agentName,
+        agentCommonValues.resolve(agentName).agentPluginManifestDir
+      );
+      if (manifestDir == null) {
+        manifests[agentName] = false;
+        continue;
+      }
       const manifestPath = path.join(pluginPath, manifestDir, 'plugin.json');
       const present = fs.existsSync(manifestPath);
       manifests[agentName] = present;

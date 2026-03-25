@@ -1,4 +1,7 @@
 import { AgentPluginJsonPrefab } from './agent-plugin-json.prefab.js';
+import { PrefabBase } from './common/prefab-base.js';
+import { PrefabPresetBase } from './common/prefab-preset-base.js';
+import type { PrefabApplyContext, PrefabExecutable } from './common/prefab-types.js';
 import { DirectoryPrefab } from './directory-prefab.js';
 import { FilePrefab } from './file-prefab.js';
 import { JsonFilePrefab } from './json-file-prefab.js';
@@ -7,22 +10,17 @@ import { MarkdownContextFileNamePrefab } from './markdown-context-file-name.pref
 import { MarkdownFilePrefab } from './markdown-file-prefab.js';
 import { PluginCommandMarkdownPrefab } from './plugin-command-markdown.prefab.js';
 import { PluginRuleMarkdownPrefab } from './plugin-rule-markdown.prefab.js';
-import { PluginsDirPrefab } from './plugins-dir.prefab.js';
 import { PluginSkillFilePrefab } from './plugin-skill-file.prefab.js';
-import { PrefabBase } from './prefab-base.js';
-import { SandboxDirNameForTestCase } from './sandbox-dir-name-for-test-case.prefab.js';
+import { PluginsDirPrefab } from './plugins-dir.prefab.js';
+import { PluginsLocalDirPrefab } from './plugins-local-dir.prefab.js';
+import { DefaultSandboxPrefabPreset } from './presets/default-sandbox.prefab-preset.js';
+import { MarkdownContextScenarioPreset } from './presets/markdown-context-scenario.prefab-preset.js';
+import { PluginsSkillsScenarioPreset } from './presets/plugins-skills-scenario.prefab-preset.js';
+import { SourceLayoutVariantsPreset } from './presets/source-layout-variants.prefab-preset.js';
 import { SkillFileNamePrefab } from './skill-file-name.prefab.js';
 import { SkillsDirPrefab } from './skills-dir.prefab.js';
 import { SkillsLocalDirPrefab } from './skills-local-dir.prefab.js';
 import { SourceDirPrefab } from './source-dir.prefab.js';
-import { PluginsLocalDirPrefab } from './plugins-local-dir.prefab.js';
-import { DefaultSandboxPrefabPreset } from './presets/default-sandbox.prefab-preset.js';
-import { MarkdownContextScenarioPreset } from './presets/markdown-context-scenario.prefab-preset.js';
-import { PrefabPresetBase } from './presets/prefab-preset-base.js';
-import { PluginsSkillsScenarioPreset } from './presets/plugins-skills-scenario.prefab-preset.js';
-import { SourceLayoutVariantsPreset } from './presets/source-layout-variants.prefab-preset.js';
-import type { PrefabExecutable } from './prefab-types.js';
-import type { PrefabApplyContext } from './prefab-types.js';
 
 /** Registry list of concrete prefab classes available to test cases. */
 const PREFAB_CLASSES = [
@@ -38,7 +36,6 @@ const PREFAB_CLASSES = [
   PluginsDirPrefab,
   PluginsLocalDirPrefab,
   PluginSkillFilePrefab,
-  SandboxDirNameForTestCase,
   SkillFileNamePrefab,
   SkillsDirPrefab,
   SkillsLocalDirPrefab,
@@ -79,17 +76,16 @@ export {
   PluginCommandMarkdownPrefab,
   PluginRuleMarkdownPrefab,
   PluginsDirPrefab,
+  PluginSkillFilePrefab,
   PluginsLocalDirPrefab,
   PluginsSkillsScenarioPreset,
-  SourceLayoutVariantsPreset,
-  PluginSkillFilePrefab,
   PrefabBase,
   PrefabPresetBase,
-  SandboxDirNameForTestCase,
   SkillFileNamePrefab,
   SkillsDirPrefab,
   SkillsLocalDirPrefab,
   SourceDirPrefab,
+  SourceLayoutVariantsPreset,
 };
 
-export type { PrefabApplyContext, PrefabExecutable } from './prefab-types.js';
+export type { PrefabApplyContext, PrefabExecutable } from './common/prefab-types.js';

@@ -1,6 +1,6 @@
 ---
 name: clankgsters-e2e-debug-case
-description: Diagnose a failing e2e case by comparing expected JSON to actual manifest under sandboxes/.tests/failed-<name>/.
+description: Diagnose a failing e2e case by comparing expected JSON to actual manifest under sandboxes/.e2e-tests.run-results/case-*-<name>/.
 ---
 
 # Debug a failing e2e case
@@ -11,14 +11,14 @@ description: Diagnose a failing e2e case by comparing expected JSON to actual ma
 
 ## Flow
 
-1. Re-run the case so the harness keeps **`sandboxes/.tests/failed-<name>/`** (from `packages/clankgsters-sync-e2e`):
+1. Re-run the case so the harness refreshes **`sandboxes/.e2e-tests.run-results/case-*-<name>/`** (from `packages/clankgsters-sync-e2e`):
 
    ```bash
    pnpm exec tsx scripts/e2e-tests.run.harness.ts <name>
    ```
 
 2. **Expected:** `scripts/test-cases/<name>.json`  
-   **Actual:** `sandboxes/.tests/failed-<name>/.clankgsters-cache/sync-manifest.json` (unless `syncManifestPath` overrides)
+   **Actual:** `sandboxes/.e2e-tests.run-results/case-*-<name>/.clankgsters-cache/sync-manifest.json` (unless `syncManifestPath` overrides)
 
 3. Diff mentally or with the same rules as `scripts/utils/diff-manifest.ts` (added / removed / modified paths).
 

@@ -1,18 +1,17 @@
 import { clankgstersConfig } from '../../../clankgsters-sync/config/index.js';
 import { e2eTestCase } from '../define-e2e-test-case.js';
-
-const config = clankgstersConfig.define({
-  agents: {
-    claude: true,
-    codex: false,
-    cursor: false,
-  },
-  syncCacheDir: '.alt-cache',
-});
+import { DefaultSandboxPrefabPreset } from '../prefabs/prefabs.js';
 
 export const testCase = e2eTestCase.define({
-  config,
+  config: clankgstersConfig.define({
+    agents: {
+      claude: true,
+      codex: false,
+      cursor: false,
+    },
+    syncCacheDir: '.alt-cache',
+  }),
   description: 'Custom syncCacheDir writes manifest under a non-default cache directory.',
   jsonPath: 'test-cases/sync-cache-dir.json',
-  seeding: e2eTestCase.definePrefabs([]),
+  seeding: e2eTestCase.definePrefabs([new DefaultSandboxPrefabPreset('', {})]),
 });
