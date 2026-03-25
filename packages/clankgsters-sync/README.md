@@ -43,3 +43,12 @@ Sync loads `clankgsters.config.ts` from the **repository root** (the tree that c
 - **Published CLI:** `clankgsters-sync` (see `package.json` → `bin`) sets `CLANKGSTERS_REPO_ROOT` to the **current working directory** and runs the sync entry with this package’s `tsx` loader (for global or linked installs).
 
 Implementation details live in `src/common/path-helpers.ts` (TSDoc).
+
+## Licensing
+
+This package is intended to be practical to adopt in open-source and enterprise projects.
+
+- The published npm artifact for `@clankgsters/sync` is licensed under MIT (see `LICENSE` in this package).
+- Repository source in the monorepo follows the PolyForm Noncommercial License 1.0.0 (see the root `LICENSE`).
+- The npm artifact currently includes `src/` and `scripts/` for typing and CLI developer experience, and those shipped files are covered by the package MIT license.
+- This structure keeps installed package usage simple while keeping source-sharing expectations explicit.

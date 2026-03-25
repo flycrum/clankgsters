@@ -2,7 +2,7 @@
   "name": "@clankgsters/sync",
   "version": "0.0.1",
   "description": "Node tooling and TypeScript scripts for Clankgsters sync workflows (publishable).",
-  "license": "Unlicense",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/flycrum/clankgsters.git",

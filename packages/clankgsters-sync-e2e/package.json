@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "E2E tests for @clankgsters/sync (sandbox + manifest assertions).",
-  "license": "Unlicense",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "type": "module",
   "scripts": {
     "build": "node --eval \"process.exit(0)\"",

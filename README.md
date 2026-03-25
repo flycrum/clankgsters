@@ -29,3 +29,11 @@ Prereqs: **Node 22.12+** and global **`vp`** ([install](https://viteplus.dev/gui
 ## One more thing...for you humanoid
 
 Not only does this monorepo contain the source for the Clankgsters sync system, we're also a customer and use it to create, modify, and maintain our codebase! 😎
+
+## Licensing
+
+Clankgsters is built to be openly usable by developers and teams while keeping source stewardship clear.
+
+- Source code in this repository is licensed under the PolyForm Noncommercial License 1.0.0 (see `LICENSE`).
+- The published npm package `@clankgsters/sync` is distributed under MIT (see `packages/clankgsters-sync/LICENSE`).
+- This split keeps npm usage straightforward in real projects, while the repository source stays aligned with a noncommercial source-sharing model.

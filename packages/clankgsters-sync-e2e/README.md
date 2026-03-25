@@ -57,3 +57,10 @@ From this package:
   That copies each case’s generated manifest and file-structure snapshot into `scripts/test-cases/<caseId>/` as `case-sync-manifest.json` and `case-file-structure.json`.
 
 - Re-run `pnpm e2e-tests:run` until green.
+
+## Licensing
+
+This package is part of the Clankgsters source workspace and follows the repository source license.
+
+- Source code in this package is licensed under the PolyForm Noncommercial License 1.0.0 (see root `LICENSE`).
+- The separately published package `@clankgsters/sync` is MIT-licensed in its npm artifact (see `packages/clankgsters-sync/LICENSE`).
