@@ -15,9 +15,7 @@ export class MarkdownSectionSyncPreset extends SyncBehaviorBase {
     const outputRootResolved = path.resolve(context.outputRoot);
     const defaultMarkdownRel = context.resolvedConfig.sourceDefaults.markdownContextFileName;
     const markdownContextPath =
-      typeof options.agentsFile === 'string'
-        ? options.agentsFile
-        : defaultMarkdownRel;
+      typeof options.agentsFile === 'string' ? options.agentsFile : defaultMarkdownRel;
     const candidateResolved = path.resolve(outputRootResolved, markdownContextPath);
     let filePath: string;
     if (pathHelpers.isResolvedPathUnderRoot(outputRootResolved, candidateResolved)) {
