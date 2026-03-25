@@ -1,8 +1,15 @@
-import { ok, type Result } from 'neverthrow';
+import { err, ok, type Result } from 'neverthrow';
 import fs from 'node:fs';
 import path from 'node:path';
 import { agentPresetConfigs } from '../../agents/agent-presets/agent-preset-configs.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
+
+function settingsIoError(settingsRelPath: string, action: string, cause: unknown): Error {
+  const base = cause instanceof Error ? cause : new Error(String(cause));
+  return new Error(`${action} agent settings at ${settingsRelPath}: ${base.message}`, {
+    cause: base,
+  });
+}
 
 /** Syncs per-agent IDE settings JSON with `extraKnownMarketplaces` and `enabledPlugins`. */
 export class AgentSettingsSyncPreset extends SyncBehaviorBase {
@@ -19,10 +26,14 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
     const settingsPath = path.join(context.outputRoot, settingsRelPath);
     if (context.mode === 'clear' || context.behaviorConfig.enabled === false) {
       if (!fs.existsSync(settingsPath)) return ok(undefined);
-      const parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
-      delete parsed.enabledPlugins;
-      delete parsed.extraKnownMarketplaces;
-      fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+      try {
+        const parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
+        delete parsed.enabledPlugins;
+        delete parsed.extraKnownMarketplaces;
+        fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+      } catch (e) {
+        return err(settingsIoError(settingsRelPath, 'Failed to read, parse, or write', e));
+      }
       return ok(undefined);
     }
 
@@ -36,9 +47,17 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
 
     let parsed: Record<string, unknown> = {};
     if (fs.existsSync(settingsPath)) {
-      parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
+      try {
+        parsed = JSON.parse(fs.readFileSync(settingsPath, 'utf8')) as Record<string, unknown>;
+      } catch (e) {
+        return err(settingsIoError(settingsRelPath, 'Failed to read or parse', e));
+      }
     } else {
-      fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+      try {
+        fs.mkdirSync(path.dirname(settingsPath), { recursive: true });
+      } catch (e) {
+        return err(settingsIoError(settingsRelPath, 'Failed to create settings directory', e));
+      }
     }
     parsed.extraKnownMarketplaces = {
       clankgstersSync: {
@@ -49,7 +68,11 @@ export class AgentSettingsSyncPreset extends SyncBehaviorBase {
       },
     };
     parsed.enabledPlugins = enabledPlugins;
-    fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+    try {
+      fs.writeFileSync(settingsPath, `${JSON.stringify(parsed, null, 2)}\n`, 'utf8');
+    } catch (e) {
+      return err(settingsIoError(settingsRelPath, 'Failed to write', e));
+    }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
       options,
