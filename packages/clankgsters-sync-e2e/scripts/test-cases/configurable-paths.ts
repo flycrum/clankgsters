@@ -24,4 +24,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'Source defaults override uses .yoyo and YOYO.md for context symlink discovery.',
   jsonPath: 'test-cases/configurable-paths.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

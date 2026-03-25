@@ -39,7 +39,7 @@ Full package docs: [packages/clankgsters-sync/README.md](../../README.md). Curso
 
 ## E2E tests
 
-**`packages/clankgsters-sync-e2e`** — sandbox template, manifest diff, `CLANKGSTERS_REPO_ROOT`. Monorepo: `pnpm test:e2e`.
+**`packages/clankgsters-sync-e2e`** — sandbox template, manifest diff, `CLANKGSTERS_REPO_ROOT`. Monorepo: `pnpm e2e-tests:run`.
 
 ---
 

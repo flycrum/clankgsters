@@ -30,4 +30,4 @@ Sync reads **`clankgsters.config.ts`** at repo root (merged with optional local 
 
 ## E2E
 
-Sandbox tests live in **`packages/clankgsters-sync-e2e`**. From monorepo root: `pnpm test:e2e`.
+Sandbox tests live in **`packages/clankgsters-sync-e2e`**. From monorepo root: `pnpm e2e-tests:run`.

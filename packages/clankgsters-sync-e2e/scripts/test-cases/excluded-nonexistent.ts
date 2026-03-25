@@ -24,4 +24,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'Excluded non-existent path; sync unchanged.',
   jsonPath: 'test-cases/excluded-nonexistent.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

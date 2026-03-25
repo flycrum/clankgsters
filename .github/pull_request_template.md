@@ -16,7 +16,7 @@
 - [ ] Tests pass (or changes are intentional). Typical **`vp`** flows:
   - Full monorepo: `vp run @clankgsters/sync#build && vp run -r test`
   - `@clankgsters/sync` only: `vp run --filter @clankgsters/sync test` (`vp test` in that package)
-  - E2E package: `pnpm test:e2e` (harness) or `vp run --filter @clankgsters/sync-e2e test` (Vitest in that package)
+  - E2E package: `pnpm e2e-tests:run` (harness) or `vp run --filter @clankgsters/sync-e2e test` (Vitest in that package)
   - Optional coverage in a package: `vp test run --coverage`
 - [ ] Docs/README updated if behavior or config changed
 - [ ] No PII or secrets in logs or committed files

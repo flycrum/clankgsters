@@ -4,8 +4,8 @@ Shared reference for the **@clankgsters/sync-e2e** harness: test case layout, ma
 
 ## How to run
 
-- **All cases** (from package): `pnpm run test:e2e`. From monorepo root: `pnpm test:e2e` or `pnpm -F @clankgsters/sync-e2e run test:e2e`.
-- **One case** (from package): `pnpm exec tsx scripts/e2e-harness.ts <case-name>` (e.g. `basic`). From root: `pnpm -F @clankgsters/sync-e2e exec tsx scripts/e2e-harness.ts basic` (with cwd set to the e2e package, or use `pnpm -F @clankgsters/sync-e2e run test:e2e --` if wired).
+- **All cases** (from package): `pnpm run e2e-tests:run`. From monorepo root: `pnpm e2e-tests:run` or `pnpm -F @clankgsters/sync-e2e run e2e-tests:run`.
+- **One case** (from package): `pnpm exec tsx scripts/e2e-tests.run.harness.ts <case-name>` (e.g. `basic`). From root: `pnpm -F @clankgsters/sync-e2e exec tsx scripts/e2e-tests.run.harness.ts basic` (with cwd set to the e2e package, or use `pnpm -F @clankgsters/sync-e2e run e2e-tests:run --` if wired).
 
 ## What each case does
 

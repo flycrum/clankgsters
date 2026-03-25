@@ -9,8 +9,10 @@
     "check": "vp check",
     "clankgsters-sync:clear": "pnpm -F @clankgsters/sync run clankgsters-sync:clear",
     "clankgsters-sync:run": "pnpm -F @clankgsters/sync run clankgsters-sync:run",
-    "test": "vp run @clankgsters/sync#build && vp run -r test",
-    "test:e2e": "pnpm -F @clankgsters/sync-e2e run test:e2e"
+    "e2e-tests:clear": "pnpm -F @clankgsters/sync-e2e run e2e-tests:clear",
+    "e2e-tests:run": "pnpm -F @clankgsters/sync-e2e run e2e-tests:run",
+    "e2e-tests:sync-fixtures": "pnpm -F @clankgsters/sync-e2e run e2e-tests:sync-fixtures",
+    "test": "vp run @clankgsters/sync#build && vp run -r test"
   },
   "devDependencies": {
     "@clankgsters/vite-plus-config": "workspace:*",

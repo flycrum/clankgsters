@@ -17,19 +17,19 @@ Use when you need **every** config-driven case under `scripts/test-cases/`.
 From **monorepo root**:
 
 ```bash
-pnpm test:e2e
+pnpm e2e-tests:run
 ```
 
 Or:
 
 ```bash
-pnpm -F @clankgsters/sync-e2e run test:e2e
+pnpm -F @clankgsters/sync-e2e run e2e-tests:run
 ```
 
 From **`packages/clankgsters-sync-e2e`**:
 
 ```bash
-pnpm run test:e2e
+pnpm run e2e-tests:run
 ```
 
 ## Reference

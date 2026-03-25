@@ -24,4 +24,5 @@ export const testCase = e2eTestCase.define({
   description:
     'All three preset agents plus one codex-like custom agent; discovery limited to sandbox (root + nested plugins).',
   jsonPath: 'test-cases/basic.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

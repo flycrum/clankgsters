@@ -21,20 +21,30 @@ flowchart TD
 
 ## What they do
 
-- Clone `sandboxes/sandbox-template/` into `sandboxes/.tests/current`.
-- Inject the test case config into sandbox `clankgsters.config.ts`.
-- Run clear then sync using package scripts.
-- Compare expected manifest JSON with actual manifest JSON.
-- Keep failed sandboxes as `failed-<case-name>` for inspection.
-- Sandbox fixtures follow `.clank` source conventions and `CLANK.md` context files.
+- Build each sandbox dynamically from prefab/preset classes under `scripts/prefabs/`.
+- Inject per-case config into generated sandbox `clankgsters.config.ts`.
+- Run clear then sync for each case against `CLANKGSTERS_REPO_ROOT=<case>/sandbox-template`.
+- Compare expected fixture JSON in `scripts/test-cases/*.json` with generated manifest output.
+- Keep all case outputs under `sandboxes/.e2e-tests.run-results/case-{num}-{name}/` for inspection.
 
 ## Run
 
 From repository root:
 
-- `pnpm test:e2e`
+- `pnpm e2e-tests:run`
+- `pnpm e2e-tests:clear`
+- `pnpm e2e-tests:sync-fixtures`
 
 From this package:
 
 - `pnpm test`
-- `tsx scripts/e2e-harness.ts [case-name]`
+- `tsx scripts/e2e-tests.run.harness.ts [case-name]`
+- `tsx scripts/e2e-tests.clear.ts`
+- `tsx scripts/e2e-tests.sync-fixtures.ts`
+
+## Fixture authoring loop
+
+- Run `pnpm e2e-tests:run` to generate per-case outputs under `.e2e-tests.run-results`.
+- Inspect case output directories to confirm generated trees/manifests.
+- Run `pnpm e2e-tests:sync-fixtures` to copy manifests into `scripts/test-cases/*.json`.
+- Re-run `pnpm e2e-tests:run` until green.

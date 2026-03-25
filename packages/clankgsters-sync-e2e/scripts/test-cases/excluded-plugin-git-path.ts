@@ -25,4 +25,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'Exclude plugin by path .clank/plugins/root; assert root plugin content removed.',
   jsonPath: 'test-cases/excluded-plugin-git-path.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

@@ -1,0 +1,66 @@
+{
+  "claude": {
+    "MarkdownSymlinkSyncPreset": {
+      "options": {
+        "sourceFile": "CLANK.md",
+        "targetFile": "CLAUDE.md",
+        "gitignoreComment": "\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n",
+        "gitignoreEntry": "CLAUDE.md"
+      },
+      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+    },
+    "AgentMarketplaceJsonSyncPreset": {
+      "options": {
+        "manifestKey": "claude",
+        "marketplaceFile": ".claude-plugin/marketplace.json",
+        "marketplaceName": "clankgsters-sync",
+        "sourceFormat": "relative"
+      },
+      "customData": {
+        "nestedRegular": {
+          "plugins": [
+            {
+              "name": "nested",
+              "source": "packages/app/.clank/plugins/nested",
+              "description": "nested plugin",
+              "version": "0.0.1"
+            },
+            {
+              "name": "root",
+              "source": ".clank/plugins/root",
+              "description": "root plugin",
+              "version": "0.0.1"
+            }
+          ]
+        },
+        "nestedLocal": {
+          "plugins": []
+        },
+        "shorthandRegular": {
+          "plugins": []
+        },
+        "shorthandLocal": {
+          "plugins": []
+        }
+      }
+    },
+    "SkillsDirectorySyncPreset": {
+      "options": {},
+      "symlinks": [".claude/skills/sample-skill"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [".claude/skills/sample-skill"]
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
+    }
+  }
+}

@@ -33,4 +33,5 @@ export const testCase = e2eTestCase.define({
   description:
     'Claude with AgentRulesSymlinkSyncPreset disabled plus one codex-like custom agent; cursor and codex disabled.',
   jsonPath: 'test-cases/disable-claude-rules.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

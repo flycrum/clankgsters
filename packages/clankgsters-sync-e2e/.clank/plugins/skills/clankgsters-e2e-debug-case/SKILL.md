@@ -14,7 +14,7 @@ description: Diagnose a failing e2e case by comparing expected JSON to actual ma
 1. Re-run the case so the harness keeps **`sandboxes/.tests/failed-<name>/`** (from `packages/clankgsters-sync-e2e`):
 
    ```bash
-   pnpm exec tsx scripts/e2e-harness.ts <name>
+   pnpm exec tsx scripts/e2e-tests.run.harness.ts <name>
    ```
 
 2. **Expected:** `scripts/test-cases/<name>.json`  

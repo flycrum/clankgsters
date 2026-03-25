@@ -25,4 +25,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'Excluded [packages]; nested plugin (under packages/app) excluded from sync.',
   jsonPath: 'test-cases/excluded-packages.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

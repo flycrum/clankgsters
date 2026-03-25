@@ -24,4 +24,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'One excluded path (sandbox root plugin command); all presets enabled.',
   jsonPath: 'test-cases/excluded-one-file.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });

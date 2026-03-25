@@ -1,0 +1,20 @@
+{
+  "name": "clankgsters-sync",
+  "owner": {
+    "name": "clankgsters"
+  },
+  "plugins": [
+    {
+      "name": "nested",
+      "source": "./packages/app/.clank/plugins/nested",
+      "description": "nested plugin",
+      "version": "0.0.1"
+    },
+    {
+      "name": "root",
+      "source": "./.clank/plugins/root",
+      "description": "root plugin",
+      "version": "0.0.1"
+    }
+  ]
+}

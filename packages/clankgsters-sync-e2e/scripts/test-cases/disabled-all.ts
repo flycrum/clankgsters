@@ -18,4 +18,5 @@ export const testCase = e2eTestCase.define({
   config,
   description: 'All preset agents disabled; manifest should have no agent entries.',
   jsonPath: 'test-cases/disabled-all.json',
+  seeding: e2eTestCase.definePrefabs([]),
 });
