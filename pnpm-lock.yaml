@@ -48,9 +48,6 @@ importers:
 
   .:
     devDependencies:
-      '@clankgsters/sync':
-        specifier: workspace:*
-        version: link:packages/clankgsters-sync
       '@clankgsters/vite-plus-config':
         specifier: workspace:*
         version: link:configs/vite-plus-config
