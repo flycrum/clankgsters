@@ -97,31 +97,19 @@
       "path": ".claude/skills"
     },
     {
-      "kind": "dir",
-      "path": ".claude/skills/nested-nested-fake-skill"
+      "kind": "symlink",
+      "path": ".claude/skills/nested-nested-fake-skill",
+      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
     },
     {
-      "kind": "file",
-      "path": ".claude/skills/nested-nested-fake-skill/SKILL.md",
-      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+      "kind": "symlink",
+      "path": ".claude/skills/root-root-fake-skill",
+      "symlinkTarget": "../../.clank/plugins/root/skills/root-fake-skill"
     },
     {
-      "kind": "dir",
-      "path": ".claude/skills/root-root-fake-skill"
-    },
-    {
-      "kind": "file",
-      "path": ".claude/skills/root-root-fake-skill/SKILL.md",
-      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
-    },
-    {
-      "kind": "dir",
-      "path": ".claude/skills/sample-skill"
-    },
-    {
-      "kind": "file",
-      "path": ".claude/skills/sample-skill/SKILL.md",
-      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+      "kind": "symlink",
+      "path": ".claude/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
     },
     {
       "kind": "file",
@@ -134,9 +122,9 @@
       "hash": "sha256:d38a2dcd0c1baee840fb0701366f17e1b803a276816908a0456d1ae5dd6bdb16"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "CLAUDE.md",
-      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
+      "symlinkTarget": "CLANK.md"
     },
     {
       "kind": "dir",
@@ -204,9 +192,9 @@
       "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "packages/app/CLAUDE.md",
-      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
+      "symlinkTarget": "CLANK.md"
     }
   ],
   "version": 1

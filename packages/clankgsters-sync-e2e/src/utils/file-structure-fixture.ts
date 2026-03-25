@@ -23,9 +23,9 @@ export type {
  */
 export const fileStructureFixture = {
   /**
-   * Walks a directory tree and builds a stable fixture snapshot of files and directories.
+   * Walks a directory tree with `fs.lstatSync` (symlinks are `kind: 'symlink'`, not followed) and builds a stable snapshot.
    * @param root - Absolute path to the directory root (typically the case sandbox).
-   * @returns Sorted `entries` with optional `hash` per file and optional `meta` when config flags allow.
+   * @returns Sorted `entries` with optional `hash` per file, `symlinkTarget` per symlink, optional `meta` when config flags allow.
    */
   buildSnapshot(root: string): FileStructureFixture {
     const normalizedRoot = path.resolve(root);
@@ -37,23 +37,33 @@ export const fileStructureFixture = {
       if (relativePath == null) break;
       const absolutePath =
         relativePath === '.' ? normalizedRoot : path.join(normalizedRoot, relativePath);
-      const stat = fs.statSync(absolutePath);
+      const lstat = fs.lstatSync(absolutePath);
       if (relativePath !== '.') {
-        if (stat.isDirectory()) {
+        const posixPath = relativePath.split(path.sep).join('/');
+        if (lstat.isSymbolicLink()) {
+          const rawTarget = fs.readlinkSync(absolutePath, { encoding: 'utf8' });
           const entry: FileStructureFixtureEntry = {
-            kind: 'dir',
-            path: relativePath.split(path.sep).join('/'),
+            kind: 'symlink',
+            path: posixPath,
+            symlinkTarget: fileStructureFixtureConfig.normalizeSymlinkTarget(rawTarget),
           };
-          const meta = fileStructureFixtureConfig.metaFromStat(stat);
+          const meta = fileStructureFixtureConfig.metaFromStat(lstat);
           if (meta != null) entry.meta = meta;
           entries.push(entry);
-        } else if (stat.isFile()) {
-          const posixPath = relativePath.split(path.sep).join('/');
+        } else if (lstat.isDirectory()) {
+          const entry: FileStructureFixtureEntry = {
+            kind: 'dir',
+            path: posixPath,
+          };
+          const meta = fileStructureFixtureConfig.metaFromStat(lstat);
+          if (meta != null) entry.meta = meta;
+          entries.push(entry);
+        } else if (lstat.isFile()) {
           const entry: FileStructureFixtureEntry = {
             kind: 'file',
             path: posixPath,
           };
-          const meta = fileStructureFixtureConfig.metaFromStat(stat);
+          const meta = fileStructureFixtureConfig.metaFromStat(lstat);
           if (meta != null) entry.meta = meta;
           if (!fileStructureFixtureConfig.unstableFileHashPaths.has(posixPath)) {
             entry.hash = fileStructureFixtureConfig.createHash(fs.readFileSync(absolutePath));
@@ -61,7 +71,7 @@ export const fileStructureFixture = {
           entries.push(entry);
         }
       }
-      if (!stat.isDirectory()) continue;
+      if (!lstat.isDirectory()) continue;
       const children = fs
         .readdirSync(absolutePath)
         .sort((left, right) => left.localeCompare(right));
@@ -114,6 +124,13 @@ export const fileStructureFixture = {
         expectedEntry.hash !== actualEntry.hash
       ) {
         reasons.push('hash');
+      }
+      if (
+        expectedEntry.kind === 'symlink' &&
+        actualEntry.kind === 'symlink' &&
+        (expectedEntry.symlinkTarget ?? '') !== (actualEntry.symlinkTarget ?? '')
+      ) {
+        reasons.push('symlinkTarget');
       }
       reasons.push(...fileStructureFixtureConfig.compareMeta(expectedEntry.meta, actualEntry.meta));
       if (reasons.length > 0) {

@@ -110,22 +110,14 @@
       "path": ".claude/skills"
     },
     {
-      "kind": "dir",
-      "path": ".claude/skills/nested-nested-fake-skill"
+      "kind": "symlink",
+      "path": ".claude/skills/nested-nested-fake-skill",
+      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
     },
     {
-      "kind": "file",
-      "path": ".claude/skills/nested-nested-fake-skill/SKILL.md",
-      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
-    },
-    {
-      "kind": "dir",
-      "path": ".claude/skills/sample-skill"
-    },
-    {
-      "kind": "file",
-      "path": ".claude/skills/sample-skill/SKILL.md",
-      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+      "kind": "symlink",
+      "path": ".claude/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
     },
     {
       "kind": "dir",
@@ -140,31 +132,23 @@
       "path": ".cursor/commands/nested"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": ".cursor/commands/nested/nested-cmd.md",
-      "hash": "sha256:de4c0dc960de39264d423cd9ebfda8f0a8e62b21fcc076c1883561394dd86089"
+      "symlinkTarget": "../../../packages/app/.clank/plugins/nested/commands/nested-cmd.md"
     },
     {
       "kind": "dir",
       "path": ".cursor/skills"
     },
     {
-      "kind": "dir",
-      "path": ".cursor/skills/nested-nested-fake-skill"
+      "kind": "symlink",
+      "path": ".cursor/skills/nested-nested-fake-skill",
+      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
     },
     {
-      "kind": "file",
-      "path": ".cursor/skills/nested-nested-fake-skill/SKILL.md",
-      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
-    },
-    {
-      "kind": "dir",
-      "path": ".cursor/skills/sample-skill"
-    },
-    {
-      "kind": "file",
-      "path": ".cursor/skills/sample-skill/SKILL.md",
-      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+      "kind": "symlink",
+      "path": ".cursor/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
     },
     {
       "kind": "dir",
@@ -175,18 +159,14 @@
       "path": ".testagent/skills"
     },
     {
-      "kind": "dir",
-      "path": ".testagent/skills/sample-skill"
+      "kind": "symlink",
+      "path": ".testagent/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
     },
     {
-      "kind": "file",
-      "path": ".testagent/skills/sample-skill/SKILL.md",
-      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
-    },
-    {
-      "kind": "file",
+      "kind": "symlink",
       "path": "AGENTS.md",
-      "hash": "sha256:d54ceebe16ec6ed0f79d9575401d75f25a25e5e0275ace60abb73de835b70855"
+      "symlinkTarget": "CLANK.md"
     },
     {
       "kind": "file",
@@ -204,9 +184,9 @@
       "hash": "sha256:209d83771ab904e85b0dfc082c9247b1c8ad8141eb11c2e1b1c8f49476fa9b9e"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "CLAUDE.md",
-      "hash": "sha256:d54ceebe16ec6ed0f79d9575401d75f25a25e5e0275ace60abb73de835b70855"
+      "symlinkTarget": "CLANK.md"
     },
     {
       "kind": "dir",
@@ -269,9 +249,9 @@
       "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "packages/app/AGENTS.md",
-      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
+      "symlinkTarget": "CLANK.md"
     },
     {
       "kind": "file",
@@ -279,9 +259,9 @@
       "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "packages/app/CLAUDE.md",
-      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
+      "symlinkTarget": "CLANK.md"
     }
   ],
   "version": 1

@@ -34,10 +34,16 @@
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".testagent/skills/root-root-fake-skill", ".testagent/skills/sample-skill"],
+      "symlinks": [
+        ".testagent/skills/root-root-fake-skill",
+        ".testagent/skills/sample-skill"
+      ],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".testagent/skills/root-root-fake-skill", ".testagent/skills/sample-skill"]
+          "symlinks": [
+            ".testagent/skills/root-root-fake-skill",
+            ".testagent/skills/sample-skill"
+          ]
         },
         "nestedLocal": {
           "symlinks": []

@@ -106,22 +106,14 @@
       "path": ".testagent/skills"
     },
     {
-      "kind": "dir",
-      "path": ".testagent/skills/root-root-fake-skill"
+      "kind": "symlink",
+      "path": ".testagent/skills/root-root-fake-skill",
+      "symlinkTarget": "../../.clank/plugins/root/skills/root-fake-skill"
     },
     {
-      "kind": "file",
-      "path": ".testagent/skills/root-root-fake-skill/SKILL.md",
-      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
-    },
-    {
-      "kind": "dir",
-      "path": ".testagent/skills/sample-skill"
-    },
-    {
-      "kind": "file",
-      "path": ".testagent/skills/sample-skill/SKILL.md",
-      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+      "kind": "symlink",
+      "path": ".testagent/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
     },
     {
       "kind": "file",

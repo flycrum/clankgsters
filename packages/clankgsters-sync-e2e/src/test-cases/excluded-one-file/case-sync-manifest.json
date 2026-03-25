@@ -7,7 +7,10 @@
         "gitignoreComment": "\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md"
       },
-      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+      "symlinks": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ]
     },
     "AgentMarketplaceJsonSyncPreset": {
       "options": {
@@ -49,7 +52,9 @@
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgsters-claude-sync.json"
       },
-      "symlinks": [".claude/rules/root/root-rule.md"]
+      "symlinks": [
+        ".claude/rules/root/root-rule.md"
+      ]
     },
     "SkillsDirectorySyncPreset": {
       "options": {
@@ -123,12 +128,20 @@
         "targetRoot": ".cursor",
         "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
       },
-      "symlinks": [".cursor/commands/nested/nested-cmd.md"],
-      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
+      "symlinks": [
+        ".cursor/commands/nested/nested-cmd.md"
+      ],
+      "fsAutoRemoval": [
+        ".cursor/rules/root/root-rule.mdc"
+      ],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".cursor/commands/nested/nested-cmd.md"],
-          "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+          "symlinks": [
+            ".cursor/commands/nested/nested-cmd.md"
+          ],
+          "fsAutoRemoval": [
+            ".cursor/rules/root/root-rule.mdc"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],
@@ -153,7 +166,10 @@
         "gitignoreComment": "\n# clankgsters-sync: symlinked from CLANK.md for Codex\n",
         "gitignoreEntry": "AGENTS.md"
       },
-      "symlinks": ["AGENTS.md", "packages/app/AGENTS.md"]
+      "symlinks": [
+        "AGENTS.md",
+        "packages/app/AGENTS.md"
+      ]
     },
     "SkillsDirectorySyncPreset": {
       "options": {
@@ -189,10 +205,14 @@
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".testagent/skills/sample-skill"],
+      "symlinks": [
+        ".testagent/skills/sample-skill"
+      ],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".testagent/skills/sample-skill"]
+          "symlinks": [
+            ".testagent/skills/sample-skill"
+          ]
         },
         "nestedLocal": {
           "symlinks": []

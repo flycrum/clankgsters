@@ -51,4 +51,43 @@ describe('fileStructureFixture', () => {
     expect(result.modified).toHaveLength(1);
     expect(result.modified[0]?.reasons).toEqual(['hash']);
   });
+
+  test('compare reports symlinkTarget mismatch', () => {
+    const expected = {
+      entries: [{ kind: 'symlink' as const, path: 'link', symlinkTarget: 'a' }],
+      version: 1 as const,
+    };
+    const actual = {
+      entries: [{ kind: 'symlink' as const, path: 'link', symlinkTarget: 'b' }],
+      version: 1 as const,
+    };
+
+    const result = fileStructureFixture.compare(expected, actual);
+
+    expect(result.changed).toBe(true);
+    expect(result.modified).toHaveLength(1);
+    expect(result.modified[0]?.reasons).toEqual(['symlinkTarget']);
+  });
+
+  test('buildSnapshot records symlink and does not traverse through it', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'clank-file-structure-'));
+    tempPaths.push(root);
+    fs.mkdirSync(path.join(root, 't'));
+    fs.writeFileSync(path.join(root, 't', 'inner.txt'), 'x', 'utf8');
+    try {
+      fs.symlinkSync('t/inner.txt', path.join(root, 'alias.txt'), 'file');
+    } catch {
+      return;
+    }
+
+    const fixture = fileStructureFixture.buildSnapshot(root);
+    const paths = fixture.entries.map((entry) => entry.path);
+
+    expect(paths).toContain('alias.txt');
+    expect(paths).toContain('t/inner.txt');
+    expect(paths.some((p) => p.startsWith('alias.txt/'))).toBe(false);
+    const link = fixture.entries.find((entry) => entry.path === 'alias.txt');
+    expect(link?.kind).toBe('symlink');
+    expect(link?.symlinkTarget).toBe('t/inner.txt');
+  });
 });

@@ -5,7 +5,10 @@
         "sourceFile": "CLANK.md",
         "targetFile": "CLAUDE.md"
       },
-      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+      "symlinks": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ]
     },
     "SkillsDirectorySyncPreset": {
       "options": {
@@ -85,10 +88,14 @@
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".testagent/skills/sample-skill"],
+      "symlinks": [
+        ".testagent/skills/sample-skill"
+      ],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".testagent/skills/sample-skill"]
+          "symlinks": [
+            ".testagent/skills/sample-skill"
+          ]
         },
         "nestedLocal": {
           "symlinks": []

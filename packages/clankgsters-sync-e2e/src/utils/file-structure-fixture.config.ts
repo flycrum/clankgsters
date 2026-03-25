@@ -7,8 +7,8 @@ import path from 'node:path';
  * hashing, and metadata comparison. Snapshot/compare behavior lives on {@link fileStructureFixture} in `file-structure-fixture.ts`.
  */
 
-/** Discriminant for a row in a file-structure fixture (`dir` has no `hash`; `file` may). */
-export type FileStructureEntryKind = 'dir' | 'file';
+/** Discriminant for a row in a file-structure fixture (`dir` has no `hash`; `file` may; `symlink` carries `symlinkTarget`). */
+export type FileStructureEntryKind = 'dir' | 'file' | 'symlink';
 
 /**
  * Optional fields copied from `fs.Stats` when {@link fileStructureFixtureConfig.enableModeComparison} or
@@ -28,17 +28,20 @@ export interface FileStructureEntryMeta {
 }
 
 /**
- * One node in the walked tree: path, kind, optional content hash for files, optional stat-backed `meta`.
+ * One node in the walked tree: path, kind, optional content hash for files, optional symlink target, optional stat-backed `meta`.
  */
 export interface FileStructureFixtureEntry {
   /** Present for `kind: 'file'` when the path is not in {@link fileStructureFixtureConfig.unstableFileHashPaths}; `sha256:<hex>`. */
   hash?: string;
-  /** The type of the entry: `dir` for directories or `file` for files. */
   kind: FileStructureEntryKind;
   /** Present only when at least one of `enableModeComparison` / `enableSizeComparison` is true and the field is captured. */
   meta?: FileStructureEntryMeta;
   /** POSIX-style path relative to the snapshot root (forward slashes), stable across Windows/macOS/Linux. */
   path: string;
+  /**
+   * For `kind: 'symlink'`: `readlinkSync` result normalized by {@link fileStructureFixtureConfig.normalizeSymlinkTarget} (not resolved through the link). Omitted for `dir` / `file`.
+   */
+  symlinkTarget?: string;
 }
 
 /**
@@ -61,7 +64,7 @@ export interface FileStructureDiffModifiedEntry {
   expected: FileStructureFixtureEntry;
   /** Same `path` key used to join expected and actual rows. */
   path: string;
-  /** Subset of `kind`, `hash`, `meta.mode`, `meta.size` depending on what {@link fileStructureFixture.compare} detected. */
+  /** Subset of `kind`, `hash`, `symlinkTarget`, `meta.mode`, `meta.size` depending on what {@link fileStructureFixture.compare} detected. */
   reasons: string[];
 }
 
@@ -73,7 +76,7 @@ export interface FileStructureDiffResult {
   extra: string[];
   /** Paths that appear only in the expected snapshot (deletions or failed writes). */
   missing: string[];
-  /** Paths present in both snapshots where `kind`, `hash`, or compared `meta` fields disagree. */
+  /** Paths present in both snapshots where `kind`, `hash`, `symlinkTarget`, or compared `meta` fields disagree. */
   modified: FileStructureDiffModifiedEntry[];
 }
 
@@ -107,6 +110,11 @@ export const fileStructureFixtureConfig = {
    */
   toPosixRelativePath(root: string, value: string): string {
     return path.relative(root, value).split(path.sep).join('/');
+  },
+
+  /** Normalizes `readlinkSync` text to `/` separators for stable `symlinkTarget` in fixture JSON. */
+  normalizeSymlinkTarget(raw: string): string {
+    return raw.split(path.sep).join('/');
   },
 
   /**
@@ -149,7 +157,7 @@ export const fileStructureFixtureConfig = {
   },
 
   /**
-   * @param stat - Result of `fs.statSync` for the entry path.
+   * @param stat - Result of `fs.lstatSync` / `statSync` for the entry path.
    * @returns A `meta` object if any capture flag is on; otherwise `undefined` so JSON rows stay free of empty `meta`.
    */
   metaFromStat(stat: fs.Stats): FileStructureEntryMeta | undefined {

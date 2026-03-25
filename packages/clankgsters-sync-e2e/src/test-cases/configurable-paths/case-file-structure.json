@@ -89,9 +89,9 @@
       "hash": "sha256:997044d480a3f404945faed325b3a3c64f35fcf66f37f42da4419f65eef27e4d"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "CLAUDE.md",
-      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
+      "symlinkTarget": "YOYO.md"
     },
     {
       "kind": "dir",
@@ -154,9 +154,9 @@
       "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
     },
     {
-      "kind": "file",
+      "kind": "symlink",
       "path": "packages/app/CLAUDE.md",
-      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
+      "symlinkTarget": "YOYO.md"
     },
     {
       "kind": "file",
