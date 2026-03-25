@@ -10,14 +10,14 @@ Shared reference for the **@clankgsters/sync-e2e** harness: test case layout, ma
 ## What each case does
 
 - Creates one dedicated output directory per case under `sandboxes/.e2e-tests.run-results/case-{n}-{name}`.
-- Seeds files/dirs from the case’s explicit `seeding` prefab list in `scripts/test-cases/<name>.ts`.
+- Seeds files/dirs from the case’s explicit `seeding` prefab list in `src/test-cases/<caseId>/case-config.ts`.
 - Writes `clankgsters.config.ts` into that case directory, sets **`CLANKGSTERS_REPO_ROOT`** to it, then runs clear and sync.
 - Keeps every case output directory (pass and fail) so fixture authoring/debugging is transparent.
 
 ## Case files
 
-- **Config:** `scripts/test-cases/<name>/case-config.ts` exports `testCase` from `e2eTestCase.define({ config, description, jsonPath, seeding })`. Config is built with `clankgstersConfig` from `@clankgsters/sync` (or repo-relative `packages/clankgsters-sync/src/index.js` without a prior build).
-- **Expected manifest:** colocated `scripts/test-cases/<name>.json` — shape of `.clankgsters-cache/sync-manifest.json` after sync (placeholders in JSON are resolved in the runner; see package `clankgstersIdentity`).
+- **Config:** `src/test-cases/<caseId>/case-config.ts` exports `testCase` from `e2eTestCase.define({ config, description, jsonPath, seeding })`. Config is built with `clankgstersConfig` from `@clankgsters/sync` (or repo-relative `packages/clankgsters-sync/src/index.js` without a prior build).
+- **Expected manifest:** colocated `src/test-cases/<caseId>/case-sync-manifest.json` — shape of `.clankgsters-cache/sync-manifest.json` after sync (placeholders in JSON are resolved in the runner; see package `clankgstersIdentity`).
 
 ## Where sync writes
 

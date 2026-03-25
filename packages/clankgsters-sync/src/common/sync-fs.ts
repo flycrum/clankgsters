@@ -8,13 +8,17 @@ export const syncFs = {
     fs.mkdirSync(dirPath, { recursive: true });
   },
   /** Returns directory entries with basic type flags, or an empty list when unreadable. */
-  readdirWithTypes(
-    dirPath: string
-  ): Array<{ isDirectory: boolean; isFile: boolean; name: string }> {
+  readdirWithTypes(dirPath: string): Array<{
+    isDirectory: boolean;
+    isFile: boolean;
+    isSymbolicLink: boolean;
+    name: string;
+  }> {
     try {
       return fs.readdirSync(dirPath, { withFileTypes: true }).map((entry) => ({
         isDirectory: entry.isDirectory(),
         isFile: entry.isFile(),
+        isSymbolicLink: entry.isSymbolicLink(),
         name: entry.name,
       }));
     } catch {

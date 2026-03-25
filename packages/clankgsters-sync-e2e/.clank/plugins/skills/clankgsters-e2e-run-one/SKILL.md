@@ -25,9 +25,9 @@ From **monorepo root** (filter into the package):
 pnpm -F @clankgsters/sync-e2e exec tsx scripts/e2e-tests.run.harness.ts basic
 ```
 
-(`cwd` for the exec must resolve `scripts/` relative to the e2e package — run from that package directory, or use `pnpm -F @clankgsters/sync-e2e exec` from root with paths as the package sees them.)
+(`cwd` for the exec must resolve `scripts/e2e-tests.run.harness.ts` relative to the e2e package — run from that package directory, or use `pnpm -F @clankgsters/sync-e2e exec` from root with paths as the package sees them.)
 
 ## Reference
 
 - [e2e-tests-overview.md](../references/e2e-tests-overview.md)
-- Case name = stem of `scripts/test-cases/<name>.ts` (no `.ts` suffix on the CLI arg)
+- Case name = directory name under `src/test-cases/<caseId>/` (no path suffix on the CLI arg)

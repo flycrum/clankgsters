@@ -14,3 +14,4 @@ Root monorepo scripts coordinate package-level sync and e2e test flows.
 
 - Prefer package-filter delegates (`pnpm -F`) so root scripts stay thin and package ownership is explicit.
 - Keep `test` and `build` orchestration compatible with Vite+ workspace task execution.
+- After editing `.clank/` or `clankgsters.config.ts`, run sync via the **`clankgsters-sync:run`** script declared in **`packages/clankgsters-sync/package.json`** (verify the name there each time), then confirm outputs. Do not hand-mirror into `.cursor/` or `.claude/`; see `packages/clankgsters-sync/.clank/plugins/clankgsters-sync/rules/clankgsters-sync-trust-sync-workflow.md`.

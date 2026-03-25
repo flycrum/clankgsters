@@ -1,15 +1,15 @@
 /**
- * CLI harness for package-local e2e cases: discovers nested `case-config.ts` under `scripts/test-cases/`,
+ * CLI harness for package-local e2e cases: discovers nested `case-config.ts` under `src/test-cases/`,
  * runs them through `runOneE2eTestsCase`, and exits with status 1 when any case fails.
  */
 import chalk from 'chalk';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOneE2eTestsCase } from './core/e2e-tests.case-runner.js';
-import { e2ePathHelpers } from './common/e2e-path-helpers.js';
-import { e2eTestCaseDiscovery } from './common/e2e-test-case-discovery.js';
-import { printLine } from './utils/print-line.js';
+import { runOneE2eTestsCase } from '../src/core/e2e-tests.case-runner.js';
+import { e2ePathHelpers } from '../src/common/e2e-path-helpers.js';
+import { e2eTestCaseDiscovery } from '../src/common/e2e-test-case-discovery.js';
+import { printLine } from '../src/utils/print-line.js';
 
 /**
  * Runs the e2e loop: optional `process.argv[2]` selects a single `<caseId>` so only
@@ -25,7 +25,8 @@ async function main(): Promise<void> {
   const scriptDir = path.dirname(fileURLToPath(import.meta.url));
   const packageRoot = path.resolve(scriptDir, '..');
   const repoRoot = path.resolve(packageRoot, '..', '..');
-  const testCasesDir = e2ePathHelpers.getTestCasesRoot(scriptDir);
+  const srcRoot = path.join(packageRoot, 'src');
+  const testCasesDir = e2ePathHelpers.getTestCasesRoot(srcRoot);
   const caseNameArg = process.argv[2];
   const discovered = e2eTestCaseDiscovery.discoverCases(testCasesDir);
   const selectedCases =

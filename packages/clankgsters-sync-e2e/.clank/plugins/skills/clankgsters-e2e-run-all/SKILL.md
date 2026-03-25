@@ -5,7 +5,7 @@ description: Run all @clankgsters/sync e2e tests. Use when you need the full san
 
 # Run all e2e tests
 
-Use when you need **every** config-driven case under `scripts/test-cases/`.
+Use when you need **every** config-driven case under `src/test-cases/`.
 
 ## When to use
 
@@ -35,4 +35,4 @@ pnpm run e2e-tests:run
 ## Reference
 
 - [e2e-tests-overview.md](../references/e2e-tests-overview.md)
-- Cases: `scripts/test-cases/` — see package [README.md](../../../README.md)
+- Cases: `src/test-cases/` — see package [README.md](../../../README.md)

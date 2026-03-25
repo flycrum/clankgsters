@@ -1,30 +1,7 @@
 # rules/ purpose and guidelines
 
-**Purpose:**
+**Purpose:** Plugin `rules/` is agent-agnostic guidance symlinked by sync into each agent’s rules dir; one source, same content everywhere. Keep CLANK.md short; expand in [plugin README](packages/clankgsters-sync/.clank/plugins/clankgsters-sync/README.md) or [references index](packages/clankgsters-sync/.clank/plugins/clankgsters-sync/references/README.md).
 
-- Plugin `rules/` = agent-agnostic guidance symlinked by sync into each agent’s rules dir (e.g. `.claude/rules/<plugin-name>/`, `.cursor/rules/<plugin-name>/`)
-- Intent: patterns, constraints, references used whenever the plugin is active
-- One source; symlinks give all agents the same content
-- Keep short critical info in CLANK.md; use [plugin README](../README.md) (or docs) for expanded guidance
+**Format:** `.md` only in plugin sources (no `.mdc` / globs / alwaysApply in author files). **Guidelines, examples, DRY rules:** [clankgsters-sync-writing-conventions.md](packages/clankgsters-sync/.clank/plugins/clankgsters-sync/references/clankgsters-sync-writing-conventions.md).
 
-**Format:** Use **`.md`** only; do not use `.mdc` or platform-specific frontmatter.
-
-- Avoid `.mdc`, `globs`, `alwaysApply` — not agent-agnostic; plain markdown works for every agent after sync.
-
-**Guidelines (for AI agents):**
-
-- Keep text condensed, succinct, no trailing punctuation; sacrifice grammar for concision
-- Keep things DRY — one canonical source per concern; link from README/CLANK.md/other rules instead of restating
-- One concern per file; split large rules
-- Reference code or docs; do not paste long snippets
-- Bullet fragments over prose; no trailing punctuation on bullets
-- Keep files short; agents ignore buried instructions
-- Commands = step lists; put context in rules
-- Skills = purpose + when to use; no essays
-
-**Example:**
-
-- DRY: ❌ rule file pastes full "How to run sync" from README → ✅ rule says "Run sync: see [README](../README.md)#usage"
-- Concise: ❌ "You should run pnpm lint before you commit your changes so that the codebase stays consistent." → ✅ "Run pnpm lint before committing"
-
-Base new plugins on this driver plugin layout and this convention. See [plugin README](../README.md). See also [clankgsters-sync-file-naming.md](./clankgsters-sync-file-naming.md).
+See [clankgsters-sync-file-naming.md](./clankgsters-sync-file-naming.md). **Never hand-mirror** — [clankgsters-sync-trust-sync-workflow.md](./clankgsters-sync-trust-sync-workflow.md).

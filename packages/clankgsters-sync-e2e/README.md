@@ -21,10 +21,10 @@ flowchart TD
 
 ## What they do
 
-- Build each sandbox dynamically from prefab mains and blueprints under `scripts/seeding-prefabs/`.
+- Build each sandbox dynamically from prefab mains and blueprints under `src/seeding-prefabs/`.
 - Inject per-case config into generated sandbox `clankgsters.config.ts`.
 - Run clear then sync for each case against `CLANKGSTERS_REPO_ROOT=<case>`.
-- Compare expected fixtures `case-sync-manifest.json` and `case-file-structure.json` in each `scripts/test-cases/<caseId>/` folder with generated output.
+- Compare expected fixtures `case-sync-manifest.json` and `case-file-structure.json` in each `src/test-cases/<caseId>/` folder with generated output.
 - Keep all case outputs under `sandboxes/.e2e-tests.run-results/case-{num}-{name}/` for inspection.
 
 ## Run
@@ -40,7 +40,7 @@ From this package:
 - `tsx scripts/e2e-tests.run.harness.ts [caseId]`
 - `tsx scripts/e2e-tests.clear.ts`
 
-`package.json` scripts under `e2e-tests:*` are reserved for CLI entrypoints in `scripts/`. Shared harness code lives under `scripts/core/`.
+`package.json` scripts under `e2e-tests:*` point at thin CLI entrypoints in `scripts/`. Harness code and test cases live under `src/` (see `scripts/README.md`).
 
 ## Fixture authoring loop
 
@@ -49,12 +49,12 @@ From this package:
 - Update committed golden JSON (baseline expected outputs the tests compare against) by running the maintenance tool (not an npm script):
 
   ```bash
-  pnpm -F @clankgsters/sync-e2e exec tsx scripts/core/sync-e2e-fixtures.ts
+  pnpm -F @clankgsters/sync-e2e exec tsx src/core/sync-e2e-fixtures.ts
   ```
 
-  From `packages/clankgsters-sync-e2e` you can use `pnpm exec tsx scripts/core/sync-e2e-fixtures.ts`.
+  From `packages/clankgsters-sync-e2e` you can use `pnpm exec tsx src/core/sync-e2e-fixtures.ts`.
 
-  That copies each case’s generated manifest and file-structure snapshot into `scripts/test-cases/<caseId>/` as `case-sync-manifest.json` and `case-file-structure.json`.
+  That copies each case’s generated manifest and file-structure snapshot into `src/test-cases/<caseId>/` as `case-sync-manifest.json` and `case-file-structure.json`.
 
 - Re-run `pnpm e2e-tests:run` until green.
 

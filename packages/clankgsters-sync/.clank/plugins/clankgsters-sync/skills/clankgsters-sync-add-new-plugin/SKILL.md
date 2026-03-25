@@ -1,17 +1,19 @@
 ---
-name: Add new .clank/plugins plugin for local marketplace
-description: Create or update a plugin under .clank/plugins/<name>/ in a Clankgsters repo. Use when the user asks to add a plugin, scaffold a new plugin, or follow this plugin layout.
+name: clankgsters-sync-add-new-plugin
+description: >-
+  Scaffold or change a Clankgsters plugin under .clank/plugins/<name>/ (local marketplace): .cursor-plugin and .claude-plugin manifests, rules/, optional skills/commands/agents/hooks/references/, README and CLANK.md. Triggers — add or rename a plugin, new agent plugin, Cursor vs Claude plugin layout, copy the driver plugin, marketplace entry, “scaffold plugin”, hand-authored rules without sync. Ends with run clankgsters sync — never patch .cursor/ or .claude/ by hand.
 ---
 
 # Add new plugin
 
-Use this skill when you need to **create or update an agents plugin for the local marketplace** under `.clank/plugins/<name>/`. Reference the **clankgsters-sync** driver plugin for layout and conventions.
+Use this skill when you need to **create or update an agents plugin for the local marketplace** under `.clank/plugins/<name>/`. Use the **clankgsters-sync** driver plugin as the template; detail: [plugin layout](../../references/clankgsters-sync-plugin-layout.md), [writing conventions](../../references/clankgsters-sync-writing-conventions.md).
 
 ## Steps
 
 1. Create `.clank/plugins/<name>/` with `.cursor-plugin/plugin.json` and `.claude-plugin/plugin.json` (name, description, version, author)
-2. Add at plugin root: **README.md** — purpose only; **CLANK.md** — purpose plus optional requirements (links to rules)
-3. Put context in **rules/** as `.md` only; prefix rule filenames with plugin name per [clankgsters-sync-file-naming](../../rules/clankgsters-sync-file-naming.md). **CLANK.md** must exist only at the plugin root — do not place CLANK.md inside rules/ or any other subdirectory
-4. Optional: commands/, skills/, agents/, hooks/ per [plugin README](../../README.md). Same file-naming prefix for content files
-5. Keep rules/commands/skills DRY and lean per [clankgsters-sync-writing-rules-commands-skills](../../rules/clankgsters-sync-writing-rules-commands-skills.md)
-6. After adding or modifying a plugin, run sync from repo root: `pnpm clankgsters-sync:run` (monorepo root) or the equivalent from your package. Sync discovers plugins automatically; no hand-edit of marketplace list
+2. Add at plugin root: **README.md** — purpose; **CLANK.md** — purpose plus optional requirements (links to rules)
+3. Put context in **rules/** as `.md` only; prefix rule filenames with plugin name per [clankgsters-sync-file-naming](../../rules/clankgsters-sync-file-naming.md). **CLANK.md** only at plugin root — not inside `rules/` or subdirs
+4. Optional: `commands/`, `skills/`, `agents/`, `hooks/`; optional **`references/`** for shared markdown. Same file-naming prefix for content files in rules/commands/skills/agents
+5. Keep rules/commands/skills DRY — [clankgsters-sync-writing-conventions](../../references/clankgsters-sync-writing-conventions.md)
+6. **Never** hand-create symlinks or copies under `.cursor/`, `.claude/`, or other agent paths — only edit sources under `.clank/` and config
+7. After adding or modifying a plugin: [trust sync](../../references/clankgsters-sync-trust-sync-and-sources.md) (read `clankgsters-sync:run` in `packages/clankgsters-sync/package.json`, run from monorepo root, verify)

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { e2ePathHelpers } from './common/e2e-path-helpers.js';
+import { e2ePathHelpers } from '../src/common/e2e-path-helpers.js';
 
 /** Removes e2e `.e2e-tests.run-results` directory so case outputs can be regenerated from scratch. */
 function main(): void {

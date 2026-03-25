@@ -41,7 +41,7 @@ export interface PluginsDirectorySyncPresetOptions {
   rulesMarkdownFrontmatter?: string | null;
 }
 
-/** Syncs plugin content directories (rules/commands/skills/agents) into agent-local content roots. */
+/** Syncs plugin **commands** and **rules** into agent-local content roots (e.g. `.cursor/commands`, `.cursor/rules`). Plugin **skills** are mirrored by `SkillsDirectorySyncPreset`. */
 export class PluginsDirectorySyncPreset extends SyncBehaviorBase {
   private isExcluded(relPath: string, excluded: string[]): boolean {
     return excluded.includes(relPath);

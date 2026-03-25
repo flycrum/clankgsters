@@ -7,7 +7,7 @@ export default defineConfig({
   ...monoBaseVitestNodeConfig,
   test: {
     ...monoBaseVitestNodeConfig.test,
-    include: ['scripts/**/*.spec.ts', 'tests/**/*.test.ts'],
+    include: ['src/**/*.spec.ts', 'tests/**/*.test.ts'],
   },
   lint: monoBaseLintConfig,
   fmt: monoBaseFormatConfig,
