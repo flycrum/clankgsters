@@ -155,15 +155,6 @@ function normalizeAgentsConfig(
 
 /** Typed helper surface for authoring and normalizing `ClankgstersConfig` in code. */
 export const clankgstersConfig = {
-  /** Normalizes one agent input into a stable runtime shape for top-level `agents` maps. */
-  defineAgent(input: DefineAgentInput): ClankgstersAgentConfig {
-    return (
-      toAgentConfig(input.name ?? 'custom', input, false) ?? {
-        enabled: true,
-        behaviors: [],
-      }
-    );
-  },
   /** Normalizes expressive config input into schema-ready partial config. */
   define(config: ClankgstersConfigInput): Partial<ClankgstersConfig> {
     return {
@@ -191,6 +182,15 @@ export const clankgstersConfig = {
       },
       syncCacheDir: config.syncCacheDir ?? clankgstersConfigDefaults.CONSTANTS.syncCacheDir,
     };
+  },
+  /** Normalizes one agent input into a stable runtime shape for top-level `agents` maps. */
+  defineAgent(input: DefineAgentInput): ClankgstersAgentConfig {
+    return (
+      toAgentConfig(input.name ?? 'custom', input, false) ?? {
+        enabled: true,
+        behaviors: [],
+      }
+    );
   },
   normalizeAgentsConfig,
 };
