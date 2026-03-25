@@ -79,15 +79,15 @@ function observe(
   });
 }
 
-function runHook(
-  input: RunPerBehaviorMachineInput,
-  hook: (instance: SyncBehaviorBase, context: SyncBehaviorRunContext) => Result<void, Error>
-): void {
+function createBehaviorRunPair(input: RunPerBehaviorMachineInput): {
+  behaviorInstance: SyncBehaviorBase;
+  runContext: SyncBehaviorRunContext;
+} {
   const behaviorClass = syncBehaviorRegistry.resolve(input.behaviorConfig.behaviorName);
   if (behaviorClass == null)
     throw new Error(`unknown behavior: ${input.behaviorConfig.behaviorName}`);
   const behaviorInstance = syncBehaviorBase.create(behaviorClass);
-  const context: SyncBehaviorRunContext = {
+  const runContext: SyncBehaviorRunContext = {
     agentName: input.agentName,
     behaviorConfig: input.behaviorConfig,
     discoveredMarketplaces: input.discoveredMarketplaces,
@@ -100,7 +100,10 @@ function runHook(
     resolvedConfig: input.resolvedConfig,
     sharedState: input.sharedState,
   };
-  const result = hook(behaviorInstance, context);
+  return { behaviorInstance, runContext };
+}
+
+function throwIfErr(result: Result<void, Error>): void {
   if (result.isErr()) throw result.error;
 }
 
@@ -112,17 +115,14 @@ export const runPerBehaviorMachine = setup({
     output: {} as SyncBehaviorOutcome,
   },
   actors: {
-    syncSetup: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
+    runBehaviorLifecycle: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
+      const { behaviorInstance, runContext } = createBehaviorRunPair(input);
       observe(input, 'syncSetup');
-      runHook(input, (behaviorInstance, context) => behaviorInstance.syncSetupBefore(context));
-    }),
-    syncRun: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
+      throwIfErr(behaviorInstance.syncSetupBefore(runContext));
       observe(input, 'syncRun');
-      runHook(input, (behaviorInstance, context) => behaviorInstance.syncRun(context));
-    }),
-    syncTeardown: fromPromise(async ({ input }: { input: RunPerBehaviorMachineInput }) => {
+      throwIfErr(behaviorInstance.syncRun(runContext));
       observe(input, 'syncTeardown');
-      runHook(input, (behaviorInstance, context) => behaviorInstance.syncTeardownAfter(context));
+      throwIfErr(behaviorInstance.syncTeardownAfter(runContext));
     }),
   },
 }).createMachine({
@@ -132,37 +132,11 @@ export const runPerBehaviorMachine = setup({
     errorMessage: null,
     input,
   }),
-  initial: 'syncSetup',
+  initial: 'running',
   states: {
-    syncSetup: {
+    running: {
       invoke: {
-        src: 'syncSetup',
-        input: ({ context }) => context.input,
-        onDone: { target: 'syncRun' },
-        onError: {
-          target: 'failed',
-          actions: assign({
-            errorMessage: ({ event }) => String(event.error),
-          }),
-        },
-      },
-    },
-    syncRun: {
-      invoke: {
-        src: 'syncRun',
-        input: ({ context }) => context.input,
-        onDone: { target: 'syncTeardown' },
-        onError: {
-          target: 'failed',
-          actions: assign({
-            errorMessage: ({ event }) => String(event.error),
-          }),
-        },
-      },
-    },
-    syncTeardown: {
-      invoke: {
-        src: 'syncTeardown',
+        src: 'runBehaviorLifecycle',
         input: ({ context }) => context.input,
         onDone: { target: 'done' },
         onError: {
