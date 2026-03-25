@@ -17,8 +17,16 @@ const presetConfigByAgent: Record<string, AgentPresetConfig> = {
   cursor: cursorAgentPresetConfig,
 };
 
+/** Custom agent keys used only in {@link buildFallbackAgentPresetConfig} path segments; excludes `.`, `/`, `\`, and `..` */
+const FALLBACK_AGENT_NAME_PATTERN = /^[a-z0-9-]+$/;
+
 /** Synthesizes an `AgentPresetConfig` from `agentName` when no built-in preset exists (custom agents). */
 function buildFallbackAgentPresetConfig(agentName: string): AgentPresetConfig {
+  if (!FALLBACK_AGENT_NAME_PATTERN.test(agentName)) {
+    throw new Error(
+      `Invalid agentName for fallback preset (path segments): ${JSON.stringify(agentName)}; allowed pattern is ${String(FALLBACK_AGENT_NAME_PATTERN)} (lowercase letters, digits, hyphens only)`
+    );
+  }
   return {
     CONSTANTS: {
       AGENT_MARKETPLACE_FILE: `.${agentName}/marketplace.json`,
@@ -44,7 +52,7 @@ function buildFallbackAgentPresetConfig(agentName: string): AgentPresetConfig {
 export const agentPresetConfigs = {
   /** Built-in presets keyed by agent name (`claude`, `codex`, `cursor`). */
   byAgent: presetConfigByAgent,
-  /** Returns the preset for `agentName`, or a fallback from {@link buildFallbackAgentPresetConfig} when unknown. */
+  /** Returns the preset for `agentName`, or a fallback from {@link buildFallbackAgentPresetConfig} when unknown (fallback names must match `/^[a-z0-9-]+$/`) */
   resolve(agentName: string): AgentPresetConfig {
     return presetConfigByAgent[agentName] ?? buildFallbackAgentPresetConfig(agentName);
   },
