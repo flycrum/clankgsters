@@ -76,7 +76,7 @@ Implementation details live in `src/common/path-helpers.ts` (TSDoc).
 - **Sources:** `.clank/plugins/`, `.clank/skills*` (and layouts in config), `clankgster.config.ts`
 - **Do not** manually symlink, copy, or “register” rules, commands, skills, or plugins under `.cursor/`, `.claude/`, Codex outputs, or marketplace JSON — **run sync** and fix the pipeline if something is missing
 - **Command:** read **`packages/clankgster-sync/package.json`** (this package) for the current **`clankgster-sync:run`** / **`clankgster-sync:clear`** scripts, then run from the repo root; verify outputs afterward
-- **Detail:** [clankgster-sync-trust-sync-workflow.md](.clank/plugins/clankgster-sync/rules/clankgster-sync-trust-sync-workflow.md) (driver plugin under this package; path is valid in a monorepo checkout)
+- **Detail:** the trust-sync workflow is defined in this package’s driver plugin sources under `.clank/plugins/clankgster-sync/` (see the sync entrypoints for the current behavior).
 
 ## Field note: sync is not a hostile takeover
 

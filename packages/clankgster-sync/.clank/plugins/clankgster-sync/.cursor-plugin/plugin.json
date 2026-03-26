@@ -1,7 +1,7 @@
 {
   "name": "clankgster-sync",
-  "version": "0.1.0",
-  "description": "Driver plugin: sync local marketplaces and plugins for Claude, Cursor, and Codex; rules and skills to run and document the Clankgster sync system.",
+  "version": "0.2.0",
+  "description": "Driver plugin for Clankgster: create, update, and manage agent skills, commands, rules, and related context, and sync it across Claude, Cursor, and Codex (define once, reuse anywhere).",
   "author": { "name": "clankgster" },
   "keywords": ["marketplace", "claude", "cursor", "codex", "plugins", "sync", "clankgster"]
 }
