@@ -54,4 +54,26 @@ describe('clankgsterConfig', () => {
       'AgentMarketplaceJsonSyncPreset'
     );
   });
+
+  test('applies sync defaults for artifact mode and read-only output', () => {
+    const config = clankgsterConfig.define({});
+    expect(config.artifactMode).toBe('copy');
+    expect(config.syncOutputReadOnly).toBe(false);
+  });
+
+  test('preserves hooks callbacks and explicit artifact mode', () => {
+    const onTemplateVariable = (
+      payload: { replacement: string | null; variableName: string },
+      _hookContext: unknown,
+      _globalContext: unknown
+    ) => payload;
+    const config = clankgsterConfig.define({
+      artifactMode: 'symlink',
+      hooks: {
+        onTemplateVariable,
+      },
+    });
+    expect(config.artifactMode).toBe('symlink');
+    expect(config.hooks?.onTemplateVariable).toBe(onTemplateVariable);
+  });
 });

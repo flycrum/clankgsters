@@ -16,6 +16,7 @@ import { syncFs } from '../../common/sync-fs.js';
 export type SyncManifestEntry =
   | true
   | {
+      copies?: string[];
       customData?: unknown;
       fsAutoRemoval?: string[];
       fsManualRemoval?: string[];
@@ -92,6 +93,12 @@ export const syncManifest = {
       const fullPath = path.resolve(rootAbs, relPath);
       if (!pathHelpers.isResolvedPathUnderRoot(rootAbs, fullPath)) continue;
       syncFs.unlinkIfExists(fullPath);
+      syncFs.pruneEmptyParentDirs(fullPath, rootAbs);
+    }
+    for (const relPath of entry.copies ?? []) {
+      const fullPath = path.resolve(rootAbs, relPath);
+      if (!pathHelpers.isResolvedPathUnderRoot(rootAbs, fullPath)) continue;
+      syncFs.removePathIfExists(fullPath);
       syncFs.pruneEmptyParentDirs(fullPath, rootAbs);
     }
     for (const relPath of entry.fsAutoRemoval ?? []) {

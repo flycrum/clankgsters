@@ -12,7 +12,7 @@ describe('runPerBehaviorMachine', () => {
         agentName: 'cursor',
         behaviorConfig: {
           enabled: true,
-          behaviorName: 'AgentRulesSymlinkSyncPreset',
+          behaviorName: 'AgentRulesDirectorySyncPreset',
           options: {},
         },
         discoveredMarketplaces: [],
@@ -24,11 +24,14 @@ describe('runPerBehaviorMachine', () => {
         repoRoot: process.cwd(),
         resolvedConfig: {
           agents: {},
+          artifactMode: 'copy',
           excluded: [],
+          hooks: {},
           loggingEnabled: false,
           sourceDefaults: { ...clankgsterConfigDefaults.CONSTANTS.sourceDefaults },
           syncCacheDir: clankgsterIdentity.SYNC_CACHE_DIR,
           syncManifestPath: clankgsterIdentity.defaultSyncManifestRelativePath,
+          syncOutputReadOnly: false,
         },
         sharedState: new Map(),
       },

@@ -21,14 +21,17 @@ describe('processAgentQueueMachine', () => {
             cursor: {
               enabled: true,
               behaviors: [
-                { enabled: true, behaviorName: 'AgentRulesSymlinkSyncPreset', options: {} },
+                { enabled: true, behaviorName: 'AgentRulesDirectorySyncPreset', options: {} },
               ],
             },
           },
+          artifactMode: 'copy',
           excluded: [],
+          hooks: {},
           sourceDefaults: { ...clankgsterConfigDefaults.CONSTANTS.sourceDefaults },
           syncCacheDir: clankgsterIdentity.SYNC_CACHE_DIR,
           syncManifestPath: clankgsterIdentity.defaultSyncManifestRelativePath,
+          syncOutputReadOnly: false,
         },
       },
     });

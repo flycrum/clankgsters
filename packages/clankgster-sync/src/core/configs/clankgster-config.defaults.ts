@@ -1,8 +1,12 @@
 /** Central defaults for clankgster config authoring, schema defaults, and identity constants. */
 export const clankgsterConfigDefaults = {
   CONSTANTS: {
+    /** Default sync artifact mode, whether to copy or symlink files during sync, defaults to `copy` (`copy` enables transform hooks and content rewriting). */
+    artifactMode: 'copy',
     /** Repo-relative directory for generated sync cache artifacts (default: `.clankgster-cache`). */
     syncCacheDir: '.clankgster-cache',
+    /** Whether copied outputs are marked read-only after write by default. */
+    syncOutputReadOnly: false,
     /** Default source directory and layout settings for sync behavior. */
     sourceDefaults: {
       /** `name` for generated local marketplace JSON and related manifest/settings linkage. */

@@ -5,18 +5,20 @@ import { pathHelpers } from '../../../common/path-helpers.js';
 import { syncFs } from '../../../common/sync-fs.js';
 import { syncManifest } from '../../run/sync-manifest.js';
 import { syncSourceLayouts, type SyncSourceLayoutKey } from '../../run/sync-source-layouts.js';
+import { syncFileSyncConfig } from '../../sync-transforms/sync-file-sync.config.js';
 import { SyncBehaviorBase, type SyncBehaviorRunContext } from '../sync-behavior-base.js';
 
 interface SkillsLayoutCustomData {
+  copies: string[];
   symlinks: string[];
 }
 
 function createSkillsCustomData(): Record<SyncSourceLayoutKey, SkillsLayoutCustomData> {
   return {
-    nestedRegular: { symlinks: [] },
-    nestedLocal: { symlinks: [] },
-    shorthandRegular: { symlinks: [] },
-    shorthandLocal: { symlinks: [] },
+    nestedRegular: { symlinks: [], copies: [] },
+    nestedLocal: { symlinks: [], copies: [] },
+    shorthandRegular: { symlinks: [], copies: [] },
+    shorthandLocal: { symlinks: [], copies: [] },
   };
 }
 
@@ -34,16 +36,16 @@ const skillsDirectorySyncPresetOptionsSchema = z.looseObject({
 
 /** Typed options for `SkillsDirectorySyncPreset`. */
 export interface SkillsDirectorySyncPresetOptions {
-  /** Agent-native skills output directory where skill symlinks are written. */
+  /** Agent-native skills output directory where skill outputs are written. */
   nativeSkillsDir?: string;
-  /** Controls whether the behavior writes symlinks (`true`) or emits empty manifest entries (`false`). */
+  /** Controls whether the behavior writes outputs (`true`) or emits empty manifest entries (`false`). */
   skillsDirectorySyncEnabled?: boolean;
 }
 
 /**
- * Syncs skills into agent-native skill directories via symlinks:
- * - Flat layouts under `.clank/skills*` (and shorthand siblings) — folder name = symlink name
- * - Each discovered marketplace plugin’s `skills/<name>/` (with a skill marker file) — symlink name `{plugin.name}-{name}` to avoid collisions
+ * Syncs skills into agent-native skill directories:
+ * - Flat layouts under `.clank/skills*` (and shorthand siblings) — folder name = sanitized leaf
+ * - Each discovered marketplace plugin’s `skills/<name>/` (with a skill marker file) — output name `{plugin.name}-{name}` to avoid collisions
  *
  * **Duplicate outputs:** walk order is `syncSourceLayouts.SYNC_SOURCE_LAYOUT_KEYS`, then flat skills roots for that layout, then marketplace plugin skills. The first source to claim a given `targetRel` wins; a second source for the same path returns `Err` (sanitized names can collide across plugins or layouts)
  */
@@ -69,6 +71,7 @@ export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
 
     if (!optionsFallbacks.skillsDirectorySyncEnabled) {
       context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+        copies: [],
         options: optionsFallbacks,
         symlinks: [],
         customData: createSkillsCustomData(),
@@ -93,6 +96,7 @@ export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
     });
     const customData = createSkillsCustomData();
     const symlinks = new Set<string>();
+    const copies = new Set<string>();
     /** Repo-relative symlink path → first skill source dir that claimed it (duplicate detection before write). */
     const seenTargets = new Map<string, string>();
     const skillFileName = context.resolvedConfig.sourceDefaults.skillFileName;
@@ -119,9 +123,28 @@ export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
             );
           }
           seenTargets.set(targetRel, skillDir);
-          syncFs.symlinkRelative(skillDir, targetPath);
-          symlinks.add(targetRel);
-          customData[layout].symlinks.push(targetRel);
+          if (context.artifactMode === 'symlink') {
+            syncFs.symlinkRelative(skillDir, targetPath);
+            symlinks.add(targetRel);
+            customData[layout].symlinks.push(targetRel);
+          } else {
+            syncFs.ensureDir(targetPath);
+            for (const relFile of syncFs.walkFilePathsRecursive(skillDir)) {
+              const sourceFilePath = path.join(skillDir, relFile);
+              const destinationFilePath = path.join(targetPath, relFile);
+              syncFileSyncConfig.syncFile({
+                context,
+                destinationPath: destinationFilePath,
+                sourceKind: 'skill',
+                sourcePath: sourceFilePath,
+              });
+              const fileRel = path
+                .relative(context.outputRoot, destinationFilePath)
+                .replace(/\\/g, '/');
+              copies.add(fileRel);
+              customData[layout].copies.push(fileRel);
+            }
+          }
         }
       }
 
@@ -151,17 +174,39 @@ export class SkillsDirectorySyncPreset extends SyncBehaviorBase {
               );
             }
             seenTargets.set(targetRel, skillDir);
-            syncFs.symlinkRelative(skillDir, targetPath);
-            symlinks.add(targetRel);
-            customData[layout].symlinks.push(targetRel);
+            if (context.artifactMode === 'symlink') {
+              syncFs.symlinkRelative(skillDir, targetPath);
+              symlinks.add(targetRel);
+              customData[layout].symlinks.push(targetRel);
+            } else {
+              syncFs.ensureDir(targetPath);
+              for (const relFile of syncFs.walkFilePathsRecursive(skillDir)) {
+                const sourceFilePath = path.join(skillDir, relFile);
+                const destinationFilePath = path.join(targetPath, relFile);
+                syncFileSyncConfig.syncFile({
+                  context,
+                  destinationPath: destinationFilePath,
+                  pluginName: plugin.name,
+                  sourceKind: 'skill',
+                  sourcePath: sourceFilePath,
+                });
+                const fileRel = path
+                  .relative(context.outputRoot, destinationFilePath)
+                  .replace(/\\/g, '/');
+                copies.add(fileRel);
+                customData[layout].copies.push(fileRel);
+              }
+            }
           }
         }
       }
 
       customData[layout].symlinks.sort();
+      customData[layout].copies.sort();
     }
 
     context.registerManifestEntry(context.agentName, context.behaviorConfig.behaviorName, {
+      copies: [...copies].sort(),
       options: optionsFallbacks,
       symlinks: [...symlinks].sort(),
       customData,

@@ -53,6 +53,10 @@ export const configResolverConfig = {
           ...acc.sourceDefaults,
           ...layer.sourceDefaults,
         },
+        hooks: {
+          ...acc.hooks,
+          ...layer.hooks,
+        },
         excluded: layer.excluded ?? acc.excluded,
       } as Partial<ClankgsterConfig>;
     }, {});

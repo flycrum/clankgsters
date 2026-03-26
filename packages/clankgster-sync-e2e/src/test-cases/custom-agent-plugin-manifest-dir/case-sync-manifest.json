@@ -30,23 +30,34 @@
       }
     },
     "SkillsDirectorySyncPreset": {
+      "copies": [
+        ".testagent/skills/root-root-fake-skill/SKILL.md",
+        ".testagent/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".testagent/skills/root-root-fake-skill", ".testagent/skills/sample-skill"],
+      "symlinks": [],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".testagent/skills/root-root-fake-skill", ".testagent/skills/sample-skill"]
+          "symlinks": [],
+          "copies": [
+            ".testagent/skills/root-root-fake-skill/SKILL.md",
+            ".testagent/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         }
       }
     }

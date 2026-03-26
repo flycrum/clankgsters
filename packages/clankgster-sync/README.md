@@ -23,6 +23,8 @@ The name “Clankgster”, though playing off of a derogatory term “Clankers�
 
 Node-first package for Clankgster sync logic: implementation lives under **`src/`**; **`scripts/`** holds CLI entry files run with **`tsx`** (see `package.json` → `clankgster-sync:*`), and the **publishable surface** is built with **`vp pack src/index.ts`** into `dist/`.
 
+Default artifact mode is now **copy-first** (`artifactMode: 'copy'`), with optional `artifactMode: 'symlink'` for legacy filesystem behavior. Copy mode enables markdown transforms and hook callbacks (`onLinkTransform`, `onXmlTransform`, `onTemplateVariable`) plus optional `syncOutputReadOnly`.
+
 ## Commands (from repo root)
 
 ```bash

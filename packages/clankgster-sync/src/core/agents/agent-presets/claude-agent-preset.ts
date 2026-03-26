@@ -1,8 +1,8 @@
 import type { ClankgsterAgentConfig } from '../../configs/clankgster-config.schema.js';
 import type { AgentMarketplaceJsonSyncPresetOptions } from '../../sync-behaviors/presets/agent-marketplace-json-sync-preset.js';
-import type { AgentRulesSymlinkSyncPresetOptions } from '../../sync-behaviors/presets/agent-rules-symlink-sync-preset.js';
+import type { AgentRulesDirectorySyncPresetOptions } from '../../sync-behaviors/presets/agent-rules-symlink-sync-preset.js';
 import type { AgentSettingsSyncPresetOptions } from '../../sync-behaviors/presets/agent-settings-sync-preset.js';
-import type { MarkdownSymlinkSyncPresetOptions } from '../../sync-behaviors/presets/markdown-symlink-sync-preset.js';
+import type { MarkdownContextSyncPresetOptions } from '../../sync-behaviors/presets/markdown-symlink-sync-preset.js';
 import type { PluginsCacheBustSyncPresetOptions } from '../../sync-behaviors/presets/plugins-cache-bust-sync-preset.js';
 import type { SkillsDirectorySyncPresetOptions } from '../../sync-behaviors/presets/skills-directory-sync-preset.js';
 import { defineAgentConstants } from './define-agent-constants.js';
@@ -20,19 +20,19 @@ export const claudeAgentPresetConstants = defineAgentConstants({
       marketplaceFile: '.claude-plugin/marketplace.json',
       sourceFormat: 'prefixed',
     } satisfies AgentMarketplaceJsonSyncPresetOptions,
-    AgentRulesSymlinkSyncPreset: {
+    AgentRulesDirectorySyncPreset: {
       rulesDir: '.claude/rules',
       syncManifest: '.claude/.clankgster-claude-sync.json',
-    } satisfies AgentRulesSymlinkSyncPresetOptions,
+    } satisfies AgentRulesDirectorySyncPresetOptions,
     AgentSettingsSyncPreset: {
       manifestKey: 'claude',
       settingsFile: '.claude/settings.json',
     } satisfies AgentSettingsSyncPresetOptions,
-    MarkdownSymlinkSyncPreset: {
+    MarkdownContextSyncPreset: {
       targetFile: 'CLAUDE.md',
       gitignoreComment: '\n# clankgster-sync: symlinked from CLANK.md for Claude\n',
       gitignoreEntry: 'CLAUDE.md',
-    } satisfies MarkdownSymlinkSyncPresetOptions,
+    } satisfies MarkdownContextSyncPresetOptions,
     PluginsCacheBustSyncPreset: {
       marketplaceFile: '.claude-plugin/marketplace.json',
       pluginsCacheSegments: ['.claude', 'plugins', 'cache', 'local-plugins'] as const,
@@ -50,8 +50,8 @@ export const claudeAgentPreset: ClankgsterAgentConfig = {
   behaviors: [
     {
       enabled: true,
-      behaviorName: 'MarkdownSymlinkSyncPreset',
-      options: claudeAgentPresetConstants.BEHAVIORS.MarkdownSymlinkSyncPreset,
+      behaviorName: 'MarkdownContextSyncPreset',
+      options: claudeAgentPresetConstants.BEHAVIORS.MarkdownContextSyncPreset,
     },
     {
       enabled: true,
@@ -60,8 +60,8 @@ export const claudeAgentPreset: ClankgsterAgentConfig = {
     },
     {
       enabled: true,
-      behaviorName: 'AgentRulesSymlinkSyncPreset',
-      options: claudeAgentPresetConstants.BEHAVIORS.AgentRulesSymlinkSyncPreset,
+      behaviorName: 'AgentRulesDirectorySyncPreset',
+      options: claudeAgentPresetConstants.BEHAVIORS.AgentRulesDirectorySyncPreset,
     },
     {
       enabled: true,

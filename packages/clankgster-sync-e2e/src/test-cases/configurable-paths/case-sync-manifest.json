@@ -1,11 +1,12 @@
 {
   "claude": {
-    "MarkdownSymlinkSyncPreset": {
+    "MarkdownContextSyncPreset": {
+      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
       "options": {
         "sourceFile": "YOYO.md",
         "targetFile": "CLAUDE.md"
       },
-      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+      "symlinks": []
     }
   }
 }

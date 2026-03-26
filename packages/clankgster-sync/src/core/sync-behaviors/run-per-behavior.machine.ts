@@ -15,6 +15,7 @@ import {
   type RegisterBehaviorManifestEntry,
   type SyncBehaviorRunContext,
 } from './sync-behavior-base.js';
+import { syncArtifactModeConfig } from './sync-artifact-mode.config.js';
 import { syncBehaviorRegistry } from './sync-behavior-registry.js';
 
 /**
@@ -98,6 +99,10 @@ function createBehaviorRunPair(input: RunPerBehaviorMachineInput): {
   const runContext: SyncBehaviorRunContext = {
     agentName: input.agentName,
     agentsCommonValues: agentCommonValues.resolve(input.agentName),
+    artifactMode: syncArtifactModeConfig.resolveBehaviorArtifactMode(
+      input.resolvedConfig,
+      input.behaviorConfig
+    ),
     behaviorConfig: input.behaviorConfig,
     discoveredMarketplaces: input.discoveredMarketplaces,
     excluded: input.excluded,

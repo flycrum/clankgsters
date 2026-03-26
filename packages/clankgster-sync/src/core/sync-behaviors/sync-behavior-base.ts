@@ -1,9 +1,10 @@
 import { ok, type Result } from 'neverthrow';
+import type { AgentCommonValues } from '../agents/agent-presets/agent-common-values.js';
 import type {
   ClankgsterBehaviorConfig,
   ClankgsterConfig,
+  SyncArtifactMode,
 } from '../configs/clankgster-config.schema.js';
-import type { AgentCommonValues } from '../agents/agent-presets/agent-common-values.js';
 import type { DiscoveredMarketplace } from '../run/sync-discover-agents.js';
 import type { SyncManifestEntry } from '../run/sync-manifest.js';
 
@@ -23,6 +24,8 @@ export interface SyncBehaviorRunContext {
   agentName: string;
   /** Agent-level common values resolved from built-in presets (or safe custom fallbacks). */
   agentsCommonValues: AgentCommonValues;
+  /** Effective output artifact mode for this behavior (`copy` or `symlink`). */
+  artifactMode: SyncArtifactMode;
   /** Resolved behavior definition for this run (registry id, options, enabled flag). */
   behaviorConfig: ClankgsterBehaviorConfig;
   /** Repo-relative paths excluded from generated outputs. */

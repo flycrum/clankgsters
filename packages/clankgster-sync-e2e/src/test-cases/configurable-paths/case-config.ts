@@ -10,7 +10,7 @@ export const testCase = e2eTestCase.define({
   config: clankgsterConfig.define({
     agents: {
       claude: clankgsterConfig.defineAgent({
-        behaviors: ['MarkdownSymlinkSyncPreset'],
+        behaviors: ['MarkdownContextSyncPreset'],
         name: 'claude',
       }),
       cursor: false,
@@ -21,7 +21,7 @@ export const testCase = e2eTestCase.define({
       sourceDir: '.yoyo',
     },
   }),
-  description: 'Source defaults override uses .yoyo and YOYO.md for context symlink discovery.',
+  description: 'Source defaults override uses .yoyo and YOYO.md for context output discovery.',
   jsonPath: 'test-cases/configurable-paths/case-sync-manifest.json',
   seeding: e2eTestCase.defineSeeding([
     new DefaultSandboxSeedingBlueprint('', {

@@ -81,7 +81,7 @@
     {
       "kind": "file",
       "path": ".clankgster-cache/sync-manifest.json",
-      "hash": "sha256:120b2d8267182c92c349c74af41673f5ca585f7e5cc0497e314ccb883dfe9605"
+      "hash": "sha256:cb46bcf1d6a1450ec51725e2a5522ade762f0b86f4e28f7b4dfde8602da20f1a"
     },
     {
       "kind": "dir",
@@ -110,14 +110,22 @@
       "path": ".claude/skills"
     },
     {
-      "kind": "symlink",
-      "path": ".claude/skills/nested-nested-fake-skill",
-      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
+      "kind": "dir",
+      "path": ".claude/skills/nested-nested-fake-skill"
     },
     {
-      "kind": "symlink",
-      "path": ".claude/skills/sample-skill",
-      "symlinkTarget": "../../.clank/skills/sample-skill"
+      "kind": "file",
+      "path": ".claude/skills/nested-nested-fake-skill/SKILL.md",
+      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+    },
+    {
+      "kind": "dir",
+      "path": ".claude/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".claude/skills/sample-skill/SKILL.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
     },
     {
       "kind": "dir",
@@ -132,23 +140,31 @@
       "path": ".cursor/commands/nested"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": ".cursor/commands/nested/nested-cmd.md",
-      "symlinkTarget": "../../../packages/app/.clank/plugins/nested/commands/nested-cmd.md"
+      "hash": "sha256:de4c0dc960de39264d423cd9ebfda8f0a8e62b21fcc076c1883561394dd86089"
     },
     {
       "kind": "dir",
       "path": ".cursor/skills"
     },
     {
-      "kind": "symlink",
-      "path": ".cursor/skills/nested-nested-fake-skill",
-      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
+      "kind": "dir",
+      "path": ".cursor/skills/nested-nested-fake-skill"
     },
     {
-      "kind": "symlink",
-      "path": ".cursor/skills/sample-skill",
-      "symlinkTarget": "../../.clank/skills/sample-skill"
+      "kind": "file",
+      "path": ".cursor/skills/nested-nested-fake-skill/SKILL.md",
+      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+    },
+    {
+      "kind": "dir",
+      "path": ".cursor/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".cursor/skills/sample-skill/SKILL.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
     },
     {
       "kind": "dir",
@@ -159,14 +175,18 @@
       "path": ".testagent/skills"
     },
     {
-      "kind": "symlink",
-      "path": ".testagent/skills/sample-skill",
-      "symlinkTarget": "../../.clank/skills/sample-skill"
+      "kind": "dir",
+      "path": ".testagent/skills/sample-skill"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
+      "path": ".testagent/skills/sample-skill/SKILL.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+    },
+    {
+      "kind": "file",
       "path": "AGENTS.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
     },
     {
       "kind": "file",
@@ -181,12 +201,12 @@
     {
       "kind": "file",
       "path": "clankgster.config.ts",
-      "hash": "sha256:a663f2ed7b71870aa4ad6bd5fdecee822dccc98305edcd26fc1b1e8e034759dc"
+      "hash": "sha256:913ddedd201cc33dcc7c00890ff405518f7d150f7e8e746bfd5180256064636f"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "CLAUDE.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
     },
     {
       "kind": "dir",
@@ -249,9 +269,9 @@
       "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "packages/app/AGENTS.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
       "kind": "file",
@@ -259,9 +279,9 @@
       "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "packages/app/CLAUDE.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     }
   ],
   "version": 1

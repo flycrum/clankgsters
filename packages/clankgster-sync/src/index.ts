@@ -7,10 +7,25 @@ export { clankgsterConfig } from './core/configs/clankgster-config.js';
 export { clankgsterConfigDefaults } from './core/configs/clankgster-config.defaults.js';
 export { clankgsterConfigResolver } from './core/configs/config-resolver.js';
 export { clankgsterConfigSchema } from './core/configs/clankgster-config.schema.js';
+export { syncTransformHooks } from './core/sync-transforms/sync-transform-hooks.js';
 export type { ClankgsterBehaviorEntryInput } from './core/configs/clankgster-config.js';
 export type {
   ClankgsterAgentConfig,
   ClankgsterBehaviorConfig,
   ClankgsterConfig,
+  ClankgsterSyncHooks,
   ClankgsterSourceDefaultsConfig,
+  SyncArtifactMode,
 } from './core/configs/clankgster-config.schema.js';
+export type {
+  ClankgsterOnLinkTransformHook,
+  ClankgsterOnTemplateVariableTransformHook,
+  ClankgsterOnXmlTransformHook,
+  LinkTransformHookContext,
+  LinkTransformPayload,
+  SyncTransformGlobalContext,
+  TemplateVariableTransformHookContext,
+  TemplateVariableTransformPayload,
+  XmlTransformHookContext,
+  XmlTransformPayload,
+} from './core/sync-transforms/sync-transform-hooks.js';

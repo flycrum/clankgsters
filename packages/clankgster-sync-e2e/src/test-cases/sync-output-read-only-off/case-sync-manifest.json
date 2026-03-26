@@ -1,0 +1,77 @@
+{
+  "cursor": {
+    "SkillsDirectorySyncPreset": {
+      "copies": [
+        ".cursor/skills/nested-nested-fake-skill/SKILL.md",
+        ".cursor/skills/root-root-fake-skill/SKILL.md",
+        ".cursor/skills/sample-skill/SKILL.md"
+      ],
+      "options": {
+        "nativeSkillsDir": ".cursor/skills",
+        "skillsDirectorySyncEnabled": true
+      },
+      "symlinks": [],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [],
+          "copies": [
+            ".cursor/skills/nested-nested-fake-skill/SKILL.md",
+            ".cursor/skills/root-root-fake-skill/SKILL.md",
+            ".cursor/skills/sample-skill/SKILL.md"
+          ]
+        },
+        "nestedLocal": {
+          "symlinks": [],
+          "copies": []
+        },
+        "shorthandRegular": {
+          "symlinks": [],
+          "copies": []
+        },
+        "shorthandLocal": {
+          "symlinks": [],
+          "copies": []
+        }
+      }
+    },
+    "PluginsDirectorySyncPreset": {
+      "copies": [
+        ".cursor/commands/root/root-cmd.md",
+        ".cursor/rules/root/root-rule.mdc",
+        ".cursor/commands/nested/nested-cmd.md"
+      ],
+      "options": {
+        "targetRoot": ".cursor",
+        "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
+      },
+      "symlinks": [],
+      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [],
+          "copies": [
+            ".cursor/commands/root/root-cmd.md",
+            ".cursor/rules/root/root-rule.mdc",
+            ".cursor/commands/nested/nested-cmd.md"
+          ],
+          "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+        },
+        "nestedLocal": {
+          "symlinks": [],
+          "copies": [],
+          "fsAutoRemoval": []
+        },
+        "shorthandRegular": {
+          "symlinks": [],
+          "copies": [],
+          "fsAutoRemoval": []
+        },
+        "shorthandLocal": {
+          "symlinks": [],
+          "copies": [],
+          "fsAutoRemoval": []
+        }
+      }
+    }
+  }
+}

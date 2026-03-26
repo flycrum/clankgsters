@@ -1,9 +1,11 @@
 import { assign, createActor, fromPromise, setup } from 'xstate';
 import { actorHelpers } from '../../common/actor-helpers.js';
 import { clankLogger } from '../../common/logger.js';
+import { syncFs } from '../../common/sync-fs.js';
 import type { AgentQueueOutcome } from '../agents/agent-queue-outcome.js';
 import { processAgentQueueMachine } from '../agents/process-agent-queue.machine.js';
 import { configResolutionMachine } from '../configs/config-resolution.machine.js';
+import { syncArtifactModeConfig } from '../sync-behaviors/sync-artifact-mode.config.js';
 import { syncDiscover } from './sync-discover-agents.js';
 import { syncManifest, type SyncManifest } from './sync-manifest.js';
 import type {
@@ -116,11 +118,17 @@ export const syncRunMachine = setup({
       }: {
         input: {
           manifest: SyncManifest;
+          mode: 'sync' | 'clear';
           repoRoot: string;
           syncManifestPath: string;
         };
       }) => {
         const manifestPath = syncManifest.getManifestPath(input.repoRoot, input.syncManifestPath);
+        if (input.mode === 'clear') {
+          syncFs.removePathIfExists(manifestPath);
+          syncFs.pruneEmptyParentDirs(manifestPath, input.repoRoot);
+          return;
+        }
         const writeResult = syncManifest.write(manifestPath, input.manifest);
         if (writeResult.isErr()) throw writeResult.error;
       }
@@ -182,6 +190,18 @@ export const syncRunMachine = setup({
                 repoRoot: context.input.repoRoot,
               });
               clankLogger.getLogger().info({ sources: output.sourcesLoaded }, 'config resolved');
+              const symlinkModeBehaviors = syncArtifactModeConfig.listSymlinkModeBehaviors(
+                output.resolvedConfig
+              );
+              if (symlinkModeBehaviors.length > 0) {
+                clankLogger.getLogger().warn(
+                  {
+                    behaviors: symlinkModeBehaviors,
+                    count: symlinkModeBehaviors.length,
+                  },
+                  '⚠️⚠️⚠️ symlink artifact mode is enabled; file transforms (links/xml/template variables) are limited in this mode'
+                );
+              }
               observe(context.input, 'sync.configResolved', {
                 sourcesLoaded: output.sourcesLoaded,
               });
@@ -268,6 +288,7 @@ export const syncRunMachine = setup({
         src: 'persistManifestActor',
         input: ({ context }) => ({
           manifest: context.manifest,
+          mode: context.input.mode,
           repoRoot: context.input.repoRoot,
           syncManifestPath: (
             context.resolvedConfig as NonNullable<SyncRunMachineContext['resolvedConfig']>

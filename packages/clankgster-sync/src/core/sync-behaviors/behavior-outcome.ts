@@ -2,7 +2,7 @@
 export interface SyncBehaviorOutcome {
   /** Agent name this behavior belongs to. */
   agent: string;
-  /** Config `behaviorName` / preset class name (e.g. `AgentRulesSymlinkSyncPreset`). */
+  /** Config `behaviorName` / preset class name (e.g. `AgentRulesDirectorySyncPreset`). */
   behaviorName: string;
   /** Whether this behavior’s machine finished without a terminal failure. */
   success: boolean;

@@ -180,7 +180,13 @@ export const clankgsterConfig = {
           config.sourceDefaults?.skillFileName ??
           clankgsterConfigDefaults.CONSTANTS.sourceDefaults.skillFileName,
       },
+      artifactMode: config.artifactMode ?? clankgsterConfigDefaults.CONSTANTS.artifactMode,
+      hooks: {
+        ...config.hooks,
+      },
       syncCacheDir: config.syncCacheDir ?? clankgsterConfigDefaults.CONSTANTS.syncCacheDir,
+      syncOutputReadOnly:
+        config.syncOutputReadOnly ?? clankgsterConfigDefaults.CONSTANTS.syncOutputReadOnly,
     };
   },
   /** Normalizes one agent input into a stable runtime shape for top-level `agents` maps. */

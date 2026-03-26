@@ -29,7 +29,7 @@ Confirm expected outputs (rules, skills, manifests). Do **not** hand-edit `.curs
 
 ## Configuration (repo root)
 
-- **`clankgster.config.ts`** — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `sourceDir`, `pluginsDir`, `skillsDir`), `syncCacheDir`, `syncManifestPath`, `loggingEnabled`
+- **`clankgster.config.ts`** — `agents`, `excluded`, `sourceDefaults` (`localMarketplaceName`, `markdownContextFileName`, `sourceDir`, `pluginsDir`, `skillsDir`), `artifactMode` (`copy` default, `symlink` opt-in), `hooks` (`onLinkTransform`, `onXmlTransform`, `onTemplateVariable`), `syncOutputReadOnly`, `syncCacheDir`, `syncManifestPath`, `loggingEnabled`
 - **Source layout:** for each source root, sync reads nested + shorthand variants for plugins and skills (nested `{sourceDir}/{pluginsDir}`, `.local` siblings, shorthand `{sourceDir}-{pluginsDir}`, etc.). `.local` variants are for uncommitted, developer-specific content
 - **Env:** `CLANKGSTER_REPO_ROOT` — repo root for sync (tests, CLI). **`CLANKGSTER_LOGGING_ENABLED`** — optional file logging to `.clank/logs/clankgster-sync.log` (see **pino-logger** plugin)
 

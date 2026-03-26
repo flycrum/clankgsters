@@ -11,7 +11,7 @@ export const testCase = e2eTestCase.define({
       claude: clankgsterConfig.defineAgent({
         behaviors: [
           {
-            behaviorName: 'MarkdownSymlinkSyncPreset',
+            behaviorName: 'MarkdownContextSyncPreset',
             enabled: true,
             options: {
               sourceFile: clankgsterConfigDefaults.CONSTANTS.sourceDefaults.markdownContextFileName,
@@ -25,7 +25,7 @@ export const testCase = e2eTestCase.define({
             },
           },
           {
-            behaviorName: 'AgentRulesSymlinkSyncPreset',
+            behaviorName: 'AgentRulesDirectorySyncPreset',
             enabled: false,
             options: {},
           },

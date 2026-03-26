@@ -2,6 +2,13 @@ import type { ClankgsterConfig } from '../../../clankgster-sync/src/index.js';
 import type { TestCaseSeedingPrefabItem } from '../seeding-prefabs/seeding-prefab-orchestration.js';
 
 export interface E2eTestCaseDefinition {
+  /** Optional post-sync file assertions beyond manifest/file-structure fixtures. */
+  assertions?: {
+    /** Paths expected to be read-only after sync (repo-root relative to case sandbox). */
+    readOnlyPaths?: string[];
+    /** Paths expected to remain writable after sync (repo-root relative to case sandbox). */
+    writablePaths?: string[];
+  };
   /** Partial config serialized into the sandbox `clankgster.config.ts`. */
   config: Partial<ClankgsterConfig>;
   /** Short human-readable label for the case (e.g. logs and failure output). */

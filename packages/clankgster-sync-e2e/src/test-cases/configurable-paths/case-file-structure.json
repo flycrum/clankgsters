@@ -81,17 +81,17 @@
     {
       "kind": "file",
       "path": ".clankgster-cache/sync-manifest.json",
-      "hash": "sha256:c11c3466e7c57841c7a68b6e99f4954273c3aa971da924d54000264047cc84db"
+      "hash": "sha256:b705844da30404afe7cd364b23af03a9cc605ce7f714b0f061f10a8234322473"
     },
     {
       "kind": "file",
       "path": "clankgster.config.ts",
-      "hash": "sha256:2cd0eed0bb951f4e2d33d84e381cf4c0e40060b93ca8d5cac9380224c9d9036b"
+      "hash": "sha256:f52ed31ea43de5715b3495a5b8375c6192ad296e4bb5bc7cd8079aa5ef028c15"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "CLAUDE.md",
-      "symlinkTarget": "YOYO.md"
+      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
     },
     {
       "kind": "dir",
@@ -154,9 +154,9 @@
       "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "packages/app/CLAUDE.md",
-      "symlinkTarget": "YOYO.md"
+      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
       "kind": "file",

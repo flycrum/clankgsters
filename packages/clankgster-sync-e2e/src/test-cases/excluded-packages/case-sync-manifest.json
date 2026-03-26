@@ -1,13 +1,14 @@
 {
   "claude": {
-    "MarkdownSymlinkSyncPreset": {
+    "MarkdownContextSyncPreset": {
+      "copies": ["CLAUDE.md"],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md",
         "targetFile": "CLAUDE.md",
         "sourceFile": "CLANK.md"
       },
-      "symlinks": ["CLAUDE.md"]
+      "symlinks": []
     },
     "AgentMarketplaceJsonSyncPreset": {
       "options": {
@@ -38,31 +39,43 @@
         }
       }
     },
-    "AgentRulesSymlinkSyncPreset": {
+    "AgentRulesDirectorySyncPreset": {
+      "copies": [".claude/rules/root/root-rule.md"],
       "options": {
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgster-claude-sync.json"
       },
-      "symlinks": [".claude/rules/root/root-rule.md"]
+      "symlinks": []
     },
     "SkillsDirectorySyncPreset": {
+      "copies": [
+        ".claude/skills/root-root-fake-skill/SKILL.md",
+        ".claude/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".claude/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".claude/skills/root-root-fake-skill", ".claude/skills/sample-skill"],
+      "symlinks": [],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".claude/skills/root-root-fake-skill", ".claude/skills/sample-skill"]
+          "symlinks": [],
+          "copies": [
+            ".claude/skills/root-root-fake-skill/SKILL.md",
+            ".claude/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         }
       }
     },
@@ -76,64 +89,82 @@
   },
   "cursor": {
     "SkillsDirectorySyncPreset": {
+      "copies": [
+        ".cursor/skills/root-root-fake-skill/SKILL.md",
+        ".cursor/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".cursor/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".cursor/skills/root-root-fake-skill", ".cursor/skills/sample-skill"],
+      "symlinks": [],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".cursor/skills/root-root-fake-skill", ".cursor/skills/sample-skill"]
+          "symlinks": [],
+          "copies": [
+            ".cursor/skills/root-root-fake-skill/SKILL.md",
+            ".cursor/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         }
       }
     },
     "PluginsDirectorySyncPreset": {
+      "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
       "options": {
         "targetRoot": ".cursor",
         "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
       },
-      "symlinks": [".cursor/commands/root/root-cmd.md"],
+      "symlinks": [],
       "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".cursor/commands/root/root-cmd.md"],
+          "symlinks": [],
+          "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
           "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
         },
         "nestedLocal": {
           "symlinks": [],
+          "copies": [],
           "fsAutoRemoval": []
         },
         "shorthandRegular": {
           "symlinks": [],
+          "copies": [],
           "fsAutoRemoval": []
         },
         "shorthandLocal": {
           "symlinks": [],
+          "copies": [],
           "fsAutoRemoval": []
         }
       }
     }
   },
   "codex": {
-    "MarkdownSymlinkSyncPreset": {
+    "MarkdownContextSyncPreset": {
+      "copies": ["AGENTS.md"],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Codex\n",
         "gitignoreEntry": "AGENTS.md",
         "targetFile": "AGENTS.md",
         "sourceFile": "CLANK.md"
       },
-      "symlinks": ["AGENTS.md"]
+      "symlinks": []
     },
     "SkillsDirectorySyncPreset": {
+      "copies": [],
       "options": {
         "nativeSkillsDir": ".agents/skills",
         "skillsDirectorySyncEnabled": false
@@ -141,16 +172,20 @@
       "symlinks": [],
       "customData": {
         "nestedRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "nestedLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         }
       }
     },
@@ -163,23 +198,28 @@
   },
   "testagent": {
     "SkillsDirectorySyncPreset": {
+      "copies": [".testagent/skills/sample-skill/SKILL.md"],
       "options": {
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
       },
-      "symlinks": [".testagent/skills/sample-skill"],
+      "symlinks": [],
       "customData": {
         "nestedRegular": {
-          "symlinks": [".testagent/skills/sample-skill"]
+          "symlinks": [],
+          "copies": [".testagent/skills/sample-skill/SKILL.md"]
         },
         "nestedLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandRegular": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         },
         "shorthandLocal": {
-          "symlinks": []
+          "symlinks": [],
+          "copies": []
         }
       }
     },

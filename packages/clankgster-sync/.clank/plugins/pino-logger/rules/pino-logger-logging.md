@@ -9,4 +9,4 @@ When editing or adding code under `packages/clankgster-sync/src/` (sync runner, 
 
 **Compliance:** Search for raw `console.*` under `src/` (and thin CLI files under `scripts/`) and fix or justify. Confirm entry points set logger context before `getLogger()`.
 
-See [pino-logger plugin README](../README.md) for enable/disable and log path (`.clank/logs/clankgster-sync.log`).
+See [pino-logger plugin README](../../../packages/clankgster-sync/.clank/plugins/pino-logger/README.md) for enable/disable and log path (`.clank/logs/clankgster-sync.log`).

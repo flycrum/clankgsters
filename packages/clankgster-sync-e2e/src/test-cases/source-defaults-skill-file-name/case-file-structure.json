@@ -81,7 +81,7 @@
     {
       "kind": "file",
       "path": ".clankgster-cache/sync-manifest.json",
-      "hash": "sha256:b13dee01b81a140cdd6a5a841f3cf9c7b918522b626d8d0f19c3407601c60171"
+      "hash": "sha256:444843bee28a5371c8df11cefa9453ae4d1a173ee7e63c9089d460e66a836c82"
     },
     {
       "kind": "dir",
@@ -105,9 +105,9 @@
       "path": ".claude/rules/root"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": ".claude/rules/root/root-rule.md",
-      "symlinkTarget": "../../../.clank/plugins/root/rules/root-rule.md"
+      "hash": "sha256:99e1c9e58462f68f4ba3d84a0d7916c92b35270d6c144e6a4a868719efff0f67"
     },
     {
       "kind": "file",
@@ -119,9 +119,13 @@
       "path": ".claude/skills"
     },
     {
-      "kind": "symlink",
-      "path": ".claude/skills/sample-skill",
-      "symlinkTarget": "../../.clank/skills/sample-skill"
+      "kind": "dir",
+      "path": ".claude/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".claude/skills/sample-skill/ABILITY.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
     },
     {
       "kind": "file",
@@ -131,12 +135,12 @@
     {
       "kind": "file",
       "path": "clankgster.config.ts",
-      "hash": "sha256:2d70a6ebf3ec180a58c7f1b8e89a11e547095940ea3e29081582e35d6d811a59"
+      "hash": "sha256:e6cb811b8d201c40601bbdc2c6a595e53074e68590d6a9c7889a0849e4d5c3fb"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "CLAUDE.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
     },
     {
       "kind": "dir",
@@ -204,9 +208,9 @@
       "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     },
     {
-      "kind": "symlink",
+      "kind": "file",
       "path": "packages/app/CLAUDE.md",
-      "symlinkTarget": "CLANK.md"
+      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
     }
   ],
   "version": 1

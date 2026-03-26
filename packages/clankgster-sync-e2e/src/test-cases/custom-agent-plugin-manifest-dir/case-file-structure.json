@@ -90,7 +90,7 @@
     {
       "kind": "file",
       "path": ".clankgster-cache/sync-manifest.json",
-      "hash": "sha256:cce70d2e1887441ab2b7586e20cf4acb70e442255ae13c5218c2b3c9277b1f00"
+      "hash": "sha256:67117209ce65c73608ad9d4e959f6289d5cbd0496939df1a4cbd1650ad4ddd1f"
     },
     {
       "kind": "dir",
@@ -106,14 +106,22 @@
       "path": ".testagent/skills"
     },
     {
-      "kind": "symlink",
-      "path": ".testagent/skills/root-root-fake-skill",
-      "symlinkTarget": "../../.clank/plugins/root/skills/root-fake-skill"
+      "kind": "dir",
+      "path": ".testagent/skills/root-root-fake-skill"
     },
     {
-      "kind": "symlink",
-      "path": ".testagent/skills/sample-skill",
-      "symlinkTarget": "../../.clank/skills/sample-skill"
+      "kind": "file",
+      "path": ".testagent/skills/root-root-fake-skill/SKILL.md",
+      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+    },
+    {
+      "kind": "dir",
+      "path": ".testagent/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".testagent/skills/sample-skill/SKILL.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
     },
     {
       "kind": "file",
@@ -123,7 +131,7 @@
     {
       "kind": "file",
       "path": "clankgster.config.ts",
-      "hash": "sha256:40ba692a91b608b776d2f24351b10faad17f4d14326a68c14851f183ed6be4d0"
+      "hash": "sha256:cc6529dd070d0b5845b5966bf48e831d9d3b2698525889aa3c7d0ed0e2bc7d39"
     },
     {
       "kind": "dir",

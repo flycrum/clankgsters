@@ -19,6 +19,12 @@ describe('clankgsterConfigResolver', () => {
     expect(result.value.resolvedConfig.syncManifestPath).toBe(
       clankgsterIdentity.defaultSyncManifestRelativePath
     );
+    expect(result.value.resolvedConfig.artifactMode).toBe(
+      clankgsterConfigDefaults.CONSTANTS.artifactMode
+    );
+    expect(result.value.resolvedConfig.syncOutputReadOnly).toBe(
+      clankgsterConfigDefaults.CONSTANTS.syncOutputReadOnly
+    );
     expect(result.value.resolvedConfig.sourceDefaults.sourceDir).toBe(
       clankgsterConfigDefaults.CONSTANTS.sourceDefaults.sourceDir
     );
@@ -52,7 +58,7 @@ describe('clankgsterConfigResolver', () => {
             claude: {
               enabled: true,
               behaviors: [
-                { enabled: true, behaviorName: 'AgentRulesSymlinkSyncPreset', options: {} },
+                { enabled: true, behaviorName: 'AgentRulesDirectorySyncPreset', options: {} },
               ],
             },
           },
@@ -76,6 +82,49 @@ describe('clankgsterConfigResolver', () => {
     const claude = result.value.resolvedConfig.agents.claude;
     expect(claude?.enabled).toBe(false);
     expect(claude?.behaviors).toHaveLength(1);
-    expect(claude?.behaviors[0]?.behaviorName).toBe('AgentRulesSymlinkSyncPreset');
+    expect(claude?.behaviors[0]?.behaviorName).toBe('AgentRulesDirectorySyncPreset');
+  });
+
+  test('merges hooks key-by-key so later layers can add callbacks', async () => {
+    const onLinkTransform = (
+      payload: { linkName: string; linkUrl: string },
+      _hookContext: unknown,
+      _globalContext: unknown
+    ) => payload;
+    const onTemplateVariable = (
+      payload: { replacement: string | null; variableName: string },
+      _hookContext: unknown,
+      _globalContext: unknown
+    ) => payload;
+    const sources: ClankgsterConfigSource[] = [
+      {
+        id: 'base',
+        priority: 10,
+        load: () =>
+          ({
+            hooks: {
+              onLinkTransform,
+            },
+          }) as unknown as Partial<ClankgsterConfig>,
+      },
+      {
+        id: 'overlay',
+        priority: 20,
+        load: () =>
+          ({
+            hooks: {
+              onTemplateVariable,
+            },
+          }) as unknown as Partial<ClankgsterConfig>,
+      },
+    ];
+    const result = await clankgsterConfigResolver.resolve(
+      { mode: 'sync', repoRoot: process.cwd() },
+      sources
+    );
+    expect(result.isOk()).toBe(true);
+    if (result.isErr()) return;
+    expect(result.value.resolvedConfig.hooks.onLinkTransform).toBe(onLinkTransform);
+    expect(result.value.resolvedConfig.hooks.onTemplateVariable).toBe(onTemplateVariable);
   });
 });

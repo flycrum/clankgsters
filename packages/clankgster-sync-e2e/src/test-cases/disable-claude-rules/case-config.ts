@@ -1,5 +1,5 @@
 /**
- * Disable Claude rules test case: claude with AgentRulesSymlinkSyncPreset disabled + one custom agent (codex-like); cursor and codex disabled.
+ * Disable Claude rules test case: claude with rules behavior disabled + one custom agent (codex-like); cursor and codex disabled.
  */
 
 import { clankgsterConfig } from '../../../../clankgster-sync/src/index.js';
@@ -11,7 +11,7 @@ export const testCase = e2eTestCase.define({
     agents: {
       claude: clankgsterConfig.defineAgent({
         behaviors: [
-          'MarkdownSymlinkSyncPreset',
+          'MarkdownContextSyncPreset',
           'SkillsDirectorySyncPreset',
           'AgentMarketplaceJsonSyncPreset',
           'AgentSettingsSyncPreset',
@@ -30,7 +30,7 @@ export const testCase = e2eTestCase.define({
     },
   }),
   description:
-    'Claude with AgentRulesSymlinkSyncPreset disabled plus one codex-like custom agent; cursor and codex disabled.',
+    'Claude with AgentRulesDirectorySyncPreset disabled plus one codex-like custom agent; cursor and codex disabled.',
   jsonPath: 'test-cases/disable-claude-rules/case-sync-manifest.json',
   seeding: e2eTestCase.defineSeeding([new DefaultSandboxSeedingBlueprint('', {})]),
 });

@@ -63,5 +63,9 @@ describe('syncRunMachine', () => {
     }>(actor);
     const success = output.success ?? output.errorMessage == null;
     expect(success).toBe(true);
+    expect(fs.existsSync(path.join(repoRoot, '.clankgster-cache', 'sync-manifest.json'))).toBe(
+      false
+    );
+    expect(fs.existsSync(path.join(repoRoot, '.clankgster-cache'))).toBe(false);
   });
 });

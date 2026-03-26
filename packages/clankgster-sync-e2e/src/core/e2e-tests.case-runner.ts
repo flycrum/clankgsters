@@ -17,6 +17,10 @@ import {
 } from '../utils/file-structure-fixture.js';
 import { printLine } from '../utils/print-line.js';
 
+function hasAnyWriteBit(mode: number): boolean {
+  return (mode & 0o222) !== 0;
+}
+
 /**
  * Executes a single harness case: resets `caseOutputRoot`, applies seeding prefabs, writes sandbox `clankgster.config.ts`,
  * then runs `pnpm clankgster-sync:clear` (when configured) and `pnpm clankgster-sync:run` at the monorepo root with
@@ -119,6 +123,34 @@ export async function runOneE2eTestsCase(
           `${options.name}: modified path ${modifiedEntry.path} (${modifiedEntry.reasons.join(', ')})`
         )
       );
+    }
+  }
+
+  for (const relPath of testCase.assertions?.readOnlyPaths ?? []) {
+    const absPath = fsHelpers.joinRootSafe(sandboxRoot, relPath);
+    if (!fs.existsSync(absPath)) {
+      errorLines.push(
+        printLine.error(`${options.name}: expected read-only path missing ${relPath}`)
+      );
+      continue;
+    }
+    const stat = fs.lstatSync(absPath);
+    if (hasAnyWriteBit(stat.mode)) {
+      errorLines.push(printLine.error(`${options.name}: expected read-only path ${relPath}`));
+    }
+  }
+
+  for (const relPath of testCase.assertions?.writablePaths ?? []) {
+    const absPath = fsHelpers.joinRootSafe(sandboxRoot, relPath);
+    if (!fs.existsSync(absPath)) {
+      errorLines.push(
+        printLine.error(`${options.name}: expected writable path missing ${relPath}`)
+      );
+      continue;
+    }
+    const stat = fs.lstatSync(absPath);
+    if (!hasAnyWriteBit(stat.mode)) {
+      errorLines.push(printLine.error(`${options.name}: expected writable path ${relPath}`));
     }
   }
 

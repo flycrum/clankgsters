@@ -11,12 +11,12 @@ describe('syncManifest', () => {
     const result = syncManifest.registerEntry(
       initial,
       'cursor',
-      'AgentRulesSymlinkSyncPreset',
+      'AgentRulesDirectorySyncPreset',
       true
     );
     expect(result.isOk()).toBe(true);
     if (result.isErr()) return;
-    expect(result.value.cursor?.AgentRulesSymlinkSyncPreset).toBe(true);
+    expect(result.value.cursor?.AgentRulesDirectorySyncPreset).toBe(true);
   });
 
   test('writes and reads unified manifest json', () => {
@@ -55,6 +55,22 @@ describe('syncManifest', () => {
 
     expect(fs.existsSync(victim)).toBe(true);
     expect(fs.existsSync(safeLink)).toBe(false);
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  });
+
+  test('teardownEntry removes copied paths listed in copies', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'clank-sync-copies-'));
+    const repoRoot = path.join(tempDir, 'repo');
+    fs.mkdirSync(repoRoot, { recursive: true });
+    const copiedFile = path.join(repoRoot, '.cursor', 'rules', 'plugin', 'rule.mdc');
+    fs.mkdirSync(path.dirname(copiedFile), { recursive: true });
+    fs.writeFileSync(copiedFile, 'rule', 'utf8');
+
+    syncManifest.teardownEntry(repoRoot, {
+      copies: ['.cursor/rules/plugin/rule.mdc'],
+    });
+
+    expect(fs.existsSync(copiedFile)).toBe(false);
     fs.rmSync(tempDir, { recursive: true, force: true });
   });
 });
