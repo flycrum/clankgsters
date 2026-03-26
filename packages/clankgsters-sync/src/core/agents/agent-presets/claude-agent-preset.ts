@@ -30,7 +30,7 @@ export const claudeAgentPresetConstants = defineAgentConstants({
     } satisfies AgentSettingsSyncPresetOptions,
     MarkdownSymlinkSyncPreset: {
       targetFile: 'CLAUDE.md',
-      gitignoreComment: '\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n',
+      gitignoreComment: '\n# clankgsters-sync: symlinked from CLANK.md for Claude\n',
       gitignoreEntry: 'CLAUDE.md',
     } satisfies MarkdownSymlinkSyncPresetOptions,
     PluginsCacheBustSyncPreset: {

@@ -81,7 +81,7 @@
     {
       "kind": "file",
       "path": ".clankgsters-cache/sync-manifest.json",
-      "hash": "sha256:c23d7d8549be3a5c98d5fb2bf8634ca973515ad7a93fb7e5b307336d3a8f774a"
+      "hash": "sha256:0b7657b7d73c5b7d71b892a82ad4070f0841c2fe37ef6752b7b1ede16fd11f04"
     },
     {
       "kind": "dir",
@@ -222,7 +222,7 @@
     {
       "kind": "file",
       "path": "clankgsters.config.ts",
-      "hash": "sha256:661096eff53a436da9b9cc83de00e12a9c7ea55b872f63fbefc2c6aa0484ba2a"
+      "hash": "sha256:b101dbc957801964b9343bdad41f9dcca497582f4057a293f67ef16becd832db"
     },
     {
       "kind": "symlink",
