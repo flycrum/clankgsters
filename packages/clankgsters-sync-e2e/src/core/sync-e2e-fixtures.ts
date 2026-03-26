@@ -7,6 +7,7 @@ import { fileStructureFixture } from '../utils/file-structure-fixture.js';
 import { printLine } from '../utils/print-line.js';
 import type { E2eTestCaseDefinition } from './e2e-define-test-case.js';
 import { e2eTestsCaseRunnerConfig } from './e2e-tests.case-runner.config.js';
+import { syncE2eFixturesConfig } from './sync-e2e-fixtures.config.js';
 
 /**
  * Maintenance entrypoint (run with `tsx`, not wired in `package.json`): copies **golden fixtures** from the
@@ -25,6 +26,11 @@ import { e2eTestsCaseRunnerConfig } from './e2e-tests.case-runner.config.js';
  *
  * **What it is not:** Not part of CI’s default test command. Not a substitute for reviewing diffs—blindly
  * syncing can bake in regressions. Optional tooling for authors updating expected JSON after deliberate changes.
+ *
+ * **Formatting:** After all fixtures are written, spawns `pnpm exec vp fmt src/test-cases` in a **detached**
+ * subprocess (`unref`) so this process can exit immediately; JSON under `src/test-cases/` may update moments
+ * later. If spawn fails (e.g. `pnpm` not on `PATH`), logs an error—run `vp fmt src/test-cases` manually from
+ * this package.
  *
  * @throws If a case’s expected result directory is missing the manifest at the resolved path (e.g. you ran
  *   sync-fixtures without running the harness first, or paths/config do not match the last run).
@@ -68,6 +74,8 @@ async function main(): Promise<void> {
     );
     console.log(printLine.success(`fixture synced: ${targetFileStructureFixturePath}`));
   }
+
+  syncE2eFixturesConfig.spawnDetachedFmtTestCases(packageRoot);
 }
 
 main().catch((error) => {

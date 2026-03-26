@@ -22,6 +22,7 @@
     "@clankgsters/typescript-config": "workspace:*",
     "@clankgsters/vite-plus-config": "workspace:*",
     "@types/node": "catalog:",
+    "type-fest": "catalog:",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   },

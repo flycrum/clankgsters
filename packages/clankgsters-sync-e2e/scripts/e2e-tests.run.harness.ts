@@ -6,9 +6,9 @@ import chalk from 'chalk';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runOneE2eTestsCase } from '../src/core/e2e-tests.case-runner.js';
 import { e2ePathHelpers } from '../src/common/e2e-path-helpers.js';
 import { e2eTestCaseDiscovery } from '../src/common/e2e-test-case-discovery.js';
+import { runOneE2eTestsCase } from '../src/core/e2e-tests.case-runner.js';
 import { printLine } from '../src/utils/print-line.js';
 
 /**

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import type { JsonValue } from 'type-fest';
 import { clankgstersIdentity } from '../../../clankgsters-sync/src/index.js';
 import type { E2eTestCaseDefinition } from './e2e-define-test-case.js';
 import {
@@ -81,10 +82,10 @@ export async function runOneE2eTestsCase(
 
   const expected = clankgstersIdentity.resolveFixtureStrings(
     JSON.parse(fs.readFileSync(options.expectedManifestPath, 'utf8'))
-  ) as Record<string, unknown>;
+  ) as JsonValue;
   const manifestPath = e2eTestsCaseRunnerConfig.getManifestPathForCase(sandboxRoot, testCase);
-  const actual = fs.existsSync(manifestPath)
-    ? JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
+  const actual: JsonValue = fs.existsSync(manifestPath)
+    ? (JSON.parse(fs.readFileSync(manifestPath, 'utf8')) as JsonValue)
     : {};
   const manifestDiff = diffManifest.compare(expected, actual);
   if (manifestDiff.changed) {

@@ -2,10 +2,10 @@
   "claude": {
     "MarkdownSymlinkSyncPreset": {
       "options": {
-        "sourceFile": "CLANK.md",
-        "targetFile": "CLAUDE.md",
         "gitignoreComment": "\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n",
-        "gitignoreEntry": "CLAUDE.md"
+        "gitignoreEntry": "CLAUDE.md",
+        "targetFile": "CLAUDE.md",
+        "sourceFile": "CLANK.md"
       },
       "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
     },

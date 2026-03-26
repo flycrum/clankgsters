@@ -2,10 +2,10 @@
   "claude": {
     "MarkdownSymlinkSyncPreset": {
       "options": {
-        "sourceFile": "CLANK.md",
-        "targetFile": "CLAUDE.md",
         "gitignoreComment": "\n# clankgsters-sync: symlinked from AGENTS.md for Claude\n",
-        "gitignoreEntry": "CLAUDE.md"
+        "gitignoreEntry": "CLAUDE.md",
+        "targetFile": "CLAUDE.md",
+        "sourceFile": "CLANK.md"
       },
       "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
     },
@@ -148,10 +148,10 @@
   "codex": {
     "MarkdownSymlinkSyncPreset": {
       "options": {
-        "sourceFile": "CLANK.md",
-        "targetFile": "AGENTS.md",
         "gitignoreComment": "\n# clankgsters-sync: symlinked from CLANK.md for Codex\n",
-        "gitignoreEntry": "AGENTS.md"
+        "gitignoreEntry": "AGENTS.md",
+        "targetFile": "AGENTS.md",
+        "sourceFile": "CLANK.md"
       },
       "symlinks": ["AGENTS.md", "packages/app/AGENTS.md"]
     },
