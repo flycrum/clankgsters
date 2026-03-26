@@ -37,10 +37,10 @@ async function main(): Promise<void> {
   const caseNameArg = process.argv[2];
   const discovered = e2eTestCaseDiscovery.discoverCases(testCasesDir);
   const { shardCount, shardIndex } = e2eTestsCiSharding.resolveFromEnv(process.env);
-  const selectedCases = e2eTestsCiSharding.filterCases(
-    caseNameArg != null ? discovered.filter((entry) => entry.caseId === caseNameArg) : discovered,
-    { shardCount, shardIndex }
-  );
+  const selectedCases =
+    caseNameArg != null
+      ? discovered.filter((entry) => entry.caseId === caseNameArg)
+      : e2eTestsCiSharding.filterCases(discovered, { shardCount, shardIndex });
 
   if (selectedCases.length === 0) {
     console.error(chalk.red('No e2e test cases found.'));
