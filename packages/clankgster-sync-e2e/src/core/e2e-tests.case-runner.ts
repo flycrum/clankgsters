@@ -117,17 +117,21 @@ export async function runOneE2eTestsCase(
     actualFileStructure
   );
   if (fileStructureDiff.changed) {
-    errorLines.push(printLine.error(`${options.name}: file structure does not match fixture`));
+    errorLines.push(
+      printLine.error(
+        `${options.name}: file structure does not match fixture '${options.expectedFileStructurePath}'`
+      )
+    );
     for (const missingPath of fileStructureDiff.missing) {
-      errorLines.push(printLine.error(`${options.name}: missing path ${missingPath}`));
+      errorLines.push(printLine.error(`${options.name}: missing path '${missingPath}'`));
     }
     for (const extraPath of fileStructureDiff.extra) {
-      errorLines.push(printLine.error(`${options.name}: extra path ${extraPath}`));
+      errorLines.push(printLine.error(`${options.name}: extra path '${extraPath}'`));
     }
     for (const modifiedEntry of fileStructureDiff.modified) {
       errorLines.push(
         printLine.error(
-          `${options.name}: modified path ${modifiedEntry.path} (${modifiedEntry.reasons.join(', ')})`
+          `${options.name}: modified path '${modifiedEntry.path}' (reasons: ${modifiedEntry.reasons.join(', ')})`
         )
       );
     }
@@ -137,13 +141,13 @@ export async function runOneE2eTestsCase(
     const absPath = fsHelpers.joinRootSafe(sandboxRoot, relPath);
     if (!fs.existsSync(absPath)) {
       errorLines.push(
-        printLine.error(`${options.name}: expected read-only path missing ${relPath}`)
+        printLine.error(`${options.name}: expected read-only path missing '${relPath}'`)
       );
       continue;
     }
     const stat = fs.lstatSync(absPath);
     if (hasAnyWriteBit(stat.mode)) {
-      errorLines.push(printLine.error(`${options.name}: expected read-only path ${relPath}`));
+      errorLines.push(printLine.error(`${options.name}: expected read-only path '${relPath}'`));
     }
   }
 
@@ -151,13 +155,13 @@ export async function runOneE2eTestsCase(
     const absPath = fsHelpers.joinRootSafe(sandboxRoot, relPath);
     if (!fs.existsSync(absPath)) {
       errorLines.push(
-        printLine.error(`${options.name}: expected writable path missing ${relPath}`)
+        printLine.error(`${options.name}: expected writable path missing '${relPath}'`)
       );
       continue;
     }
     const stat = fs.lstatSync(absPath);
     if (!hasAnyWriteBit(stat.mode)) {
-      errorLines.push(printLine.error(`${options.name}: expected writable path ${relPath}`));
+      errorLines.push(printLine.error(`${options.name}: expected writable path '${relPath}'`));
     }
   }
 
@@ -166,7 +170,9 @@ export async function runOneE2eTestsCase(
   )) {
     const absPath = fsHelpers.joinRootSafe(sandboxRoot, relPath);
     if (!fs.existsSync(absPath)) {
-      errorLines.push(printLine.error(`${options.name}: expected content path missing ${relPath}`));
+      errorLines.push(
+        printLine.error(`${options.name}: expected content path missing '${relPath}'`)
+      );
       continue;
     }
     const contents = fs.readFileSync(absPath, 'utf8');
@@ -174,7 +180,7 @@ export async function runOneE2eTestsCase(
       if (!contents.includes(snippet)) {
         errorLines.push(
           printLine.error(
-            `${options.name}: expected snippet not found in ${relPath}: ${JSON.stringify(snippet)}`
+            `${options.name}: expected snippet not found in '${relPath}': ${JSON.stringify(snippet)}`
           )
         );
       }

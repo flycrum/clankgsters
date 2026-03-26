@@ -27,18 +27,28 @@
       }
     },
     "PluginsDirectorySyncPreset": {
-      "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
+      "copies": [
+        ".cursor/commands/root/root-cmd.md",
+        ".cursor/rules/root/root-rule.mdc"
+      ],
       "options": {
         "targetRoot": ".cursor",
         "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
       },
       "symlinks": [],
-      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
+      "fsAutoRemoval": [
+        ".cursor/rules/root/root-rule.mdc"
+      ],
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
-          "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+          "copies": [
+            ".cursor/commands/root/root-cmd.md",
+            ".cursor/rules/root/root-rule.mdc"
+          ],
+          "fsAutoRemoval": [
+            ".cursor/rules/root/root-rule.mdc"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],

@@ -1,7 +1,10 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ],
       "options": {
         "sourceFile": "CLANK.md",
         "targetFile": "CLAUDE.md"

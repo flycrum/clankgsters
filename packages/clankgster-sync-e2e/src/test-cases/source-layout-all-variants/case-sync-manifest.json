@@ -1,7 +1,10 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md",
@@ -73,7 +76,9 @@
       }
     },
     "AgentRulesDirectorySyncPreset": {
-      "copies": [".claude/rules/root/root-rule.md"],
+      "copies": [
+        ".claude/rules/root/root-rule.md"
+      ],
       "options": {
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgster-claude-sync.json"
@@ -107,15 +112,21 @@
         },
         "nestedLocal": {
           "symlinks": [],
-          "copies": [".claude/skills/skill-nested-local/SKILL.md"]
+          "copies": [
+            ".claude/skills/skill-nested-local/SKILL.md"
+          ]
         },
         "shorthandRegular": {
           "symlinks": [],
-          "copies": [".claude/skills/skill-shorthand-regular/SKILL.md"]
+          "copies": [
+            ".claude/skills/skill-shorthand-regular/SKILL.md"
+          ]
         },
         "shorthandLocal": {
           "symlinks": [],
-          "copies": [".claude/skills/skill-shorthand-local/SKILL.md"]
+          "copies": [
+            ".claude/skills/skill-shorthand-local/SKILL.md"
+          ]
         }
       }
     },

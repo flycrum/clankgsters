@@ -1,7 +1,10 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ],
       "options": {
         "sourceFile": "CLANK.md",
         "targetFile": "CLAUDE.md"
@@ -87,7 +90,9 @@
   },
   "testagent": {
     "SkillsDirectorySyncPreset": {
-      "copies": [".testagent/skills/sample-skill/SKILL.md"],
+      "copies": [
+        ".testagent/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
@@ -96,7 +101,9 @@
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".testagent/skills/sample-skill/SKILL.md"]
+          "copies": [
+            ".testagent/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],

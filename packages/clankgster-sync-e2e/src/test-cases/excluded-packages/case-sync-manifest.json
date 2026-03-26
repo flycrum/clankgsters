@@ -1,7 +1,9 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md",
@@ -40,7 +42,9 @@
       }
     },
     "AgentRulesDirectorySyncPreset": {
-      "copies": [".claude/rules/root/root-rule.md"],
+      "copies": [
+        ".claude/rules/root/root-rule.md"
+      ],
       "options": {
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgster-claude-sync.json"
@@ -121,18 +125,28 @@
       }
     },
     "PluginsDirectorySyncPreset": {
-      "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
+      "copies": [
+        ".cursor/commands/root/root-cmd.md",
+        ".cursor/rules/root/root-rule.mdc"
+      ],
       "options": {
         "targetRoot": ".cursor",
         "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
       },
       "symlinks": [],
-      "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"],
+      "fsAutoRemoval": [
+        ".cursor/rules/root/root-rule.mdc"
+      ],
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".cursor/commands/root/root-cmd.md", ".cursor/rules/root/root-rule.mdc"],
-          "fsAutoRemoval": [".cursor/rules/root/root-rule.mdc"]
+          "copies": [
+            ".cursor/commands/root/root-cmd.md",
+            ".cursor/rules/root/root-rule.mdc"
+          ],
+          "fsAutoRemoval": [
+            ".cursor/rules/root/root-rule.mdc"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],
@@ -154,7 +168,9 @@
   },
   "codex": {
     "MarkdownContextSyncPreset": {
-      "copies": ["AGENTS.md"],
+      "copies": [
+        "AGENTS.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Codex\n",
         "gitignoreEntry": "AGENTS.md",
@@ -198,7 +214,9 @@
   },
   "testagent": {
     "SkillsDirectorySyncPreset": {
-      "copies": [".testagent/skills/sample-skill/SKILL.md"],
+      "copies": [
+        ".testagent/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
@@ -207,7 +225,9 @@
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".testagent/skills/sample-skill/SKILL.md"]
+          "copies": [
+            ".testagent/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],

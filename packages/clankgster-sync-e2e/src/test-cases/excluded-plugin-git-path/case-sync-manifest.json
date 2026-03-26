@@ -1,7 +1,10 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md",
@@ -121,7 +124,9 @@
       }
     },
     "PluginsDirectorySyncPreset": {
-      "copies": [".cursor/commands/nested/nested-cmd.md"],
+      "copies": [
+        ".cursor/commands/nested/nested-cmd.md"
+      ],
       "options": {
         "targetRoot": ".cursor",
         "rulesMarkdownFrontmatter": "---\nalwaysApply: true\n---\n\n"
@@ -131,7 +136,9 @@
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".cursor/commands/nested/nested-cmd.md"],
+          "copies": [
+            ".cursor/commands/nested/nested-cmd.md"
+          ],
           "fsAutoRemoval": []
         },
         "nestedLocal": {
@@ -154,7 +161,10 @@
   },
   "codex": {
     "MarkdownContextSyncPreset": {
-      "copies": ["AGENTS.md", "packages/app/AGENTS.md"],
+      "copies": [
+        "AGENTS.md",
+        "packages/app/AGENTS.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Codex\n",
         "gitignoreEntry": "AGENTS.md",
@@ -198,7 +208,9 @@
   },
   "testagent": {
     "SkillsDirectorySyncPreset": {
-      "copies": [".testagent/skills/sample-skill/SKILL.md"],
+      "copies": [
+        ".testagent/skills/sample-skill/SKILL.md"
+      ],
       "options": {
         "nativeSkillsDir": ".testagent/skills",
         "skillsDirectorySyncEnabled": true
@@ -207,7 +219,9 @@
       "customData": {
         "nestedRegular": {
           "symlinks": [],
-          "copies": [".testagent/skills/sample-skill/SKILL.md"]
+          "copies": [
+            ".testagent/skills/sample-skill/SKILL.md"
+          ]
         },
         "nestedLocal": {
           "symlinks": [],

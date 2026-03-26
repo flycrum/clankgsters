@@ -1,7 +1,10 @@
 {
   "claude": {
     "MarkdownContextSyncPreset": {
-      "copies": ["CLAUDE.md", "packages/app/CLAUDE.md"],
+      "copies": [
+        "CLAUDE.md",
+        "packages/app/CLAUDE.md"
+      ],
       "options": {
         "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
         "gitignoreEntry": "CLAUDE.md",
@@ -40,7 +43,9 @@
       }
     },
     "AgentRulesDirectorySyncPreset": {
-      "copies": [".claude/rules/root/root-rule.md"],
+      "copies": [
+        ".claude/rules/root/root-rule.md"
+      ],
       "options": {
         "rulesDir": ".claude/rules",
         "syncManifest": ".claude/.clankgster-claude-sync.json"
