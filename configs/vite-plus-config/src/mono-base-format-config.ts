@@ -5,7 +5,7 @@ import type { FormatConfig } from 'oxfmt';
  * Configure via `fmt` in each package `vite.config.ts` (Vite+ / Oxfmt — not Prettier).
  * Editor (Oxc): keep root `.oxfmtrc.jsonc` aligned with this object — see repo `.vscode/settings.json`.
  *
- * `trailingComma: es5` applies to JS/TS. The `package.json` override (glob `**` + `/package.json`) uses `trailingComma: none` because standard JSON does not allow trailing commas.
+ * `trailingComma: es5` applies to JS/TS. JSON files are ignored entirely by formatter defaults.
  */
 export const monoBaseFormatConfig: FormatConfig = {
   printWidth: 100,
@@ -14,12 +14,5 @@ export const monoBaseFormatConfig: FormatConfig = {
   singleQuote: true,
   trailingComma: 'es5',
   semi: true,
-  overrides: [
-    {
-      files: ['**/package.json'],
-      options: {
-        trailingComma: 'none',
-      },
-    },
-  ],
+  ignorePatterns: ['**/*.json'],
 };
