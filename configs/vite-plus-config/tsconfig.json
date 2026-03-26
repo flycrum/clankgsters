@@ -1,5 +1,5 @@
 {
-  "extends": "@clankgsters/typescript-config/node-tools.json",
+  "extends": "@clankgster/typescript-config/node-tools.json",
   "compilerOptions": {
     "noEmit": true,
     "rootDir": "src"

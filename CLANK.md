@@ -2,7 +2,7 @@
 
 ## Purpose
 
-- **Agent-agnostic root.** This file is coding-agent-agnostic context. Sync (e.g. Clankgsters) can derive agent-specific entry points such as `AGENTS.md`, `CLAUDE.md`, and similar from it—one source, many surfaces.
+- **Agent-agnostic root.** This file is coding-agent-agnostic context. Sync (e.g. Clankgster) can derive agent-specific entry points such as `AGENTS.md`, `CLAUDE.md`, and similar from it—one source, many surfaces.
 - **Single condensed layer.** `CLANK.md` is this monorepo’s one root, condensed context and instructions file: tech stack, packages, and how AI agents should work here. It should summarize and **link** to deeper detail elsewhere, not duplicate whole docs.
 - **Session preload.** The assumption is that this file is loaded near the start of a coding agent chat session. Treat it as space for **critical, mostly global** context and instructions you want **every** session to see—not a dump of everything the repo knows.
 

@@ -1,6 +1,0 @@
-{
-  "name": "clankgsters-sync",
-  "version": "0.1.0",
-  "description": "Driver plugin: sync local marketplaces and plugins for Claude, Cursor, and Codex; rules and skills to run and document the Clankgsters sync system.",
-  "author": { "name": "clankgsters" }
-}

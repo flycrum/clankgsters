@@ -1,6 +1,0 @@
-{
-  "name": "pino-logger",
-  "version": "0.1.0",
-  "description": "Pino logging strategy, rules, and skills for debugging @clankgsters/sync and tooling.",
-  "author": { "name": "clankgsters" }
-}

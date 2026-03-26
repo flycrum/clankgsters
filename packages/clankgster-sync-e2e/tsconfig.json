@@ -1,0 +1,7 @@
+{
+  "extends": "@clankgster/typescript-config/node-tools.json",
+  "compilerOptions": {
+    "lib": ["ES2023"]
+  },
+  "include": ["scripts", "src", "tests"]
+}

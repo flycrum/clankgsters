@@ -1,5 +1,5 @@
 {
-  "name": "@clankgsters/vite-plus-config",
+  "name": "@clankgster/vite-plus-config",
   "version": "0.0.1",
   "private": true,
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -15,7 +15,7 @@
     "./mono-base-vitest-spec-d-typecheck-config": "./src/mono-base-vitest-spec-d-typecheck-config.ts"
   },
   "devDependencies": {
-    "@clankgsters/typescript-config": "workspace:*",
+    "@clankgster/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "oxfmt": "0.41.0",
     "oxlint": "1.56.0",

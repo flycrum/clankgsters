@@ -7,11 +7,11 @@ This repository's source code and other materials obtained from version control
 PolyForm Noncommercial License 1.0.0 below, unless a specific path explicitly
 provides a different license.
 
-The published npm package `@clankgsters/sync` is distributed under a separate
-MIT License in `packages/clankgsters-sync/LICENSE`.
+The published npm package `@clankgster/sync` is distributed under a separate
+MIT License in `packages/clankgster-sync/LICENSE`.
 
 Required Notice: Copyright (c) 2026 Flycrum and contributors
-Required Notice: Source Code: <https://github.com/flycrum/clankgsters>
+Required Notice: Source Code: <https://github.com/flycrum/clankgster>
 
 # PolyForm Noncommercial License 1.0.0
 

@@ -1,0 +1,7 @@
+{
+  "extends": "@clankgster/typescript-config/library-pack.json",
+  "compilerOptions": {
+    "lib": ["ES2023"]
+  },
+  "include": ["scripts", "src"]
+}
