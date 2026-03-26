@@ -61,6 +61,9 @@ async function main(): Promise<void> {
     if (!Number.isFinite(parsed)) return defaultMaxConcurrentThreads;
     return Math.max(1, Math.min(8, parsed));
   };
+  const failFast =
+    process.env.CLANKGSTER_E2E_FAIL_FAST === '1' ||
+    process.env.CLANKGSTER_E2E_FAIL_FAST === 'true';
 
   const runSpecs = selectedCases.map(({ caseConfigPath, caseDir, caseId }, offset) => {
     const caseIndex = offset + 1;
@@ -98,6 +101,9 @@ async function main(): Promise<void> {
     failures += 1;
     console.log(printLine.errorWithLink(`${caseId} ->`, sandboxPathForLog));
     for (const errorLine of result.errorLines) console.log(errorLine);
+    if (failFast) {
+      throw new Error(`E2E fail-fast stopping after first failure in case '${caseId}'`);
+    }
   };
 
   const completionBuffer = orderedCompletionBuffer.create<{

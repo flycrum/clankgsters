@@ -34,13 +34,48 @@ jobs:
   test:
     name: test
     runs-on: ubuntu-latest
+    # Default path: non-sharded e2e (faster setup, simpler required check shape)
+    # Enable sharding via repo variable CLANKGSTER_E2E_ENABLE_SHARDING=true
+    if: ${{ vars.CLANKGSTER_E2E_ENABLE_SHARDING != 'true' }}
+    env:
+      # In non-sharded mode, stop on first failing case to shorten feedback loop
+      CLANKGSTER_E2E_FAIL_FAST: 'true'
+      CLANKGSTER_E2E_UPLOAD_SHARD_ARTIFACTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: '22'
+          cache: true
+
+      - name: Install dependencies
+        run: vp install
+
+      - name: Build sync package and run workspace tests
+        run: vp run @clankgster/sync#build && vp run -r test
+
+      - name: Sync e2e harness (sandbox + manifest)
+        # Use vp run — setup-vp does not put `pnpm` on PATH (unlike local shells with Corepack/pnpm)
+        run: vp run @clankgster/sync-e2e#e2e-tests:run
+
+  test-sharded:
+    name: test-sharded
+    runs-on: ubuntu-latest
+    # Opt-in path: matrix-sharded e2e for earlier first-failure signal + broader diagnostics
+    if: ${{ vars.CLANKGSTER_E2E_ENABLE_SHARDING == 'true' }}
     strategy:
+      # Keep other shards running even when one shard fails
       fail-fast: false
       matrix:
         shard_index: [1, 2, 3, 4]
     env:
+      # In sharded mode, keep running all assigned cases per shard
+      CLANKGSTER_E2E_FAIL_FAST: 'false'
+      # Keep shard count in one place for harness and matrix readability
       CLANKGSTER_E2E_SHARD_COUNT: 4
       CLANKGSTER_E2E_SHARD_INDEX: ${{ matrix.shard_index }}
+      # Optional debug aid: upload per-shard run results when set to true
       CLANKGSTER_E2E_UPLOAD_SHARD_ARTIFACTS: 'false'
     steps:
       - uses: actions/checkout@v4
