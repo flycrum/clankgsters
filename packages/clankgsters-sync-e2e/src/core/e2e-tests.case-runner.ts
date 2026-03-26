@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { fsHelpers } from '../common/fs-helpers.js';
 import type { JsonValue } from 'type-fest';
 import { clankgstersIdentity } from '../../../clankgsters-sync/src/index.js';
 import type { E2eTestCaseDefinition } from './e2e-define-test-case.js';
@@ -46,7 +46,10 @@ export async function runOneE2eTestsCase(
     repoRoot: options.repoRoot,
   });
 
-  const configPath = path.join(options.caseOutputRoot, e2eTestsCaseRunnerConfig.configFileName);
+  const configPath = fsHelpers.joinRootSafe(
+    options.caseOutputRoot,
+    e2eTestsCaseRunnerConfig.configFileName
+  );
   fs.writeFileSync(
     configPath,
     e2eTestsCaseRunnerConfig.toConfigFileContents(testCase.config),

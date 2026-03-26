@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fsHelpers } from '../common/fs-helpers.js';
 import { SeedingBlueprintBase } from './seeding-blueprint-base.js';
 import { SeedingPrefabBase } from './seeding-prefab-base.js';
 import type {
@@ -13,12 +14,6 @@ import type {
 function normalizeReplaceRoots(replaceRoots: string[] | undefined): string[] {
   if (replaceRoots == null) return [];
   return [...new Set(replaceRoots.map((v) => v.trim()).filter((v) => v.length > 0))];
-}
-
-/** Returns whether `value` lies under `root` (relative path does not escape or go absolute). */
-function isPathInsideRoot(root: string, value: string): boolean {
-  const rel = path.relative(root, value);
-  return !(rel.startsWith('..') || path.isAbsolute(rel));
 }
 
 /** A seeding blueprint or standalone seeding prefab supplied for a test case. */
@@ -116,8 +111,10 @@ export const seedingPrefabOrchestration = {
       for (const entry of group.entries) {
         if (entry.action === 'replace') {
           for (const replaceRoot of entry.replaceRoots) {
-            const targetPath = path.resolve(normalizedSandboxRoot, replaceRoot);
-            if (!isPathInsideRoot(normalizedSandboxRoot, targetPath)) {
+            let targetPath: string;
+            try {
+              targetPath = fsHelpers.joinRootSafe(normalizedSandboxRoot, replaceRoot);
+            } catch {
               throw new Error(
                 `replace root escapes sandbox for entry "${entry.id}" in group "${group.id}": ${replaceRoot}`
               );
@@ -139,7 +136,7 @@ export const seedingPrefabOrchestration = {
       this.runResolvedPrepare(
         context,
         resolved,
-        path.join(context.caseOutputRoot, main.sandboxDirectoryName)
+        fsHelpers.joinRootSafe(context.caseOutputRoot, main.sandboxDirectoryName)
       );
     }
   },

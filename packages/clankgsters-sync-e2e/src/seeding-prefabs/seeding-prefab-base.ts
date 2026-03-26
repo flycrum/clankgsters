@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fsHelpers } from '../common/fs-helpers.js';
 import type {
   SeedingPrefabApplyContext,
   SeedingPrefabsPrepareConfig,
@@ -32,11 +33,11 @@ export abstract class SeedingPrefabBase<TOptions extends object = Record<string,
   abstract run(context: SeedingPrefabApplyContext): void;
 
   protected getSandboxRoot(context: SeedingPrefabApplyContext): string {
-    return path.join(context.caseOutputRoot, this.sandboxDirectoryName);
+    return fsHelpers.joinRootSafe(context.caseOutputRoot, this.sandboxDirectoryName);
   }
 
   protected joinSandboxPath(context: SeedingPrefabApplyContext, ...segments: string[]): string {
-    return path.join(this.getSandboxRoot(context), ...segments);
+    return fsHelpers.joinRootSafe(this.getSandboxRoot(context), ...segments);
   }
 
   protected ensureDirectory(dirPath: string): void {

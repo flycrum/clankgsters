@@ -1,6 +1,7 @@
 import { spawn, type ChildProcess } from 'node:child_process';
 import path from 'node:path';
 import { clankgstersIdentity } from '../../../clankgsters-sync/src/index.js';
+import { fsHelpers } from '../common/fs-helpers.js';
 import type { E2eTestCaseDefinition } from './e2e-define-test-case.js';
 
 /**
@@ -108,24 +109,25 @@ export const e2eTestsCaseRunnerConfig = {
    * `config.syncManifestPath` (absolute or relative to sandbox), else `config.syncCacheDir` + manifest filename, else `manifestRelativePath`.
    */
   getManifestPathForCase(sandboxRoot: string, testCase: E2eTestCaseDefinition): string {
+    const resolvedSandbox = path.resolve(sandboxRoot);
     if (
       typeof testCase.config.syncManifestPath === 'string' &&
       testCase.config.syncManifestPath.length > 0
     ) {
       return path.isAbsolute(testCase.config.syncManifestPath)
         ? testCase.config.syncManifestPath
-        : path.join(sandboxRoot, testCase.config.syncManifestPath);
+        : fsHelpers.joinRootSafe(resolvedSandbox, testCase.config.syncManifestPath);
     }
     if (
       typeof testCase.config.syncCacheDir === 'string' &&
       testCase.config.syncCacheDir.length > 0
     ) {
-      return path.join(
-        sandboxRoot,
+      return fsHelpers.joinRootSafe(
+        resolvedSandbox,
         testCase.config.syncCacheDir,
         clankgstersIdentity.SYNC_MANIFEST_FILE_NAME
       );
     }
-    return path.join(sandboxRoot, this.manifestRelativePath);
+    return fsHelpers.joinRootSafe(resolvedSandbox, this.manifestRelativePath);
   },
 };
