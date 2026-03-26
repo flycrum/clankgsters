@@ -8,7 +8,7 @@ export const printLine = {
   },
   /** Formats a neutral info line (cyan •). */
   info(message: string): string {
-    return `${chalk.cyan(' •')} ${message}`;
+    return `${chalk.cyan('•')} ${message}`;
   },
   /** Formats a success line (green ✓). */
   success(message: string): string {
