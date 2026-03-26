@@ -1,0 +1,83 @@
+{
+  "claude": {
+    "MarkdownSymlinkSyncPreset": {
+      "options": {
+        "gitignoreComment": "\n# clankgster-sync: symlinked from CLANK.md for Claude\n",
+        "gitignoreEntry": "CLAUDE.md",
+        "targetFile": "CLAUDE.md",
+        "sourceFile": "CLANK.md"
+      },
+      "symlinks": ["CLAUDE.md", "packages/app/CLAUDE.md"]
+    },
+    "AgentMarketplaceJsonSyncPreset": {
+      "options": {
+        "manifestKey": "claude",
+        "marketplaceFile": ".claude-plugin/marketplace.json",
+        "marketplaceName": "clankgster-sync",
+        "sourceFormat": "prefixed"
+      },
+      "customData": {
+        "nestedRegular": {
+          "plugins": [
+            {
+              "name": "nested",
+              "source": "./packages/app/.clank/plugins/nested",
+              "description": "nested plugin",
+              "version": "0.0.1"
+            },
+            {
+              "name": "root",
+              "source": "./.clank/plugins/root",
+              "description": "root plugin",
+              "version": "0.0.1"
+            }
+          ]
+        },
+        "nestedLocal": {
+          "plugins": []
+        },
+        "shorthandRegular": {
+          "plugins": []
+        },
+        "shorthandLocal": {
+          "plugins": []
+        }
+      }
+    },
+    "AgentRulesSymlinkSyncPreset": {
+      "options": {
+        "rulesDir": ".claude/rules",
+        "syncManifest": ".claude/.clankgster-claude-sync.json"
+      },
+      "symlinks": [".claude/rules/root/root-rule.md"]
+    },
+    "SkillsDirectorySyncPreset": {
+      "options": {
+        "nativeSkillsDir": ".claude/skills",
+        "skillsDirectorySyncEnabled": true
+      },
+      "symlinks": [".claude/skills/sample-skill"],
+      "customData": {
+        "nestedRegular": {
+          "symlinks": [".claude/skills/sample-skill"]
+        },
+        "nestedLocal": {
+          "symlinks": []
+        },
+        "shorthandRegular": {
+          "symlinks": []
+        },
+        "shorthandLocal": {
+          "symlinks": []
+        }
+      }
+    },
+    "AgentSettingsSyncPreset": {
+      "options": {
+        "manifestKey": "claude",
+        "marketplaceName": "clankgster-sync",
+        "settingsFile": ".claude/settings.json"
+      }
+    }
+  }
+}

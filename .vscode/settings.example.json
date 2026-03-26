@@ -62,7 +62,7 @@
   "terminal.integrated.env.windows": {
     "NODE_OPTIONS": "--experimental-strip-types"
   },
-  // Vitest extension: let Node strip types when resolving workspace `.ts` imports from `vite.config.ts` (see @clankgsters/vite-plus-config). Node 22.6+; try removing after 22.18+ if default behavior suffices
+  // Vitest extension: let Node strip types when resolving workspace `.ts` imports from `vite.config.ts` (see @clankgster/vite-plus-config). Node 22.6+; try removing after 22.18+ if default behavior suffices
   "vitest.nodeEnv": {
     "NODE_OPTIONS": "--experimental-strip-types"
   },

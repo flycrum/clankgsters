@@ -223,7 +223,7 @@ Cursor does **not** support "local" marketplaces (i.e. a repo on disk whose `.cu
 - **Public marketplace** — Install plugins from [cursor.com/marketplace](https://cursor.com/marketplace).
 - **Team marketplace** — Add a GitHub repo URL in the Cursor dashboard; Cursor fetches and parses that repo (including `marketplace.json`).
 
-For local plugin content (e.g. under `.agents/plugins/`), clankgsters-sync therefore **syncs content** into `.cursor/` instead of relying on `marketplace.json`: rules are copied as `.mdc` files with `alwaysApply: true` frontmatter, and commands, skills, and agents are symlinked into `.cursor/commands/`, `.cursor/skills/`, and `.cursor/agents/`. At the time of this writing, Cursor project rules under `.cursor/rules/` require `.mdc` and frontmatter for reliable behavior; clankgsters-sync generates these from plugin `.md` sources.
+For local plugin content (e.g. under `.agents/plugins/`), clankgster-sync therefore **syncs content** into `.cursor/` instead of relying on `marketplace.json`: rules are copied as `.mdc` files with `alwaysApply: true` frontmatter, and commands, skills, and agents are symlinked into `.cursor/commands/`, `.cursor/skills/`, and `.cursor/agents/`. At the time of this writing, Cursor project rules under `.cursor/rules/` require `.mdc` and frontmatter for reliable behavior; clankgster-sync generates these from plugin `.md` sources.
 
 ---
 

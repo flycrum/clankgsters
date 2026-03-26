@@ -1,0 +1,59 @@
+{
+  "name": "@clankgster/sync",
+  "version": "0.0.1",
+  "description": "Node tooling and TypeScript scripts for Clankgster sync workflows (publishable).",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flycrum/clankgster.git",
+    "directory": "packages/clankgster-sync"
+  },
+  "bin": {
+    "clankgster-sync": "./bin/clankgster-sync.mjs"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "scripts",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack src/index.ts",
+    "check": "vp check src scripts exports bin vite.config.ts",
+    "clankgster-sync:clear": "tsx scripts/clankgster-sync.clear.ts",
+    "clankgster-sync:run": "tsx scripts/clankgster-sync.run.ts",
+    "dev": "vp pack src/index.ts --watch",
+    "prepublishOnly": "vp pack src/index.ts",
+    "test": "vp test"
+  },
+  "dependencies": {
+    "@types/lodash-es": "catalog:",
+    "chalk": "catalog:",
+    "lodash-es": "catalog:",
+    "neverthrow": "catalog:",
+    "pino": "catalog:",
+    "tsx": "^4.19.0",
+    "xstate": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@clankgster/typescript-config": "workspace:*",
+    "@clankgster/vite-plus-config": "workspace:*",
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "7.0.0-dev.20260316.1",
+    "oxlint": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

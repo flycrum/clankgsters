@@ -1,0 +1,7 @@
+{
+  "name": "clankgster-brand",
+  "version": "0.1.0",
+  "description": "Solobot documentation voice—playful robot tone (Solomon-adjacent) for README, markdown, and TS doc comments in Clankgster repos.",
+  "author": { "name": "clankgster" },
+  "keywords": ["documentation", "voice", "tone", "clankgster", "solobot"]
+}

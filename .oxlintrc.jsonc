@@ -1,6 +1,6 @@
 {
   // Keep in sync with `configs/vite-plus-config/src/mono-base-lint-config.ts` (Vite+ `lint` source of truth).
-  // The `packages/clankgsters-sync/**` override must stay aligned with `packages/clankgsters-sync/vite.config.ts` (`syncMustNotDependOnE2eRules`).
+  // The `packages/clankgster-sync/**` override must stay aligned with `packages/clankgster-sync/vite.config.ts` (`syncMustNotDependOnE2eRules`).
   // Contract: `.oxlintrc-sync-no-e2e-dependency.spec.ts` (repo root) exercises this config against oxlint.
   // This file exists so the Oxc VS Code extension can load lint options without importing `vite.config.ts`.
   "$schema": "./configs/oxc-editor-json-schema/oxlintrc.schema.json",
@@ -37,9 +37,9 @@
     },
     {
       "files": [
-        "packages/clankgsters-sync/**/*.ts",
-        "packages/clankgsters-sync/**/*.tsx",
-        "packages/clankgsters-sync/bin/**/*.mjs",
+        "packages/clankgster-sync/**/*.ts",
+        "packages/clankgster-sync/**/*.tsx",
+        "packages/clankgster-sync/bin/**/*.mjs",
       ],
       "rules": {
         "eslint/no-restricted-imports": [
@@ -47,14 +47,14 @@
           {
             "paths": [
               {
-                "name": "@clankgsters/sync-e2e",
-                "message": "@clankgsters/sync must not depend on @clankgsters/sync-e2e; shared code belongs in this package.",
+                "name": "@clankgster/sync-e2e",
+                "message": "@clankgster/sync must not depend on @clankgster/sync-e2e; shared code belongs in this package.",
               },
             ],
             "patterns": [
               {
-                "regex": "clankgsters-sync-e2e",
-                "message": "@clankgsters/sync must not import paths containing clankgsters-sync-e2e.",
+                "regex": "clankgster-sync-e2e",
+                "message": "@clankgster/sync must not import paths containing clankgster-sync-e2e.",
               },
             ],
           },

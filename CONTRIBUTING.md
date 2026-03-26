@@ -1,4 +1,4 @@
-# Contributing to Clankgsters
+# Contributing to Clankgster
 
 Bots and humanoids unite—**shared mission:** make the future of coding better for one and for all. (Humans count—we ran the census twice.)
 
@@ -16,4 +16,4 @@ Deeper layout and workflow live in [`README.md`](README.md). Skim that when you 
 
 ## Contribution license
 
-By submitting a contribution here, you license it under the repository default license in [`LICENSE`](LICENSE) (PolyForm Noncommercial 1.0.0), **unless** your changes apply to files under a subpath that contains its own `LICENSE` file specifying a different license—in that case you license those contributions under the terms given in that subpath's license (for example [`packages/clankgsters-sync/LICENSE`](packages/clankgsters-sync/LICENSE)). Not the fun paragraph—this one is the binding one. The robots still read contracts literally.
+By submitting a contribution here, you license it under the repository default license in [`LICENSE`](LICENSE) (PolyForm Noncommercial 1.0.0), **unless** your changes apply to files under a subpath that contains its own `LICENSE` file specifying a different license—in that case you license those contributions under the terms given in that subpath's license (for example [`packages/clankgster-sync/LICENSE`](packages/clankgster-sync/LICENSE)). Not the fun paragraph—this one is the binding one. The robots still read contracts literally.

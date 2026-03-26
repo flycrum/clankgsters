@@ -1,9 +1,9 @@
 /**
- * Contract test for `.oxlintrc.jsonc` + `packages/clankgsters-sync/vite.config.ts`:
- * `eslint/no-restricted-imports` must block `@clankgsters/sync` from depending on `@clankgsters/sync-e2e`.
+ * Contract test for `.oxlintrc.jsonc` + `packages/clankgster-sync/vite.config.ts`:
+ * `eslint/no-restricted-imports` must block `@clankgster/sync` from depending on `@clankgster/sync-e2e`.
  *
  * Safety: oxlint is invoked without fix flags (read-only on sources). The bad fixture must live under
- * `packages/clankgsters-sync/**` so `.oxlintrc.jsonc` overrides apply; it is written under `tmp/` (ignored repo-wide)
+ * `packages/clankgster-sync/**` so `.oxlintrc.jsonc` overrides apply; it is written under `tmp/` (ignored repo-wide)
  * and removed in `finally` (including the parent `tmp/` when empty).
  *
  * Skipped when `GITHUB_ACTIONS` is set (GitHub-hosted runners). Run `vp test` / `pnpm test` locally to enforce.
@@ -15,8 +15,8 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vite-plus/test';
 
 const repoRoot = dirname(fileURLToPath(import.meta.url));
-const syncPackageRoot = join(repoRoot, 'packages', 'clankgsters-sync');
-/** Real oxlint binary (pnpm links `node_modules/oxlint` under `@clankgsters/sync`). */
+const syncPackageRoot = join(repoRoot, 'packages', 'clankgster-sync');
+/** Real oxlint binary (pnpm links `node_modules/oxlint` under `@clankgster/sync`). */
 const oxlintBin = join(syncPackageRoot, 'node_modules', 'oxlint', 'bin', 'oxlint');
 
 function runOxlintOnFile(absolutePath: string): void {
@@ -29,7 +29,7 @@ function runOxlintOnFile(absolutePath: string): void {
 
 // skip if in GitHub Actions (subprocess oxlint + root config can diverge from `vp check` in CI) cause we don't need to enforce this rule in CI
 describe.skipIf(Boolean(process.env.GITHUB_ACTIONS))(
-  'Oxlint: @clankgsters/sync must not depend on @clankgsters/sync-e2e',
+  'Oxlint: @clankgster/sync must not depend on @clankgster/sync-e2e',
   () => {
     it('fails when a file under this package imports the e2e package', () => {
       const tmpBase = join(syncPackageRoot, 'tmp');
@@ -37,7 +37,7 @@ describe.skipIf(Boolean(process.env.GITHUB_ACTIONS))(
       const tmpDir = mkdtempSync(join(tmpBase, 'oxlint-boundary-'));
       try {
         const badPath = join(tmpDir, 'should-fail.ts');
-        writeFileSync(badPath, `import type { never } from '@clankgsters/sync-e2e';\n`);
+        writeFileSync(badPath, `import type { never } from '@clankgster/sync-e2e';\n`);
         try {
           runOxlintOnFile(badPath);
           expect.fail('oxlint should have failed');

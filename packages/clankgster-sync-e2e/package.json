@@ -1,0 +1,32 @@
+{
+  "name": "@clankgster/sync-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "description": "E2E tests for @clankgster/sync (sandbox + manifest assertions).",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node --eval \"process.exit(0)\"",
+    "check": "vp check",
+    "e2e-tests:clear": "tsx scripts/e2e-tests.clear.ts",
+    "e2e-tests:run": "tsx scripts/e2e-tests.run.harness.ts",
+    "test": "vp test",
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@clankgster/sync": "workspace:*",
+    "chalk": "catalog:",
+    "tsx": "^4.19.0"
+  },
+  "devDependencies": {
+    "@clankgster/typescript-config": "workspace:*",
+    "@clankgster/vite-plus-config": "workspace:*",
+    "@types/node": "catalog:",
+    "type-fest": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

@@ -1,7 +1,0 @@
-{
-  "name": "clankgsters-e2e",
-  "version": "0.1.0",
-  "description": "Skills to run and create @clankgsters/sync-e2e tests (config-driven test cases).",
-  "author": { "name": "clankgsters" },
-  "keywords": ["e2e", "tests", "clankgsters", "sync", "sandbox"]
-}

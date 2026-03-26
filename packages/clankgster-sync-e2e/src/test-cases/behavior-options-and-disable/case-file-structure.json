@@ -1,0 +1,201 @@
+{
+  "entries": [
+    {
+      "kind": "dir",
+      "path": ".clank"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/.claude-plugin"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/plugins/root/.claude-plugin/plugin.json",
+      "hash": "sha256:5f8dfbef6677ceb631d0ddbd4c7e547108804ec7738e692ee9235889dcd7b635"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/.cursor-plugin"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/plugins/root/.cursor-plugin/plugin.json",
+      "hash": "sha256:5f8dfbef6677ceb631d0ddbd4c7e547108804ec7738e692ee9235889dcd7b635"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/commands"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/plugins/root/commands/root-cmd.md",
+      "hash": "sha256:de4c0dc960de39264d423cd9ebfda8f0a8e62b21fcc076c1883561394dd86089"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/rules"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/plugins/root/rules/root-rule.md",
+      "hash": "sha256:99e1c9e58462f68f4ba3d84a0d7916c92b35270d6c144e6a4a868719efff0f67"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/skills"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/plugins/root/skills/root-fake-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/plugins/root/skills/root-fake-skill/SKILL.md",
+      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/skills"
+    },
+    {
+      "kind": "dir",
+      "path": ".clank/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": ".clank/skills/sample-skill/SKILL.md",
+      "hash": "sha256:1fa8fc1128f1128ac607ccbc1ced1010ec2f1e846805172b6aab1fe9664b94bd"
+    },
+    {
+      "kind": "dir",
+      "path": ".clankgster-cache"
+    },
+    {
+      "kind": "file",
+      "path": ".clankgster-cache/sync-manifest.json",
+      "hash": "sha256:d20a06a9dff772f19fc0ba142a56b8f19dfeadecf0cece167b5863cd00f51608"
+    },
+    {
+      "kind": "dir",
+      "path": ".claude"
+    },
+    {
+      "kind": "file",
+      "path": ".claude/marketplace.json",
+      "hash": "sha256:d210073b4c5a5483ee8e5aed4ff0c44ec08649b6d1fe8f513e70ee96014b3156"
+    },
+    {
+      "kind": "dir",
+      "path": ".claude/skills"
+    },
+    {
+      "kind": "symlink",
+      "path": ".claude/skills/nested-nested-fake-skill",
+      "symlinkTarget": "../../packages/app/.clank/plugins/nested/skills/nested-fake-skill"
+    },
+    {
+      "kind": "symlink",
+      "path": ".claude/skills/root-root-fake-skill",
+      "symlinkTarget": "../../.clank/plugins/root/skills/root-fake-skill"
+    },
+    {
+      "kind": "symlink",
+      "path": ".claude/skills/sample-skill",
+      "symlinkTarget": "../../.clank/skills/sample-skill"
+    },
+    {
+      "kind": "file",
+      "path": "CLANK.md",
+      "hash": "sha256:1438a94b6ef989eab2aefce1da7c2db80c3dc5ddc6f8f0b7ecacf261fab852cb"
+    },
+    {
+      "kind": "file",
+      "path": "clankgster.config.ts",
+      "hash": "sha256:9c573c30bd3407497d588d1c573bfc293bd3b611891d5c4606d957512a832ad1"
+    },
+    {
+      "kind": "symlink",
+      "path": "CLAUDE.md",
+      "symlinkTarget": "CLANK.md"
+    },
+    {
+      "kind": "dir",
+      "path": "packages"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested/.claude-plugin"
+    },
+    {
+      "kind": "file",
+      "path": "packages/app/.clank/plugins/nested/.claude-plugin/plugin.json",
+      "hash": "sha256:3c9aa9c84c4d3ae880ef571f7260b24e3b8090a17d5ce01dea497337d76475d6"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested/.cursor-plugin"
+    },
+    {
+      "kind": "file",
+      "path": "packages/app/.clank/plugins/nested/.cursor-plugin/plugin.json",
+      "hash": "sha256:3c9aa9c84c4d3ae880ef571f7260b24e3b8090a17d5ce01dea497337d76475d6"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested/commands"
+    },
+    {
+      "kind": "file",
+      "path": "packages/app/.clank/plugins/nested/commands/nested-cmd.md",
+      "hash": "sha256:de4c0dc960de39264d423cd9ebfda8f0a8e62b21fcc076c1883561394dd86089"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested/skills"
+    },
+    {
+      "kind": "dir",
+      "path": "packages/app/.clank/plugins/nested/skills/nested-fake-skill"
+    },
+    {
+      "kind": "file",
+      "path": "packages/app/.clank/plugins/nested/skills/nested-fake-skill/SKILL.md",
+      "hash": "sha256:6504f2de0a1febf7492c3b98f93d9ab49558eb364607a706f02fe9a75aa7f75b"
+    },
+    {
+      "kind": "file",
+      "path": "packages/app/CLANK.md",
+      "hash": "sha256:d42c50152e3b08ddb0cd9edf98eb2685a7ce371ee14573f6b79e38cb6ab506ab"
+    },
+    {
+      "kind": "symlink",
+      "path": "packages/app/CLAUDE.md",
+      "symlinkTarget": "CLANK.md"
+    }
+  ],
+  "version": 1
+}
