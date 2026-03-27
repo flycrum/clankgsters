@@ -17,7 +17,7 @@ This pattern is recommended only for complex edge cases where you need explicit 
 ## When to use MCP routing contracts
 
 - You need structured parameters across repeated workflows.
-- You need predictable action chaining (`auditing` -> `updating`).
+- You need predictable action chaining (`audit` -> `update`).
 - You need one canonical route registry shared across many skills.
 
 ## When not to use MCP routing contracts

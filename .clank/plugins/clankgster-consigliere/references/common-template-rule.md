@@ -42,10 +42,10 @@ When a negative boundary is needed, pair with the alternative:
      surrounding instructions. -->
 <examples>
 <example type="good">
-`clankgster-sync-writing-conventions.md` — plugin prefix + descriptive name
+`clankgster-sync-write-conventions.md` — plugin prefix + descriptive name
 </example>
 <example type="bad">
-`writing-conventions.md` — collides if another plugin has the same topic
+`write-conventions.md` — collides if another plugin has the same topic
 </example>
 </examples>
 

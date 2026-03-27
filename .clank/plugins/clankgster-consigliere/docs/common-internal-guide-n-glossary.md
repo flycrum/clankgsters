@@ -18,12 +18,42 @@ MCP-to-skill routing contracts are an advanced pattern. They are non-default and
 
 ## Naming scheme in this plugin
 
+### Pathway/file prefixes
+
 All files in this plugin use one of these prefixes:
 
 - `plugins-` for source pathway `plugins/` specific content
 - `skills-` for source pathway `skills/` specific content
 - `clankmd-` for source pathway `CLANK.md` specific content
 - `common-` for shared cross-pathway content
+
+### Standardized action verbs
+
+Action names in this plugin must use base-form verbs:
+
+- `triage`
+- `write`
+- `update`
+- `remove`
+- `audit`
+
+Do not use present-participle (`-ing`) forms for action names in files, folders, or route IDs.
+
+### Good and bad naming examples
+
+Good:
+
+- `skills/plugins-write-context/SKILL.md`
+- `skills/clankmd-update-context/SKILL.md`
+- `references/common-write-descriptions.md`
+- `rules/common-write-rules.md`
+
+Bad:
+
+- `skills/plugins-writing-context/SKILL.md`
+- `skills/clankmd-updating-context/SKILL.md`
+- `references/common-writing-descriptions.md`
+- `rules/common-writing-rules.md`
 
 ## Internal vs external usage language
 
@@ -40,7 +70,7 @@ Use the word "external" only in:
 Use this order:
 
 1. Decide pathway first (`plugins/`, `skills/`, `CLANK.md`)
-2. Then choose action (`triaging`, `writing`, `updating`, `removing`, `auditing`)
+2. Then choose a base-form action verb (`triage`, `write`, `update`, `remove`, `audit`)
 3. Then choose files inside the selected pathway
 
 ## MCP conventions for this plugin

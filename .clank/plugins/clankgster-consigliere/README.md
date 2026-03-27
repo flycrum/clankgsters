@@ -12,41 +12,41 @@ This plugin includes an advanced MCP-to-skill routing pattern for specialized or
 
 #### **Core action skills**
 
-- [`common-triaging-context-type`](skills/common-triaging-context-type/SKILL.md)
-- [`plugins-writing-context`](skills/plugins-writing-context/SKILL.md)
-- [`plugins-updating-context`](skills/plugins-updating-context/SKILL.md)
-- [`plugins-removing-context`](skills/plugins-removing-context/SKILL.md)
-- [`skills-writing-context`](skills/skills-writing-context/SKILL.md)
-- [`skills-updating-context`](skills/skills-updating-context/SKILL.md)
-- [`skills-removing-context`](skills/skills-removing-context/SKILL.md)
-- [`clankmd-writing-context`](skills/clankmd-writing-context/SKILL.md)
-- [`clankmd-updating-context`](skills/clankmd-updating-context/SKILL.md)
-- [`clankmd-removing-context`](skills/clankmd-removing-context/SKILL.md)
+- [`common-triage-context-type`](skills/common-triage-context-type/SKILL.md)
+- [`plugins-write-context`](skills/plugins-write-context/SKILL.md)
+- [`plugins-update-context`](skills/plugins-update-context/SKILL.md)
+- [`plugins-remove-context`](skills/plugins-remove-context/SKILL.md)
+- [`skills-write-context`](skills/skills-write-context/SKILL.md)
+- [`skills-update-context`](skills/skills-update-context/SKILL.md)
+- [`skills-remove-context`](skills/skills-remove-context/SKILL.md)
+- [`clankmd-write-context`](skills/clankmd-write-context/SKILL.md)
+- [`clankmd-update-context`](skills/clankmd-update-context/SKILL.md)
+- [`clankmd-remove-context`](skills/clankmd-remove-context/SKILL.md)
 
 #### **Audit suite**
 
-- [`common-auditing-all-orchestrator`](skills/common-auditing-all-orchestrator/SKILL.md)
-- [`common-auditing-content-quality`](skills/common-auditing-content-quality/SKILL.md)
-- [`common-auditing-plugin-structure`](skills/common-auditing-plugin-structure/SKILL.md)
-- [`common-auditing-internal-links`](skills/common-auditing-internal-links/SKILL.md)
-- [`common-auditing-external-links`](skills/common-auditing-external-links/SKILL.md)
-- [`common-auditing-source-freshness`](skills/common-auditing-source-freshness/SKILL.md)
-- [`common-auditing-fact-check`](skills/common-auditing-fact-check/SKILL.md)
-- [`common-auditing-comparison-matrix`](skills/common-auditing-comparison-matrix/SKILL.md)
+- [`common-audit-all-orchestrator`](skills/common-audit-all-orchestrator/SKILL.md)
+- [`common-audit-content-quality`](skills/common-audit-content-quality/SKILL.md)
+- [`common-audit-plugin-structure`](skills/common-audit-plugin-structure/SKILL.md)
+- [`common-audit-internal-links`](skills/common-audit-internal-links/SKILL.md)
+- [`common-audit-external-links`](skills/common-audit-external-links/SKILL.md)
+- [`common-audit-source-freshness`](skills/common-audit-source-freshness/SKILL.md)
+- [`common-audit-fact-check`](skills/common-audit-fact-check/SKILL.md)
+- [`common-audit-comparison-matrix`](skills/common-audit-comparison-matrix/SKILL.md)
 
 ### Rules
 
-- [`common-writing-rules`](rules/common-writing-rules.md)
-- [`common-writing-skills`](rules/common-writing-skills.md)
+- [`common-write-rules`](rules/common-write-rules.md)
+- [`common-write-skills`](rules/common-write-skills.md)
 - [`common-organizing-content`](rules/common-organizing-content.md)
 - [`common-internal-styleguide`](rules/common-internal-styleguide.md)
-- [`clankmd-writing`](rules/clankmd-writing.md)
+- [`clankmd-write`](rules/clankmd-write.md)
 - [`plugins-self-referential-beacon`](rules/plugins-self-referential-beacon.md)
 
 ### References
 
 - [`common-prompt-techniques`](references/common-prompt-techniques.md)
-- [`common-writing-descriptions`](references/common-writing-descriptions.md)
+- [`common-write-descriptions`](references/common-write-descriptions.md)
 - [`common-tool-calls`](references/common-tool-calls.md)
 - [`common-progressive-disclosure`](references/common-progressive-disclosure.md)
 - [`common-mcp-tools-in-plugins`](references/common-mcp-tools-in-plugins.md)

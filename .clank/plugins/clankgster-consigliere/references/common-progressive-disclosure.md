@@ -135,7 +135,7 @@ Files in `docs/` never auto-load. They are useful for:
 - Under 1,024 characters
 - Include trigger phrases
 - Front-load distinctive terms
-- See [common-writing-descriptions.md](common-writing-descriptions.md)
+- See [common-write-descriptions.md](common-write-descriptions.md)
 
 ### For Layer 1 (contextual rules)
 

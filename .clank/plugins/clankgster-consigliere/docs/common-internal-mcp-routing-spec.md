@@ -12,19 +12,19 @@ This is an advanced, edge-case pattern for complex orchestration. It is not the 
 
 | Route ID | MCP tool | Target skill ID | Pathway | Action |
 | --- | --- | --- | --- | --- |
-| `common.triaging` | `Triaging` | `common-triaging-context-type` | `common` | `triaging` |
-| `plugins.writing` | `PluginsWriting` | `plugins-writing-context` | `plugins` | `writing` |
-| `plugins.updating` | `PluginsUpdating` | `plugins-updating-context` | `plugins` | `updating` |
-| `plugins.removing` | `PluginsRemoving` | `plugins-removing-context` | `plugins` | `removing` |
-| `plugins.auditing` | `PluginsAuditing` | `common-auditing-all-orchestrator` | `plugins` | `auditing` |
-| `skills.writing` | `SkillsWriting` | `skills-writing-context` | `skills` | `writing` |
-| `skills.updating` | `SkillsUpdating` | `skills-updating-context` | `skills` | `updating` |
-| `skills.removing` | `SkillsRemoving` | `skills-removing-context` | `skills` | `removing` |
-| `skills.auditing` | `SkillsAuditing` | `common-auditing-all-orchestrator` | `skills` | `auditing` |
-| `clankmd.writing` | `ClankMdWriting` | `clankmd-writing-context` | `clankmd` | `writing` |
-| `clankmd.updating` | `ClankMdUpdating` | `clankmd-updating-context` | `clankmd` | `updating` |
-| `clankmd.removing` | `ClankMdRemoving` | `clankmd-removing-context` | `clankmd` | `removing` |
-| `clankmd.auditing` | `ClankMdAuditing` | `common-auditing-all-orchestrator` | `clankmd` | `auditing` |
+| `common.triage` | `Triage` | `common-triage-context-type` | `common` | `triage` |
+| `plugins.write` | `PluginsWrite` | `plugins-write-context` | `plugins` | `write` |
+| `plugins.update` | `PluginsUpdate` | `plugins-update-context` | `plugins` | `update` |
+| `plugins.remove` | `PluginsRemove` | `plugins-remove-context` | `plugins` | `remove` |
+| `plugins.audit` | `PluginsAudit` | `common-audit-all-orchestrator` | `plugins` | `audit` |
+| `skills.write` | `SkillsWrite` | `skills-write-context` | `skills` | `write` |
+| `skills.update` | `SkillsUpdate` | `skills-update-context` | `skills` | `update` |
+| `skills.remove` | `SkillsRemove` | `skills-remove-context` | `skills` | `remove` |
+| `skills.audit` | `SkillsAudit` | `common-audit-all-orchestrator` | `skills` | `audit` |
+| `clankmd.write` | `ClankMdWrite` | `clankmd-write-context` | `clankmd` | `write` |
+| `clankmd.update` | `ClankMdUpdate` | `clankmd-update-context` | `clankmd` | `update` |
+| `clankmd.remove` | `ClankMdRemove` | `clankmd-remove-context` | `clankmd` | `remove` |
+| `clankmd.audit` | `ClankMdAudit` | `common-audit-all-orchestrator` | `clankmd` | `audit` |
 
 ## Input payload shape
 
@@ -39,7 +39,7 @@ Most route tools accept:
 }
 ```
 
-`Triaging` accepts pathway-selection oriented input:
+`Triage` accepts pathway-selection oriented input:
 
 ```json
 {

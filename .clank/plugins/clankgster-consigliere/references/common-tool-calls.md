@@ -255,7 +255,7 @@ Examples:
 ```yaml
 allowed-tools:
   - AskUserQuestion
-  - mcp__consigliere__PluginsWriting
+  - mcp__consigliere__PluginsWrite
 ```
 
 ```yaml

@@ -1,10 +1,10 @@
 # Self-referential guide: this plugin as a beacon
 
-**Purpose:** The `clankgster-consigliere` plugin is itself a well-structured example of good context engineering. Agents can reference its own structure, files, and writing patterns as a concrete model when creating or auditing other plugins.
+**Purpose:** The `clankgster-consigliere` plugin is itself a well-structured example of good context engineering. Agents can reference its own structure, files, and write patterns as a concrete model when creating or audit other plugins.
 
 ## Rule
 
-When creating, auditing, or refining plugin content and you need a concrete example of how to structure files, write descriptions, organize content types, or cross-reference between files — use this plugin (`clankgster-consigliere`) as a reference implementation.
+When creating, audit, or refining plugin content and you need a concrete example of how to structure files, write descriptions, organize content types, or cross-reference between files — use this plugin (`clankgster-consigliere`) as a reference implementation.
 
 ## How to use as reference
 
@@ -14,8 +14,8 @@ Useful patterns to observe:
 
 | Pattern | Where to find it |
 | ------ | ------ |
-| SKILL.md with 3-pass workflow | [plugins-writing-context](../skills/plugins-writing-context/SKILL.md) |
-| Focused rule with Purpose/Rule/When | [common-writing-rules.md](common-writing-rules.md) |
+| SKILL.md with 3-pass workflow | [plugins-write-context](../skills/plugins-write-context/SKILL.md) |
+| Focused rule with Purpose/Rule/When | [common-write-rules.md](common-write-rules.md) |
 | Reference with TOC and examples | [common-prompt-techniques.md](../references/common-prompt-techniques.md) |
 | Decision tree in docs | [common-content-type-decision-tree.md](../docs/common-content-type-decision-tree.md) |
 | Comparison matrix with footnotes | [common-content-type-comparison-matrix.md](../docs/common-content-type-comparison-matrix.md) |
@@ -32,8 +32,8 @@ Useful patterns to observe:
 ## When it applies
 
 - Creating a new plugin and unsure how to structure it
-- Writing a SKILL.md and need to see a real example of the format
-- Auditing a plugin and need a "known good" to compare against
+- Write a SKILL.md and need to see a real example of the format
+- Audit a plugin and need a "known good" to compare against
 - Explaining plugin conventions to a user
 
 ## When it does not apply
