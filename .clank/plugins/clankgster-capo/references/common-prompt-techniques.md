@@ -11,13 +11,9 @@ Shared reference for writing effective instructions in skills, rules, commands, 
 3. [Emphasis and attention techniques](#emphasis-and-attention-techniques)
 4. [Structuring checklists](#structuring-checklists)
 5. [Step-by-step instructions](#step-by-step-instructions)
-6. [Conditional workflow breaks](#conditional-workflow-breaks)
-7. [Requesting sub-agents](#requesting-sub-agents)
-8. [Requesting specific tools](#requesting-specific-tools)
-9. [Asking the user for input](#asking-the-user-for-input)
-10. [Telling agents NOT to do something](#telling-agents-not-to-do-something)
-11. [Token budget awareness](#token-budget-awareness)
-12. [Good/bad examples](#goodbad-examples)
+6. [Telling agents NOT to do something](#telling-agents-not-to-do-something)
+7. [Token budget awareness](#token-budget-awareness)
+8. [Good/bad examples](#goodbad-examples)
 
 ---
 
@@ -137,8 +133,6 @@ Nest tags when content has a natural parent-child relationship.
 
 ### Claude 4.6 calibration note
 
-Claude 4.6 models are significantly more responsive to instructions than previous generations. Instructions that previously needed aggressive emphasis ("CRITICAL: You MUST use this tool when...") should be dialed back to normal phrasing ("Use this tool when..."). Over-emphasis can cause the model to overtrigger — applying the instruction in situations where it should not apply.
-
 ---
 
 ## Structuring checklists
@@ -150,7 +144,6 @@ Checklists help agents track progress through multi-step verification. They are 
 ```markdown
 ## Verification checklist
 
-- [ ] Every file has the plugin-name prefix
 - [ ] Descriptions are 1-1024 characters, third person
 - [ ] No inferable content remains
 - [ ] Cross-reference paths resolve correctly
@@ -194,146 +187,6 @@ Each step should contain:
 - Steps that combine multiple independent actions (split them)
 - Steps with no clear verb ("The configuration should be...")
 - Implicit ordering where order matters ("Also do X" — use numbered steps instead)
-
----
-
-## Conditional workflow breaks
-
-Use conditional breaks to handle branching logic within a skill or command workflow. Two patterns:
-
-### Pattern 1: STOP conditions (hard breaks)
-
-```markdown
-**STOP** if no staged files exist. Report to the user and exit.
-```
-
-Use for precondition failures where the entire workflow should abort. Place at the top of the workflow or at the beginning of the relevant phase.
-
-### Pattern 2: Branch conditions (soft forks)
-
-```markdown
-Determine the modification type:
-- **Creating new content?** → Follow the "Creation workflow" section below
-- **Editing existing content?** → Follow the "Editing workflow" section below
-```
-
-Use for workflow forks where different paths apply based on context. Place at the decision point, not at the top.
-
-### Pattern 3: Early returns from steps
-
-```markdown
-3. Check for existing tests
-   - If tests exist and pass → skip to step 6
-   - If tests exist and fail → fix them in step 4
-   - If no tests exist → create them in step 4
-```
-
----
-
-## Requesting sub-agents
-
-Sub-agents (the `Agent` tool in Claude Code) run tasks in isolated context windows, keeping the primary conversation lean.
-
-### When to request sub-agents
-
-- **Parallel research** — exploring multiple parts of a codebase simultaneously
-- **Large file generation** — when the output would consume significant context
-- **Isolated validation** — running tests or checks without cluttering the main window
-- **Multi-area changes** — modifications spanning unrelated parts of the codebase
-
-### When NOT to request sub-agents
-
-- Simple file reads or edits (use Read/Edit directly)
-- Tasks requiring conversational context the sub-agent would not have
-- Sequential work where each step depends on the previous
-
-### How to request in skills/rules
-
-```markdown
-Use the Agent tool to explore the codebase for existing implementations.
-Set subagent_type to "Explore" for codebase search tasks.
-Set subagent_type to "Plan" for architectural design tasks.
-
-Launch up to 3 agents in parallel when researching independent areas.
-```
-
-### Sub-agent output guidance
-
-Request condensed summaries (1,000-2,000 tokens) from sub-agents. Full outputs consume context window budget in the parent conversation.
-
-### Example: sub-agent prompt in a skill
-
-```markdown
-Use the Agent tool to verify all cross-references in the plugin. Provide this prompt:
-
-"Scan all files under `.clank/plugins/<plugin>/`. For each markdown link
-(`[text](path)`), verify the target file exists. Return a table:
-
-| Source file | Link text | Target path | Status |
-| --- | --- | --- | --- |
-| ... | ... | ... | Valid / Broken |
-
-Report only broken links. If all links are valid, say 'All links valid.'"
-
-Set `subagent_type` to `"Explore"` (read-only codebase search).
-```
-
----
-
-## Requesting specific tools
-
-When a skill workflow requires specific tools, name them explicitly. This helps agents select the right tool instead of guessing.
-
-```markdown
-Use the Read tool to read the file contents.
-Use the Glob tool to find files matching the pattern.
-Use the Grep tool to search for the function definition.
-Use the Edit tool to make the targeted replacement.
-Use the Write tool to create the new file.
-```
-
-Avoid vague references like "search for the file" — specify which search tool (Glob for file patterns, Grep for content search).
-
-See [common-tool-calls.md](common-tool-calls.md) for the complete tool reference across Claude Code, Cursor, and Codex.
-
----
-
-## Asking the user for input
-
-When a skill needs information the agent does not have, request it explicitly using the platform's question tool.
-
-### Claude Code
-
-```markdown
-Use the AskUserQuestion tool to ask the user which plugin this content is for.
-```
-
-### Cursor
-
-```markdown
-Ask the user using the Ask Question tool.
-```
-
-### Codex
-
-```markdown
-Use Ask mode to request clarification from the user.
-```
-
-### Cross-platform pattern
-
-```markdown
-Ask the user to specify the target plugin name.
-Provide 2-4 options when the choices are known.
-Always allow a free-text "Other" response.
-```
-
-### When to ask vs when to infer
-
-- **Ask** when the choice significantly changes the output (target plugin, content type, scope)
-- **Infer** when context is unambiguous (file format from extension, naming from conventions)
-- **Ask** when the user has not provided required input and you cannot proceed without it
-- **Do not ask** to confirm every small decision — this creates friction
 
 ---
 

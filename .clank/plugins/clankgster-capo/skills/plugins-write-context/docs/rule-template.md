@@ -42,7 +42,7 @@ When a negative boundary is needed, pair with the alternative:
      surrounding instructions. -->
 <examples>
 <example type="good">
-`clankgster-sync-write-conventions.md` — plugin prefix + descriptive name
+`skills-write-conventions.md` — pathway prefix + descriptive name
 </example>
 <example type="bad">
 `write-conventions.md` — collides if another plugin has the same topic

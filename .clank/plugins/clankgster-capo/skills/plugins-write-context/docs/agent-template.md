@@ -106,5 +106,4 @@ Follow the table with a one-line summary verdict.
 - [ ] Scope and Out-of-scope sections define clear boundaries
 - [ ] Constraints are specific and measurable (not vague like "be careful")
 - [ ] Output format is explicitly defined with example structure
-- [ ] File name prefixed with plugin name
 - [ ] Agent does not duplicate a skill (agents are personas, skills are workflows)

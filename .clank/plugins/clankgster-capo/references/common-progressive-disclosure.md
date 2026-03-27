@@ -178,7 +178,7 @@ Loading detailed instructions as always-on rules or in the description burns bud
 
 Copying prompt technique guidelines into the SKILL.md body instead of linking to the reference file. This bloats the SKILL.md and makes updates harder.
 
-**Fix:** Link to the reference with a brief summary of what it covers. "For prompt technique guidelines, see [prompt-techniques.md](../../references/common-prompt-techniques.md)."
+**Fix:** Link to the reference with a brief summary of what it covers. "For prompt technique guidelines, see [common-prompt-techniques.md](../../references/common-prompt-techniques.md)."
 
 ### No table of contents on long references
 

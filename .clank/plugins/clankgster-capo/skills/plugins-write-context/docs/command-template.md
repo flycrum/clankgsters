@@ -91,5 +91,4 @@ Annotated template for writing command files in `.clank/plugins/<plugin>/command
 - [ ] Steps use numbered list with specific tool/command names
 - [ ] Output format is defined (table columns, no prose preamble)
 - [ ] Good/bad examples included for subjective output
-- [ ] File name prefixed with plugin name (e.g., `git-commit-staged-files.md`)
 - [ ] No trailing punctuation on bullets

@@ -15,15 +15,6 @@ Every rule should include:
 3. `Rule` section
 4. `When it applies` and optionally `When it does not apply`
 
-## Naming
-
-Plugin-name file prefixes are recommended for disambiguation, but not universally required.
-
-- Good: `common-write-rules.md`
-- Also valid: `write-rules.md` (when collisions are impossible)
-
-If files will be merged into shared locations, prefer disambiguating prefixes.
-
 ## Quality standards
 
 - One concern per file

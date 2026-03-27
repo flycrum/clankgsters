@@ -4,7 +4,7 @@ Use this hub when authoring new source pathway `CLANK.md` content.
 
 ## Read order
 
-1. [clankmd-template.md](../../references/clankmd-template.md)
+1. [clankmd-template.md](docs/clankmd-template.md)
 2. [clankmd-write.md](../../rules/clankmd-write.md)
 3. [common-progressive-disclosure.md](../../references/common-progressive-disclosure.md)
 4. [common-prompt-techniques.md](../../references/common-prompt-techniques.md)

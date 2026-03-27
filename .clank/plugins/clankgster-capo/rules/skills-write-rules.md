@@ -15,12 +15,6 @@ Skills are workflow orchestrators. Keep descriptions high-signal and bodies proc
 5. Verification checklist
 6. Cross-references
 
-## Naming
-
-- Skill directory names should be kebab-case and action-oriented
-- Plugin-name prefixes are not required in source skill directory names
-- Sync may add plugin-level namespacing downstream
-
 ## Description best practices
 
 - Use user-intent language and trigger phrases
@@ -49,4 +43,3 @@ Do not recommend MCP-to-skill orchestration by default. Treat it as an advanced 
 
 - [description-frontmatter.md](../skills/skills-write-context/docs/description-frontmatter.md)
 - [common-progressive-disclosure.md](../references/common-progressive-disclosure.md)
-- [common-mcp-tools-in-plugins.md](../references/common-mcp-tools-in-plugins.md)

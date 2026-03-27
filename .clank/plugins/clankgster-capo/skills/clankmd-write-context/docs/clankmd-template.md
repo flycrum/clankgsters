@@ -28,4 +28,3 @@ Annotated starter template for the source pathway `CLANK.md`.
 - No large procedural blocks
 - No duplicated plugin docs
 - Links resolve
-

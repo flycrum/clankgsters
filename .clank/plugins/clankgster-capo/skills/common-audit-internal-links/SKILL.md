@@ -85,7 +85,7 @@ Output:
 
 | Source | Link Text | Target | Status | Notes |
 |--------|-----------|--------|--------|-------|
-| rules/topic.md | Prompt techniques | ../../references/prompt-techniques.md | Broken | File not found |
+| rules/topic.md | Prompt techniques | ../../references/skill-prompt-techniques.md | Broken | File not found |
 | skills/x/SKILL.md | Write rules | ../../rules/write-rules.md | Mismatch | H1 says "Rule conventions" |
 | ... | ... | ... | ... | ... |
 ```

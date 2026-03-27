@@ -48,7 +48,7 @@ The Agent Skills standard defines which content types are part of the portable s
 | Command   | Not in spec     | Legacy; not part of the portable standard               |
 | Reference | Optional in spec| Defined as supporting material within skill directories |
 | Doc       | Not in spec     | Background content outside the agent context system     |
-| Agent     | Not in spec     | Sub-agent mechanisms vary too much across platforms      |
+| Agent     | Not in spec     | Sub-agent mechanisms vary too much across platforms     |
 
 Skills and references are the most portable content types because they are defined (or accommodated) by the Agent Skills standard. Rules are the least portable because each agent platform has its own rules format and loading mechanism.
 

@@ -100,7 +100,6 @@ For each piece of content, determine:
 - [ ] No placeholder text remains
 - [ ] Cross-reference links resolve correctly
 - [ ] Output is under [N] lines per file
-- [ ] Names follow plugin-prefix convention
 
 ---
 

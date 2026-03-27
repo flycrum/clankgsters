@@ -22,7 +22,7 @@ Plugin skills use the same `SKILL.md` structure and frontmatter conventions as s
 
 ### Rules
 
-Rules define conventions and constraints (not workflows). Use [template-rule.md](docs/template-rule.md).
+Rules define conventions and constraints (not workflows). Use [rule-template.md](docs/rule-template.md).
 
 ### References
 
@@ -34,15 +34,15 @@ Docs are deep/background material that should be read explicitly when needed. Us
 
 ### Commands
 
-Commands are deterministic slash workflows and should remain focused and concise. Use [template-command.md](docs/template-command.md).
+Commands are deterministic slash workflows and should remain focused and concise. Use [command-template.md](docs/command-template.md).
 
 ### Agents
 
-Agents are persona-driven sub-agents for specialized tasks. Use [template-agent.md](docs/template-agent.md).
+Agents are persona-driven sub-agents for specialized tasks. Use [agent-template.md](docs/agent-template.md).
 
 ### Hooks
 
-Hooks are event-driven automations and should remain deterministic and scoped. Use [template-hooks.md](docs/template-hooks.md).
+Hooks are event-driven automations and should remain deterministic and scoped. Use [hooks-template.md](docs/hooks-template.md).
 
 ## Steps
 

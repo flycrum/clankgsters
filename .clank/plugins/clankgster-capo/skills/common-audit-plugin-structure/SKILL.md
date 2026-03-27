@@ -2,7 +2,7 @@
 name: common-audit-plugin-structure
 description: >-
   Audits plugin directory structure — verifies required files (plugin.json
-  manifests, README.md), naming conventions (plugin-name prefix), content type
+  manifests, README.md), naming conventions, content type
   placement (conventions in rules, workflows in skills), and SKILL.md
   frontmatter validity. Produces a structure report table with pass/warn/fail
   per check. Triggers — "audit plugin structure", "check plugin layout",
@@ -71,11 +71,6 @@ Mark each as: pass / warn (non-critical missing) / fail (required missing)
 ## 3. Check naming conventions
 
 <instructions>
-For files in `rules/`, `commands/`, `skills/`, `agents/`:
-
-1. Each file name (except README.md, plugin.json, SKILL.md, hooks.json) must start with the plugin name + hyphen
-2. Extract plugin name from manifest or directory name
-3. Flag files that lack the prefix
 
 For skill directories:
 
@@ -128,7 +123,6 @@ Output a markdown table:
 | .claude-plugin/plugin.json | Pass | All required fields present |
 | .cursor-plugin/plugin.json | Fail | Missing `keywords` field |
 | README.md | Pass | Has H1, purpose, layout |
-| File naming: rules/ | Warn | 2 of 5 files missing plugin prefix |
 | SKILL.md: doing-x | Pass | Valid frontmatter, 320 char description |
 | Content placement | Warn | rules/workflow-y.md looks like a skill |
 | ... | ... | ... |
@@ -153,5 +147,5 @@ Output a markdown table:
 ## Cross-references
 
 - [Organizing plugin content](../../rules/common-organizing-content.md) — canonical content type placement rules
-- [Write skills](../../rules/common-write-skills.md) — SKILL.md structure requirements
+- [Skills write rules](../../rules/skills-write-rules.md) — SKILL.md structure requirements
 - [Write descriptions](../skills-write-context/docs/description-frontmatter.md) — description field criteria

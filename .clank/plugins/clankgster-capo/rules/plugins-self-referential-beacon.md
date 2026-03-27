@@ -16,12 +16,12 @@ Useful patterns to observe:
 | ------ | ------ |
 | SKILL.md with 3-pass workflow | [plugins-write-context](../skills/plugins-write-context/SKILL.md) |
 | Focused rule with Purpose/Rule/When | [common-write-rules.md](common-write-rules.md) |
-| Reference with TOC and examples | [common-prompt-techniques.md](../references/common-prompt-techniques.md) |
+| Reference with TOC and examples | [common-prompt-techniques.md](../references/common-prompt-techniques.md); skill workflow addendum [skill-prompt-techniques.md](../skills/skills-write-context/references/skill-prompt-techniques.md) |
 | Decision tree in docs | [common-content-type-decision-tree.md](../docs/common-content-type-decision-tree.md) |
 | Comparison matrix with footnotes | [common-content-type-comparison-matrix.md](../docs/common-content-type-comparison-matrix.md) |
 | Plugin manifests (Claude + Cursor) | `.claude-plugin/plugin.json`, `.cursor-plugin/plugin.json` |
 | README as index | `README.md` |
-| Template files for each content type | [template-skill.md](../skills/skills-write-context/docs/template-skill.md), [template-rule.md](../skills/plugins-write-context/docs/template-rule.md), [template-command.md](../skills/plugins-write-context/docs/template-command.md), [template-hooks.md](../skills/plugins-write-context/docs/template-hooks.md), [template-agent.md](../skills/plugins-write-context/docs/template-agent.md), [clankmd-template.md](../references/clankmd-template.md) |
+| Template files for each content type | [skill-template.md](../skills/skills-write-context/docs/skill-template.md), [rule-template.md](../skills/plugins-write-context/docs/rule-template.md), [command-template.md](../skills/plugins-write-context/docs/command-template.md), [hooks-template.md](../skills/plugins-write-context/docs/hooks-template.md), [agent-template.md](../skills/plugins-write-context/docs/agent-template.md), [clankmd-template.md](../skills/clankmd-write-context/docs/clankmd-template.md) |
 
 ## Guard rails
 

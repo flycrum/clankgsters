@@ -37,7 +37,7 @@ This plugin includes an advanced MCP-to-skill routing pattern for specialized or
 ### Rules
 
 - [`common-write-rules`](rules/common-write-rules.md)
-- [`common-write-skills`](rules/common-write-skills.md)
+- [`skills-write-rules`](rules/skills-write-rules.md)
 - [`common-organizing-content`](rules/common-organizing-content.md)
 - [`common-internal-styleguide`](rules/common-internal-styleguide.md)
 - [`clankmd-write`](rules/clankmd-write.md)
@@ -46,16 +46,17 @@ This plugin includes an advanced MCP-to-skill routing pattern for specialized or
 ### References
 
 - [`common-prompt-techniques`](references/common-prompt-techniques.md)
+- [`skills-write-context skill-prompt-techniques` (addendum)](skills/skills-write-context/references/skill-prompt-techniques.md)
 - [`skills-write-context description-frontmatter`](skills/skills-write-context/docs/description-frontmatter.md)
 - [`common-tool-calls`](references/common-tool-calls.md)
 - [`common-progressive-disclosure`](references/common-progressive-disclosure.md)
 - [`common-mcp-tools-in-plugins`](references/common-mcp-tools-in-plugins.md)
-- [`clankmd-template`](references/clankmd-template.md)
-- [`skills-write-context template-skill`](skills/skills-write-context/docs/template-skill.md)
-- [`plugins-write-context template-rule`](skills/plugins-write-context/docs/template-rule.md)
-- [`plugins-write-context template-command`](skills/plugins-write-context/docs/template-command.md)
-- [`plugins-write-context template-hooks`](skills/plugins-write-context/docs/template-hooks.md)
-- [`plugins-write-context template-agent`](skills/plugins-write-context/docs/template-agent.md)
+- [`clankmd-template`](skills/clankmd-write-context/docs/clankmd-template.md)
+- [`skills-write-context skill-template`](skills/skills-write-context/docs/skill-template.md)
+- [`plugins-write-context rule-template`](skills/plugins-write-context/docs/rule-template.md)
+- [`plugins-write-context command-template`](skills/plugins-write-context/docs/command-template.md)
+- [`plugins-write-context hooks-template`](skills/plugins-write-context/docs/hooks-template.md)
+- [`plugins-write-context agent-template`](skills/plugins-write-context/docs/agent-template.md)
 
 ### Docs
 
