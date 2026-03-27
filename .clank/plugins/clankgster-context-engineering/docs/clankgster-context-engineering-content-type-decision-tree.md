@@ -154,5 +154,6 @@ START: You have content to add to a plugin.
 | Doc | Background knowledge | `docs/<name>.md` | Never (explicit read) |
 | Agent | Sub-agent persona | `agents/<name>.md` | When sub-agent spawned |
 | Hook | Event automation | `hooks/hooks.json` | Event-driven (not AI) |
+| Script | Executable code for hooks/skills | `scripts/<name>` | When hook fires or skill invokes |
 | MCP | Tool connection | `.mcp.json` | On tool use |
 | LSP | Code intelligence | `.lsp.json` | On language features |

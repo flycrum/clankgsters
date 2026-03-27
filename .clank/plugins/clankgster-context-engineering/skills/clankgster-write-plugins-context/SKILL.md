@@ -40,6 +40,20 @@ If no content is provided, use the AskUserQuestion tool to ask:
 
 1. What content or topic should be turned into plugin files?
 2. Which plugin is this for? (existing plugin name or new plugin name)
+3. Where should the plugin live? (see source layout options below)
+
+### Plugin source layouts
+
+The most common location is `.clank/plugins/` at the **repository root**, but plugins can exist at any directory level. The sync system supports multiple source layouts:
+
+| Layout | Path pattern | Example |
+| ------ | ------ | ------ |
+| Nested (default) | `<sourceDir>/plugins/<plugin>/` | `.clank/plugins/my-plugin/` |
+| Nested local | `<sourceDir>/plugins.local/<plugin>/` | `.clank/plugins.local/my-plugin/` |
+| Shorthand | `<sourceDir>-plugins/<plugin>/` | `.clank-plugins/my-plugin/` |
+| Shorthand local | `<sourceDir>-plugins.local/<plugin>/` | `.clank-plugins.local/my-plugin/` |
+
+**`.local` plugins** are developer-specific and typically gitignored — useful for personal workflows, experiments, or overrides that should not be shared with the team. Ask the user if the plugin should be `.local`.
 
 If the user specifies an existing plugin, use the Glob tool to read its current structure before proceeding.
 
@@ -58,9 +72,11 @@ For each piece of content, determine:
 4. **Is it background knowledge not directly actionable?** → candidate for a **doc**
 5. **Is it a mix?** → split into the appropriate types
 
-Apply the ETH Zurich principle: include only **non-inferable** details — things the
-agent genuinely cannot figure out from the code or its training. Cut standard practices
-the model already knows.
+**The non-inferable principle is the single most impactful filter for content quality.**
+Include only details the agent genuinely cannot figure out from the code or its training.
+Standard practices the model already knows waste tokens and dilute the high-signal content.
+For every paragraph, ask: "If I removed this, would the agent produce worse output?"
+If not, cut it. (Source: ETH Zurich research on AI coding agent instruction effectiveness.)
 
 Prioritize by agent impact:
 
@@ -283,6 +299,15 @@ After writing all files, output a summary table:
 ## Writing guidelines (quick reference)
 
 These are condensed guidelines for writing. For full detail, follow the linked references.
+
+### Audience and voice
+
+- Write for **AI agents as the primary audience**, not humans
+- Keep condensed and succinct; sacrifice grammar for concision
+- Omit punctuation at end of bullet points and list items
+- Use imperative mood ("Read the file" not "You should read the file")
+- Omit filler words, preamble, and hedging ("Note that..." → just state it)
+- Every sentence should earn its tokens — if it does not change agent behavior, cut it
 
 ### Instructions
 

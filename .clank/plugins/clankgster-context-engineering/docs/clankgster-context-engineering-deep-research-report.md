@@ -477,6 +477,23 @@ The plugin README serves as a human-readable index:
 - After-change instructions (run sync)
 - Not used by agents for discovery (plugin.json handles that)
 
+### The scripts/ directory
+
+The `scripts/` directory is a standard plugin directory documented in the [Claude Code plugins reference](https://code.claude.com/docs/en/plugins-reference). It serves two purposes:
+
+1. **Hook scripts** — executable files referenced from `hooks/hooks.json`. Hooks fire on specific events (PreToolUse, PostToolUse, Stop, etc.) and run deterministic code, not AI instructions
+2. **Utility scripts** — helper scripts used by skills via the `` !`<command>` `` dynamic context injection syntax, or called via the Bash tool during skill execution
+
+The `scripts/` directory can exist at both plugin level and skill level:
+
+- Plugin-level: `<plugin>/scripts/` — shared across all skills
+- Skill-level: `<plugin>/skills/<skill>/scripts/` — specific to one skill
+
+Environment variables available in hook scripts:
+
+- `${CLAUDE_PLUGIN_ROOT}` — absolute path to the plugin directory
+- `${CLAUDE_PLUGIN_DATA}` — persistent data directory for plugin state
+
 ---
 
 ## Sources

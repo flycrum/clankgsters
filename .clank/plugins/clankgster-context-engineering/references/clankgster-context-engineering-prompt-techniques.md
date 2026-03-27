@@ -109,6 +109,8 @@ Nest tags when content has a natural parent-child relationship. Keep nesting to 
 - Use lowercase, descriptive names: `<instructions>`, `<context>`, `<examples>`
 - Use consistent tag names across files in the same plugin
 - Avoid generic names like `<data>` or `<info>` — be specific
+- **Multi-word tag names:** Use underscores as separators: `<output_format>`, `<commit_message>`, `<file_naming_rules>`. Do not use hyphens (`<output-format>`) — some XML parsers treat hyphens differently, and underscores are the established convention in Anthropic's own prompting examples
+- Attributes use the same convention: `<example type="good">`, `<step name="analyze">`
 
 ---
 
@@ -258,6 +260,23 @@ Launch up to 3 agents in parallel when researching independent areas.
 ### Sub-agent output guidance
 
 Request condensed summaries (1,000-2,000 tokens) from sub-agents. Full outputs consume context window budget in the parent conversation.
+
+### Example: sub-agent prompt in a skill
+
+```markdown
+Use the Agent tool to verify all cross-references in the plugin. Provide this prompt:
+
+"Scan all files under `.clank/plugins/<plugin>/`. For each markdown link
+(`[text](path)`), verify the target file exists. Return a table:
+
+| Source file | Link text | Target path | Status |
+| --- | --- | --- | --- |
+| ... | ... | ... | Valid / Broken |
+
+Report only broken links. If all links are valid, say 'All links valid.'"
+
+Set `subagent_type` to `"Explore"` (read-only codebase search).
+```
 
 ---
 
