@@ -1,0 +1,20 @@
+{
+  "name": "clankgster-plugins-guide",
+  "version": "0.1.0",
+  "description": "Context engineering toolkit for writing agent-optimized plugin content — skills, rules, references, docs. Covers prompt techniques, progressive disclosure, content organization, and cross-agent compatibility (Claude, Cursor, Codex).",
+  "author": {
+    "name": "clankgster"
+  },
+  "keywords": [
+    "clank",
+    "skills",
+    "rules",
+    "plugin-authoring",
+    "ai-agents",
+    "clankgster",
+    "plugins-guide",
+    "context-engineering",
+    "prompt-engineering",
+    "marketplace"
+  ]
+}
