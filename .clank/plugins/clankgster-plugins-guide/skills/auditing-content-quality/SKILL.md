@@ -273,8 +273,7 @@ Needs the AI touch to reach its potential.
     /|\
     / \
    |   |
-   THINK
-   HARDER
+   THINKER
   GRADE: C+
 ```
 
@@ -287,22 +286,20 @@ A few more review cycles and this ships.
     -|-
     / \
    [   ]
-   NICE
-   WORK!
+   INTERN
   GRADE: B
 ```
 
-**B+ — Engineer**
+**B+ — Architect**
 Clean, intentional, well-structured.
 An experienced hand wrote this. Minor polish remains.
 
-```
-    _____
-   |  _  |
-   | |_| |
-   |  _  |
-   | | | |
-   |_| |_|
+```md
+     O
+    -|-
+    / \
+   [   ]
+   BRAIN
    GRADE: B+
 ```
 
@@ -311,14 +308,14 @@ Look at the difference a good LLM, solid prompts,
 and thoughtful context engineering makes.
 
 ```md
-    /---\
-   | o o |
-   | ___ |
-   |/   \|
-    \   /
-    |   |
-    BRAIN
-   GRADE: A
+  .-----.
+  | o o |
+  |  -  |
+  | [=] |
+  |_____|
+   /| |\
+ NEXT LEVEL
+  GRADE: A
 ```
 
 **A- — falls between B+ and A, use the A art with "GRADE: A-"**
@@ -328,13 +325,13 @@ Peak context engineering. This plugin could audit itself
 and find nothing wrong. The robot approves.
 
 ```md
-    [===]
-   /|o o|\
-  | |___| |
-  | |   | |
-   \|   |/
-    |___|
-    /   \
+    _______
+~~~(( ( ) ))~~~
+  .|[o   o]|.
+  ||  ===  ||
+  || [|||] ||
+  '|_______|'
+    /_| |_\
    PERFECT
   GRADE: A+
 ```
