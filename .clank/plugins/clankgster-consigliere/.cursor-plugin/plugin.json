@@ -1,0 +1,22 @@
+{
+  "name": "clankgster-consigliere",
+  "version": "0.1.0",
+  "description": "Context engineering toolkit for Clankgster source pathways (`plugins/`, `skills/`, `CLANK.md`). Provides triaging, writing, updating, removing, auditing, and optional MCP tool orchestration.",
+  "author": {
+    "name": "clankgster"
+  },
+  "keywords": [
+    "clank",
+    "skills",
+    "rules",
+    "plugin-authoring",
+    "ai-agents",
+    "clankgster",
+    "consigliere",
+    "context-engineering",
+    "source-pathway",
+    "clankmd",
+    "plugin-authoring",
+    "mcp"
+  ]
+}

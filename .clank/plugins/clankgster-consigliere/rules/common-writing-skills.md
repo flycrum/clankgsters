@@ -1,0 +1,40 @@
+# Writing effective skills
+
+**Purpose:** Conventions for writing `SKILL.md` files for both source pathway `plugins/skills/` and source pathway `skills/`.
+
+## Rule
+
+Skills are workflow orchestrators. Keep descriptions high-signal and bodies procedural.
+
+## Structure
+
+1. YAML frontmatter (`name`, `description` required)
+2. Scope
+3. Pre-checks
+4. Numbered steps
+5. Verification checklist
+6. Cross-references
+
+## Naming
+
+- Skill directory names should be kebab-case and action-oriented
+- Plugin-name prefixes are not required in source skill directory names
+- Sync may add plugin-level namespacing downstream
+
+## MCP guidance
+
+When a plugin provides MCP tools, document and optionally restrict with `allowed-tools`.
+
+Example:
+
+```yaml
+allowed-tools: mcp__consigliere__*
+```
+
+Use MCP for structured and chainable workflows. Do not require MCP for simple editing tasks.
+
+## Cross-references
+
+- [common-writing-descriptions.md](../references/common-writing-descriptions.md)
+- [common-progressive-disclosure.md](../references/common-progressive-disclosure.md)
+- [common-mcp-tools-in-plugins.md](../references/common-mcp-tools-in-plugins.md)
