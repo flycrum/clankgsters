@@ -1,6 +1,6 @@
-# rawdocs structify execution notes
+# rawdocs structural sync execution notes
 
-Detailed execution notes for `rawdocs-structify`.
+Detailed execution notes for `rawdocs-struct-sync`.
 
 ## Required path state
 

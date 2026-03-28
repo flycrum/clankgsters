@@ -1,6 +1,6 @@
 # rawdocs target input gate
 
-Use this gate before running `rawdocs-structify`.
+Use this gate before running `rawdocs-struct-sync`.
 
 ## Mandatory first step
 

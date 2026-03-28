@@ -1,13 +1,13 @@
-# rawdocs structify architecture
+# rawdocs structural sync architecture
 
-Detailed architecture for `rawdocs-structify`, including isolation boundaries, data contracts, and continuity strategy.
+Detailed architecture for `rawdocs-struct-sync`, including isolation boundaries, data contracts, and continuity strategy.
 
 ## Goals
 
 1. Let users write freely in plugin-local `rawdocs/`.
 2. Convert that content into organized plugin context output.
 3. Preserve writing style and intent with minimal creative rewriting.
-4. Maintain continuity across repeated structify sync runs while allowing structure to evolve.
+4. Maintain continuity across repeated structural sync runs while allowing structure to evolve.
 5. Keep `rawdocs/` untouched and unlinked.
 
 ## Input model
@@ -59,7 +59,7 @@ Run two analysis workflows in separate sub-agents to avoid context bleed:
 
 ## Planning model
 
-`rawdocs-structify` synthesizes both analysis outputs into:
+`rawdocs-struct-sync` synthesizes both analysis outputs into:
 
 1. Draft migration/update plan
 2. Refinement pass plan
@@ -91,12 +91,12 @@ Plan priorities:
   - Mitigation: path filters and post-run coverage check.
 - **Over-editing risk:** rewriting user voice
   - Mitigation: style profile + low-creativity constraints.
-- **Continuity risk:** structure thrash between structify syncs
+- **Continuity risk:** structure thrash between structural syncs
   - Mitigation: continuity anchors and staged restructuring criteria.
 
 ## Cross-references
 
-- [`rawdocs-structify`](../skills/structify/SKILL.md)
+- [`rawdocs-struct-sync`](../skills/struct-sync/SKILL.md)
 - [`rawdocs-analyze-raw`](../skills/analyze-raw/SKILL.md)
 - [`rawdocs-analyze-existing`](../skills/analyze-existing/SKILL.md)
 - [`rawdocs-internal-linking`](../rules/rawdocs-internal-linking.md)

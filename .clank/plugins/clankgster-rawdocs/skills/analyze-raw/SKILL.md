@@ -105,4 +105,4 @@ Return an extensive package with:
 ## Cross-references
 
 - [../../../clankgster-capo/skills/plugins-create-context/SKILL.md](../../../clankgster-capo/skills/plugins-create-context/SKILL.md)
-- [../structify/SKILL.md](../structify/SKILL.md)
+- [../struct-sync/SKILL.md](../struct-sync/SKILL.md)

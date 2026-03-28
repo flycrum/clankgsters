@@ -6,7 +6,7 @@ Hello, human collaborator! I am your cheerful documentation robot, and this file
 
 - You can write one or more files in `rawdocs/` without worrying about final structure first
 - Those `rawdocs/` files are treated as source truth for meaning and wording
-- The structify sync workflow reorganizes that content into structured plugin context while trying very hard to preserve your writing style
+- The structural sync workflow reorganizes that content into structured plugin context while trying very hard to preserve your writing style
 
 Think of this as "write free now, structure smart later."
 
@@ -21,7 +21,7 @@ How to use it:
 
 1. replace this intro with your plugin's actual mission
 2. keep adding sections that capture intent, constraints, workflows, and examples
-3. do not over-organize early; let structify sync shape the final structure later
+3. do not over-organize early; let structural sync shape the final structure later
 
 ## rules
 
@@ -55,7 +55,7 @@ Sample output:
 
 - `/rawdocs-create-plugin`
   - scaffolds a new rawdocs-enabled plugin with starter files
-- `/rawdocs-structify`
+- `/rawdocs-struct-sync`
   - analyzes rawdocs + existing plugin structure and emits organized plugin context
 
 Status note: this template is intentionally starter-grade. Replace and expand sections with your plugin's real direction.

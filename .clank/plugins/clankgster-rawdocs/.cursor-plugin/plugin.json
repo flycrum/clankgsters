@@ -1,7 +1,7 @@
 {
   "name": "clankgster-rawdocs",
   "version": "0.1.0",
-  "description": "Rawdocs-first plugin authoring system. Ingests plugin-local `rawdocs/` content, analyzes raw input and existing structure in isolated passes, then outputs organized plugin context while preserving style and continuity across structify sync runs.",
+  "description": "Rawdocs-first plugin authoring system. Ingests plugin-local `rawdocs/` content, analyzes raw input and existing structure in isolated passes, then outputs organized plugin context while preserving style and continuity across structural sync runs.",
   "author": {
     "name": "clankgster"
   },
@@ -11,7 +11,7 @@
     "rawdocs",
     "ingestion",
     "context-engineering",
-    "structify-sync",
+    "structural-sync",
     "continuity",
     "style-preservation",
     "clankgster",

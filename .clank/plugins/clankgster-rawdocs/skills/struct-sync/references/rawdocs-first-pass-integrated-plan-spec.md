@@ -1,10 +1,10 @@
 # rawdocs first-pass integrated plan spec
 
-This reference defines the detailed operating method for step 5 in `rawdocs-structify`.
+This reference defines the detailed operating method for step 5 in `rawdocs-struct-sync`.
 
 ## Why this exists
 
-Step 5 is the architectural center of the structify sync workflow. It must merge two intentionally isolated analyses into one actionable plan while preserving:
+Step 5 is the architectural center of the structural sync workflow. It must merge two intentionally isolated analyses into one actionable plan while preserving:
 
 - rawdocs source meaning and style
 - continuity from existing plugin structure
@@ -97,7 +97,7 @@ Score each candidate using the rubric below (0-5 per criterion):
 2. **Continuity (weight 4)**  
    Does it maintain recognizable structure and style from existing plugin outputs?
 3. **Scalability (weight 4)**  
-   Will it handle growth in rawdocs volume/topics over repeated structify syncs?
+   Will it handle growth in rawdocs volume/topics over repeated structural syncs?
 4. **Operational churn (weight 3, inverse)**  
    Lower churn scores better. Penalize unnecessary mass renames/moves.
 5. **Clarity and maintainability (weight 3)**  

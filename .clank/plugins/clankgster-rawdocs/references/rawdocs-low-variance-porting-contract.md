@@ -79,6 +79,6 @@ Use this schema exactly:
 ## Cross-references
 
 - [../skills/analyze-raw/SKILL.md](../skills/analyze-raw/SKILL.md)
-- [../skills/structify/SKILL.md](../skills/structify/SKILL.md)
+- [../skills/struct-sync/SKILL.md](../skills/struct-sync/SKILL.md)
 - [rawdocs-structify-architecture.md](rawdocs-structify-architecture.md)
 - [../rules/rawdocs-internal-linking.md](../rules/rawdocs-internal-linking.md)

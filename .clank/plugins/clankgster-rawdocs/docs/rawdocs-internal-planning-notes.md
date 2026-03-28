@@ -17,7 +17,7 @@ User workflow:
 
 1. User creates/maintains one or more files in plugin-local `rawdocs/`.
 2. User opts in simply by having `rawdocs/` present in that plugin.
-3. `rawdocs-structify` ingests and analyzes `rawdocs/` in isolation.
+3. `rawdocs-struct-sync` ingests and analyzes `rawdocs/` in isolation.
 4. Structify sync flow outputs organized plugin files outside `rawdocs/`.
 5. `rawdocs/` remains unchanged and unlinked from authored plugin files.
 
@@ -38,7 +38,7 @@ Primary references:
 
 `rawdocs/` must be colocated with standard plugin folders (same level as `rules/`, `skills/`, `references/`, `docs/`, etc) in the target plugin.
 
-Presence of that folder is implicit opt-in to rawdocs structify sync mode.
+Presence of that folder is implicit opt-in to rawdocs structural sync mode.
 
 ### 2) no-link boundary (hard rule)
 
@@ -58,13 +58,13 @@ This includes:
 
 ### 3) preservation boundary
 
-`rawdocs-structify` must never delete or modify `rawdocs/` during cleanup/rewrite steps.
+`rawdocs-struct-sync` must never delete or modify `rawdocs/` during cleanup/rewrite steps.
 
 ## Skill architecture created for this plugin
 
 ### Core orchestrator
 
-- `skills/structify/SKILL.md`
+- `skills/struct-sync/SKILL.md`
 
 ### Isolated analyzers
 
@@ -75,8 +75,8 @@ This includes:
 
 - `references/rawdocs-structify-architecture.md`
 - `rules/rawdocs-internal-linking.md`
-- `skills/structify/references/rawdocs-execution-notes.md`
-- `skills/structify/references/rawdocs-target-input.md`
+- `skills/struct-sync/references/rawdocs-execution-notes.md`
+- `skills/struct-sync/references/rawdocs-target-input.md`
 
 ## Draft plan (pass 1)
 
@@ -138,7 +138,7 @@ Construct integrated plan that:
 
 Run second planning pass focused on:
 
-- continuity across repeated structify sync runs
+- continuity across repeated structural sync runs
 - long-term scalability
 - stable naming and grouping where possible
 - justified restructuring when needed
@@ -164,7 +164,7 @@ Run second planning pass focused on:
 
 ## Refinement plan (pass 2)
 
-This pass tightens the strategy for repeatability and quality over multiple structify sync cycles.
+This pass tightens the strategy for repeatability and quality over multiple structural sync cycles.
 
 ### Refinement priority 1: deterministic scope enforcement
 
@@ -230,7 +230,7 @@ Post-write validation must include a scan for markdown links targeting `rawdocs/
 - high-level summaries, not content dumps
 - explicit empty-plugin handling
 
-### `rawdocs-structify` expected output quality
+### `rawdocs-struct-sync` expected output quality
 
 - strategic and refined
 - strongly constrained
@@ -248,9 +248,9 @@ Repeated reminders to exclude/include `rawdocs/` in specific phases are intentio
 - `.cursor-plugin/plugin.json`
 - `rules/rawdocs-internal-linking.md`
 - `references/rawdocs-structify-architecture.md`
-- `skills/structify/SKILL.md`
-- `skills/structify/references/rawdocs-execution-notes.md`
-- `skills/structify/references/rawdocs-target-input.md`
+- `skills/struct-sync/SKILL.md`
+- `skills/struct-sync/references/rawdocs-execution-notes.md`
+- `skills/struct-sync/references/rawdocs-target-input.md`
 - `skills/analyze-raw/SKILL.md`
 - `skills/analyze-existing/SKILL.md`
 - this planning file: `docs/rawdocs-internal-planning-notes.md`
@@ -275,16 +275,16 @@ So, a few important things to note:
 
 - our `rawdocs` system will be powered by skills defined in its own plugin
 
-the primary skill should be named `rawdocs-structify` and will:
+the primary skill should be named `rawdocs-struct-sync` and will:
 
 1. run the following in a new sub-agent to take either the user's input to their target plugin path OR `rawdocs/` path as INPUT (for example, using `@.clank/plugins/clankgster-capo/skills/skills-create-context/docs/skill-asking-for-user-input.md`, like this `@.clank/plugins/clankgster-capo/skills/skills-audit-full-suite-skill/resources/skills-target-input.md`, but not exactly; we can write our own steps and context for this). Also make sure to track the path the user provides as the user's "target plugin" path, as we will reference it throughout this skill and need to use it again in later steps.
-2. then this skill will run in a new sub-agent (so context does not bleed into the rest of the skill's context window; it needs to be isolated) and will analyze **only** the user's custom plugin's **`rawdocs/`** directory and its contents/context (including nested files). Restricting the analyze step to only this `rawdocs/` is absolutely critical to output success. This analyze step, running in a sub-agent, should be a separate skill from `rawdocs-structify`, named `rawdocs-analyze-raw`. Its job is:
+2. then this skill will run in a new sub-agent (so context does not bleed into the rest of the skill's context window; it needs to be isolated) and will analyze **only** the user's custom plugin's **`rawdocs/`** directory and its contents/context (including nested files). Restricting the analyze step to only this `rawdocs/` is absolutely critical to output success. This analyze step, running in a sub-agent, should be a separate skill from `rawdocs-struct-sync`, named `rawdocs-analyze-raw`. Its job is:
    a. REFERENCE CAPO: reference `clankgster-capo` docs on how to create, organize, and structure a plugin (link to `@.clank/plugins/clankgster-capo/skills/plugins-create-context/SKILL.md`)
    b. READ RAWDOCS: read raw/unstructured file contents (text-based formats only; do not read non-text like images, binary, zip, etc.) within target plugin `rawdocs/` and determine high-level themes/objectives (examples: typescript, figma-to-code, ui design, testing, publish to npm, deploy to CI, monorepo conventions, error debugging, security compliance, security scanning, frontend playbook, backend playbook, git pr workflows, documentation, database design, database migration, codebase cleanup, accessibility/compliance, etc.). Pay attention to writing style (very important), tone, habits, preference for single vs double quotes in code, section header patterns, and more so we can guide future writing.
    c. RESEARCH THEME: do web research for how others have written similar plugins for those themes/objectives
    d. ANALYZE RAWDOCS: analyze `rawdocs/` from the perspective of organization, grouping, file breakout strategy, and logical content structure, through the lens of capo guidance in `@.clank/plugins/clankgster-capo/skills/plugins-create-context/reference.md`. Highly respect existing writing. Goal is not wordsmithing. Creativity should be virtually zero; temperature near 0. Spelling/grammar updates are allowed but must be judicious.
    e. OUTPUT: output from this sub-agent must be extensive and complete for later steps.
-3. simultaneously, run a separate new sub-agent (isolated context) to read all other plugin contents/context (including nested), excluding **`rawdocs/`**. This should also be a separate skill from `rawdocs-structify`, named `rawdocs-analyze-existing`. Its job is:
+3. simultaneously, run a separate new sub-agent (isolated context) to read all other plugin contents/context (including nested), excluding **`rawdocs/`**. This should also be a separate skill from `rawdocs-struct-sync`, named `rawdocs-analyze-existing`. Its job is:
    a. IDENTIFY CURRENT STRUCTURE: recursively scan and formulate a sitemap of current file structure for target plugin excluding `rawdocs/`; determine high-level organization/themes. Empty or near-empty plugin is acceptable; if empty aside from `rawdocs/`, skip sub-steps and return output indicating plugin is "New and or empty" and sync should proceed "from scratch"
    b. READ REST OF PLUGIN: if not empty, recursively read all text-based files (skip non-text), and capture high-level outline, purpose, organization style, writing style/tone/habits, quote preference, header style, etc. Goal is consistency for future updates. Important: do NOT include too many specific textual inclusions in final output except what is needed for purpose/outline/critical notes.
    c. OUTPUT: output from this sub-agent must be extensive and complete for later steps.

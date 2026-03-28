@@ -1,5 +1,5 @@
 ---
-name: rawdocs-structify
+name: rawdocs-struct-sync
 description: >-
   Runs a full rawdocs-to-plugin synchronization workflow for a user-selected
   target plugin. Collects explicit path input, launches two isolated
@@ -9,15 +9,15 @@ description: >-
   preserving source writing style as closely as possible.
 ---
 
-# rawdocs structify
+# rawdocs structural sync
 
 ## Scope
 
-Execute the complete `rawdocs/` structify sync lifecycle for one target plugin path:
+Execute the complete `rawdocs/` structural sync lifecycle for one target plugin path:
 
 1. Ask for target path.
 2. Run isolated analysis sub-agents.
-3. Build + refine final structify sync plan.
+3. Build + refine final structural sync plan.
 4. Remove stale plugin content (excluding `rawdocs/`).
 5. Reconcile structured plugin output (upsert/update).
 
@@ -129,7 +129,7 @@ Hard rules during step 5:
 
 Run a refinement pass focused on:
 
-- continuity across repeated structify sync runs
+- continuity across repeated structural sync runs
 - minimizing churn in stable structure
 - evolving structure only where growth demands it
 - preserving section styles, tone, quote preferences, and formatting habits
@@ -174,7 +174,7 @@ Validate:
 - style profile alignment recorded
 - stale deletion ledger is present (deleted + retained + uncertain)
 
-Return a structify sync report with:
+Return a structural sync report with:
 
 - resolved target paths
 - analyzer scope verification

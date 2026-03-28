@@ -1,6 +1,6 @@
 # clankgster-rawdocs plugin
 
-Transforms user-authored `rawdocs/` input into structured plugin context (`skills/`, `rules/`, `references/`, `docs/`, `commands/`, `agents/`, `hooks/`) while preserving writer intent, style, and continuity over repeated structify syncs.
+Transforms user-authored `rawdocs/` input into structured plugin context (`skills/`, `rules/`, `references/`, `docs/`, `commands/`, `agents/`, `hooks/`) while preserving writer intent, style, and continuity over repeated structural syncs.
 
 ## Intent
 
@@ -15,7 +15,7 @@ This plugin exists for teams that want to write freely first, then organize late
 Files in `rawdocs/` are never link targets for the plugin's authored context files.
 
 - Do not link to `rawdocs/` from `rules/`, `skills/`, `references/`, `docs/`, `commands/`, `agents/`, or `hooks/`.
-- Keep `rawdocs/` as ingestion-only input and retain it unmodified during structify sync runs.
+- Keep `rawdocs/` as ingestion-only input and retain it unmodified during structural sync runs.
 
 See [`rules/rawdocs-internal-linking.md`](rules/rawdocs-internal-linking.md).
 See [`rules/rawdocs-opt-in-placement.md`](rules/rawdocs-opt-in-placement.md).
@@ -23,7 +23,7 @@ See [`rules/rawdocs-opt-in-placement.md`](rules/rawdocs-opt-in-placement.md).
 ## Core skills
 
 - [`rawdocs-create-plugin`](skills/create-plugin/SKILL.md): Creates a minimal rawdocs-enabled plugin scaffold and starter `rawdocs/getting-started.md`.
-- [`rawdocs-structify`](skills/structify/SKILL.md): Orchestrates full structify sync lifecycle across isolated sub-agent analyses, planning, refinement, reset (excluding `rawdocs/`), and rewrite.
+- [`rawdocs-struct-sync`](skills/struct-sync/SKILL.md): Orchestrates full structural sync lifecycle across isolated sub-agent analyses, planning, refinement, reset (excluding `rawdocs/`), and rewrite.
 - [`rawdocs-analyze-raw`](skills/analyze-raw/SKILL.md): Analyzes only `rawdocs/` recursively.
 - [`rawdocs-analyze-existing`](skills/analyze-existing/SKILL.md): Analyzes target plugin recursively excluding `rawdocs/`.
 
@@ -42,7 +42,7 @@ The canonical internal plan and near-verbatim prompt transcript are documented i
 ### Common tasks
 
 - **Create a new rawdocs structured plugin** -> use [`/rawdocs-create-plugin`](skills/create-plugin/SKILL.md)
-- **Update (structify sync) an existing rawdocs structured plugin** -> use [`/rawdocs-structify`](skills/structify/SKILL.md)
+- **Update (structural sync) an existing rawdocs structured plugin** -> use [`/rawdocs-struct-sync`](skills/struct-sync/SKILL.md)
 
 ### Prompt examples
 
@@ -52,8 +52,8 @@ The canonical internal plan and near-verbatim prompt transcript are documented i
 Use /rawdocs-create-plugin to scaffold a new plugin at .clank/plugins/my-plugin.
 ```
 
-#### Update (structify sync) an existing rawdocs structured plugin
+#### Update (structural sync) an existing rawdocs structured plugin
 
 ```text
-Use /rawdocs-structify for .clank/plugins/my-plugin.
+Use /rawdocs-struct-sync for .clank/plugins/my-plugin.
 ```
