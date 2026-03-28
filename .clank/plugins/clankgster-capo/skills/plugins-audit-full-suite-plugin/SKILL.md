@@ -65,4 +65,3 @@ Run the full plugin audit suite against one plugin root under any of the four sy
 - [audit-grade-assignment.md](../../references/common-audit/audit-grade-assignment.md)
 - [plugins-target-input.md](resources/plugins-target-input.md)
 - [skill-asking-for-user-input.md](../skills-write-context/docs/skill-asking-for-user-input.md)
-- [common-internal-mcp-routing-spec.md](../../docs/common-internal-mcp-routing-spec.md)

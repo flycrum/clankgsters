@@ -87,4 +87,4 @@ Cross-referencing links content types together, enabling progressive disclosure 
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

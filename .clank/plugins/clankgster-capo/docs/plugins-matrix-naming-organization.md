@@ -19,4 +19,4 @@ Sync systems may namespace by plugin directory or transform file names. Choose s
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

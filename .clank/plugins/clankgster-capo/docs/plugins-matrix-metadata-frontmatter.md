@@ -104,4 +104,4 @@ Several fields are exclusive to skills:
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

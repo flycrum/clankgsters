@@ -4,9 +4,8 @@ Use this hub for pathway selection and dispatch conventions.
 
 ## Read order
 
-1. [common-content-type-decision-tree.md](../../docs/common-content-type-decision-tree.md)
-2. [common-content-type-comparison-matrix.md](../../docs/common-content-type-comparison-matrix.md)
-3. [common-internal-mcp-routing-spec.md](../../docs/common-internal-mcp-routing-spec.md)
+1. [common-content-type-decision-tree.md](../../references/common-content-type-decision-tree.md)
+2. [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md)
 
 ## Focus
 

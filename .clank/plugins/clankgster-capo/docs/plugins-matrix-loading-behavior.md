@@ -77,4 +77,4 @@ This three-layer approach keeps idle costs low while making the full depth avail
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

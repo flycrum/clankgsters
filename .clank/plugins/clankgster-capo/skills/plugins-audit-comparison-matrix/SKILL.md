@@ -9,12 +9,12 @@ description: >-
 
 ## Scope
 
-Audit `docs/common-content-type-comparison-matrix.md` and linked 1:1 detail docs within the plugin.
+Audit `references/common-content-type-comparison-matrix.md` and linked 1:1 detail docs within the plugin.
 
 ## Steps
 
 1. Apply [plugins-target-input.md](../plugins-audit-full-suite-plugin/resources/plugins-target-input.md): user path gate and validation as written (including sub-agent handoff).
-2. Verify the matrix file exists in plugin docs.
+2. Verify the matrix file exists in plugin `references/`.
 3. Parse table claims, footnotes, and section links.
 4. Validate cell values against current official docs.
 5. Check footnote integrity: missing refs, orphan defs, duplicates.
@@ -35,5 +35,5 @@ Audit `docs/common-content-type-comparison-matrix.md` and linked 1:1 detail docs
 
 ## Cross-references
 
-- [common-content-type-comparison-matrix.md](../../docs/common-content-type-comparison-matrix.md)
-- [common-content-type-decision-tree.md](../../docs/common-content-type-decision-tree.md)
+- [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md)
+- [common-content-type-decision-tree.md](../../references/common-content-type-decision-tree.md)

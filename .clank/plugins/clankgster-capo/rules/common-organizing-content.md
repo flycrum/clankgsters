@@ -27,6 +27,5 @@ Use the plugin's internal naming standard. For `clankgster-capo`, use `plugins-`
 
 ## Cross-references
 
-- [common-content-type-decision-tree.md](../docs/common-content-type-decision-tree.md)
-- [common-content-type-comparison-matrix.md](../docs/common-content-type-comparison-matrix.md)
-- [common-internal-guide-n-glossary.md](../docs/common-internal-guide-n-glossary.md)
+- [common-content-type-decision-tree.md](../references/common-content-type-decision-tree.md)
+- [common-content-type-comparison-matrix.md](../references/common-content-type-comparison-matrix.md)

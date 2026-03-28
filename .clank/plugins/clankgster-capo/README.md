@@ -77,8 +77,8 @@ This plugin includes an advanced MCP-to-skill routing pattern for specialized or
 
 - [`common-internal-guide-n-glossary`](docs/common-internal-guide-n-glossary.md)
 - [`common-internal-mcp-routing-spec`](docs/common-internal-mcp-routing-spec.md)
-- [`common-content-type-decision-tree`](docs/common-content-type-decision-tree.md)
-- [`common-content-type-comparison-matrix`](docs/common-content-type-comparison-matrix.md)
+- [`common-content-type-decision-tree`](references/common-content-type-decision-tree.md)
+- [`common-content-type-comparison-matrix`](references/common-content-type-comparison-matrix.md)
 - [`common-deep-research-report`](docs/common-deep-research-report.md)
 - [`plugins-matrix-loading-behavior`](docs/plugins-matrix-loading-behavior.md)
 - [`plugins-matrix-invocation-triggering`](docs/plugins-matrix-invocation-triggering.md)

@@ -23,9 +23,9 @@
 
 ## Details docs
 
-- [plugins-matrix-loading-behavior.md](plugins-matrix-loading-behavior.md)
-- [plugins-matrix-invocation-triggering.md](plugins-matrix-invocation-triggering.md)
-- [plugins-matrix-metadata-frontmatter.md](plugins-matrix-metadata-frontmatter.md)
-- [plugins-matrix-content-guidelines.md](plugins-matrix-content-guidelines.md)
-- [plugins-matrix-naming-organization.md](plugins-matrix-naming-organization.md)
-- [plugins-matrix-cross-agent-support.md](plugins-matrix-cross-agent-support.md)
+- [plugins-matrix-loading-behavior.md](../docs/plugins-matrix-loading-behavior.md)
+- [plugins-matrix-invocation-triggering.md](../docs/plugins-matrix-invocation-triggering.md)
+- [plugins-matrix-metadata-frontmatter.md](../docs/plugins-matrix-metadata-frontmatter.md)
+- [plugins-matrix-content-guidelines.md](../docs/plugins-matrix-content-guidelines.md)
+- [plugins-matrix-naming-organization.md](../docs/plugins-matrix-naming-organization.md)
+- [plugins-matrix-cross-agent-support.md](../docs/plugins-matrix-cross-agent-support.md)

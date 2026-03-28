@@ -65,4 +65,4 @@ Each content type has a distinct trigger mechanism:
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

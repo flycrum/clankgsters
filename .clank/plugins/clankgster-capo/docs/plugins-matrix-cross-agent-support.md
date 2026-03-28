@@ -70,4 +70,4 @@ The portability gap is the primary motivation for Clankgster sync: write content
 
 ---
 
-*Parent: [Content type comparison matrix](common-content-type-comparison-matrix.md)*
+*Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

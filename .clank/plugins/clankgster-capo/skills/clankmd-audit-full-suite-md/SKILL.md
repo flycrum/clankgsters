@@ -58,6 +58,5 @@ Run the full CLANK.md audit suite against one `CLANK.md` file.
 ## Cross-references
 
 - [clankmd-write.md](../../rules/clankmd-write.md)
-- [common-internal-mcp-routing-spec.md](../../docs/common-internal-mcp-routing-spec.md)
 - [skill-asking-for-user-input.md](../skills-write-context/docs/skill-asking-for-user-input.md)
 - [audit-grade-assignment.md](../../references/common-audit/audit-grade-assignment.md)

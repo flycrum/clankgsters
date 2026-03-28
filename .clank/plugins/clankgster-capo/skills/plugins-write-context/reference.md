@@ -4,8 +4,8 @@ Canonical quick-reference for writing source pathway `plugins/` content.
 
 ## Read order
 
-1. [common-content-type-decision-tree.md](../../docs/common-content-type-decision-tree.md)
-2. [common-content-type-comparison-matrix.md](../../docs/common-content-type-comparison-matrix.md)
+1. [common-content-type-decision-tree.md](../../references/common-content-type-decision-tree.md)
+2. [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md)
 3. [common-organizing-content.md](../../rules/common-organizing-content.md)
 4. [common-write-rules.md](../../rules/common-write-rules.md)
 

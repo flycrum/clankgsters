@@ -1,6 +1,6 @@
 # Internal styleguide for clankgster-capo
 
-**Purpose:** Define internal naming and organization conventions for this plugin itself.
+**Purpose:** Define internal naming and organization conventions **only** for the `.clank/plugins/clankgster-capo` plugin and its nested files and contents.
 
 ## Rule
 
