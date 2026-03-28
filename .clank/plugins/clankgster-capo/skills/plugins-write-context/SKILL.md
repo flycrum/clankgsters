@@ -14,6 +14,13 @@ Create or expand plugin content under source pathway `plugins/`.
 
 This skill is a direct execution workflow. In-session agents should follow this `SKILL.md` body; capo MCP route `plugins.write` (`PluginsWrite`) is an optional tool surface for the same workflow — see [common_internal-in-session-vs-mcp-policy.md](../../references/common_internal-in-session-vs-mcp-policy.md).
 
+## Naming portability guardrail
+
+When authoring a target plugin, follow that target plugin's own naming conventions.
+
+- Do not apply `clankgster-capo` internal prefix conventions (`plugins-`, `skills-`, `clankmd-`, `common-`) to other plugins by default.
+- Do not prepend a target plugin name to skill directory names unless the target plugin explicitly requires it.
+
 ## Plugin content type notes
 
 ### Skills
@@ -52,7 +59,7 @@ Hooks are event-driven automations and should remain deterministic and scoped. U
 4. Plan file list and cross-links.
 5. Draft files.
 6. Refine descriptions and references.
-7. Finalize and verify naming/link integrity.
+7. Finalize and verify naming/link integrity, using target-plugin conventions.
 
 ## Verification
 

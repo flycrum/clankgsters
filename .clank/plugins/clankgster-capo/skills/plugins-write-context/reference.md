@@ -2,6 +2,8 @@
 
 Canonical quick-reference for writing source pathway `plugins/` content.
 
+Naming portability rule: do not transfer `clankgster-capo`-specific file/folder prefixes into another plugin unless that plugin explicitly requires them.
+
 ## Read order
 
 1. [common-content-type-decision-tree.md](../../references/common-content-type-decision-tree.md)

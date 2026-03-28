@@ -21,6 +21,8 @@ No exceptions for markdown content files in plugin-root `rules/`, `references/`,
 
 For skill directories in `skills/`, use the same pathway prefixes.
 
+Portability guardrail: never apply these prefixes to non-`clankgster-capo` plugins unless that plugin explicitly opts in.
+
 ## Skill-local exceptions
 
 When documentation is colocated inside a specific skill directory, descriptive topic names are allowed:
@@ -46,4 +48,3 @@ Do not use `external` in file names. Use the word only in this styleguide and [c
 - Writing conventions for other plugins
 - Writing conventions for standalone skills in other repos
 - Authoring user-facing content outside this plugin
-

@@ -47,6 +47,8 @@ Audit actions are pathway-specific when prefixed by pathway:
 - `skills-audit-*` for standalone skills-target audits
 - `clankmd-audit-*` for single-file CLANK.md audits
 
+Portability guardrail: these prefix rules are internal to `clankgster-capo` and must not be copied into other plugins unless those plugins explicitly require them.
+
 ### Boundary guardrail (enforced)
 
 **STRICT REQUIREMENT:** Files under plugin-root `references/` must not link into `skills/`, `rules/`, `commands/`, or `agents/` directories.

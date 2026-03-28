@@ -18,13 +18,13 @@ In-session agents follow this `SKILL.md` body; MCP route `plugins.update` (`Plug
 
 1. Read [reference.md](reference.md).
 2. Read affected plugin files.
-3. Apply requested edits with pathway prefix conventions.
+3. Apply requested edits with target-plugin naming conventions (do not assume `clankgster-capo` prefixes).
 4. Re-check internal links and file references.
 5. Produce finalized update output.
 
 ## Verification
 
-- [ ] Updated files keep naming conventions
+- [ ] Updated files keep target-plugin naming conventions
 - [ ] Cross-links resolve after edits
 - [ ] No stale references remain
 
