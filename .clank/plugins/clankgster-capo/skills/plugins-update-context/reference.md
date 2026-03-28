@@ -6,7 +6,6 @@ Use this hub when updating existing source pathway `plugins/` content.
 
 1. [../plugins-write-context/reference.md](../plugins-write-context/reference.md)
 2. [common-organizing-content.md](../../rules/common-organizing-content.md)
-3. [common-internal-styleguide.md](../../rules/common-internal-styleguide.md)
 
 ## Focus
 
