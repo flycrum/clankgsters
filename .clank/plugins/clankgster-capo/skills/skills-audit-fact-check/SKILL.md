@@ -15,6 +15,8 @@ Shared scope guidance: [fact-check-scope.md](../../references/common-audit/fact-
 
 ## Steps
 
+First resolve target standalone skill directory per [skills-target-resolution.md](../skills-audit-all/resources/skills-target-resolution.md).
+
 Use shared steps: [fact-check-steps.md](../../references/common-audit/fact-check-steps.md)
 
 ## Output format

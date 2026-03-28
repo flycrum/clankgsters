@@ -18,7 +18,7 @@ Run the full standalone `skills/` audit suite against one target skill directory
 
 ## Steps
 
-1. Resolve target standalone skill directory.
+1. Resolve target standalone skill directory using [skills-target-resolution.md](resources/skills-target-resolution.md) (explicit path or MCP args → validate; else always `AskUserQuestion` with candidate skill dirs + **Other**).
 2. Launch leaf audits via sub-agents:
    - `skills-audit-content-quality`
    - `skills-audit-internal-links`
@@ -50,6 +50,7 @@ Run the full standalone `skills/` audit suite against one target skill directory
 ## Verification
 
 - [ ] All 5 standalone-skill audits executed through sub-agents
+- [ ] Target skill directory resolved per binding rules (asked when not explicit)
 - [ ] Summary aligns to leaf results
 - [ ] Full reports preserved
 - [ ] Grade and badge derived from aggregated findings
@@ -58,5 +59,6 @@ Run the full standalone `skills/` audit suite against one target skill directory
 ## Cross-references
 
 - [skill-asking-for-user-input.md](../skills-write-context/docs/skill-asking-for-user-input.md)
+- [skills-target-resolution.md](resources/skills-target-resolution.md)
 - [audit-grade-assignment.md](../../references/common-audit/audit-grade-assignment.md)
 - [common-internal-mcp-routing-spec.md](../../docs/common-internal-mcp-routing-spec.md)

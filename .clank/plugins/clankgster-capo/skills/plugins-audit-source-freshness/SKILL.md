@@ -14,6 +14,8 @@ Shared scope guidance: [source-freshness-scope.md](../../references/common-audit
 
 ## Steps
 
+First resolve target plugin directory per [plugins-target-resolution.md](../plugins-audit-all/resources/plugins-target-resolution.md).
+
 Use shared steps: [source-freshness-steps.md](../../references/common-audit/source-freshness-steps.md)
 
 ## Output format

@@ -14,6 +14,8 @@ Shared scope guidance: [fact-check-scope.md](../../references/common-audit/fact-
 
 ## Steps
 
+First resolve target plugin directory per [plugins-target-resolution.md](../plugins-audit-all/resources/plugins-target-resolution.md).
+
 Use shared steps: [fact-check-steps.md](../../references/common-audit/fact-check-steps.md)
 
 ## Output format

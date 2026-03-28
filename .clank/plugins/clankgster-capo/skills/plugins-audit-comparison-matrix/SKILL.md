@@ -13,11 +13,12 @@ Audit `docs/common-content-type-comparison-matrix.md` and linked 1:1 detail docs
 
 ## Steps
 
-1. Verify the matrix file exists in plugin docs.
-2. Parse table claims, footnotes, and section links.
-3. Validate cell values against current official docs.
-4. Check footnote integrity: missing refs, orphan defs, duplicates.
-5. Validate section links and data consistency with linked detail docs.
+1. Resolve target plugin directory per [plugins-target-resolution.md](../plugins-audit-all/resources/plugins-target-resolution.md).
+2. Verify the matrix file exists in plugin docs.
+3. Parse table claims, footnotes, and section links.
+4. Validate cell values against current official docs.
+5. Check footnote integrity: missing refs, orphan defs, duplicates.
+6. Validate section links and data consistency with linked detail docs.
 
 ## Output format
 

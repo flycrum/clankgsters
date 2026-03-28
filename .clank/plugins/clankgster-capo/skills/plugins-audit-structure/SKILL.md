@@ -13,7 +13,7 @@ Audit one plugin directory under `.clank/plugins/<plugin>/`.
 
 ## Steps
 
-1. Resolve target plugin path. Ask user if missing.
+1. Resolve target plugin directory per [plugins-target-resolution.md](../plugins-audit-all/resources/plugins-target-resolution.md).
 2. Scan directory tree.
 3. Check required files and manifests.
 4. Validate `SKILL.md` frontmatter and naming alignment.

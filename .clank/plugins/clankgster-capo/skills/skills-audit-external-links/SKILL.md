@@ -14,6 +14,8 @@ Shared scope guidance: [external-links-scope.md](../../references/common-audit/e
 
 ## Steps
 
+First resolve target standalone skill directory per [skills-target-resolution.md](../skills-audit-all/resources/skills-target-resolution.md).
+
 Use shared steps: [external-links-steps.md](../../references/common-audit/external-links-steps.md)
 
 ## Output format
