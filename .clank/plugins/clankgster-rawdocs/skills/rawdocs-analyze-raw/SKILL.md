@@ -48,6 +48,7 @@ From rawdocs content, identify:
 - intended outcomes
 - operational priorities
 - implied audience/use context
+- implied audience/use context
 
 ## 4) Profile writing style
 

@@ -18,8 +18,8 @@ Execute the complete `rawdocs/` structify sync lifecycle for one target plugin p
 1. Ask for target path.
 2. Run isolated analysis sub-agents.
 3. Build + refine final structify sync plan.
-4. Clear plugin content except `rawdocs/`.
-5. Rebuild structured plugin output.
+4. Remove stale plugin content (excluding `rawdocs/`).
+5. Reconcile structured plugin output (upsert/update).
 
 This skill is orchestration-first and intentionally verbose in execution records.
 
@@ -136,9 +136,15 @@ Run a refinement pass focused on:
 
 Document why each structural change is or is not applied.
 
-## 7) Clear target plugin except rawdocs
+## 7) Remove stale target content (never blanket-wipe)
 
-Recursively remove all files/folders under `target_plugin_path` except `rawdocs/` and its nested content.
+Using the refined plan and migration map, identify only stale artifacts under `target_plugin_path` (outside `rawdocs/`) and remove those stale items only.
+
+Required stale classification before deletion:
+
+- stale = file/folder not present in target output tree, or explicitly marked `remove`/`rename-source` in migration actions
+- retain = file/folder in keep-list, planned target output tree, or marked `retain`/`update`/`split`/`merge`
+- uncertain = ambiguous ownership; do not delete automatically, add to run report for user review
 
 Apply explicit deletion guards:
 
@@ -146,9 +152,9 @@ Apply explicit deletion guards:
 - dry-list removal candidates before execution
 - verify `rawdocs/` still exists immediately after deletion
 
-## 8) Write rebuilt plugin output
+## 8) Write reconciled plugin output (no full rebuild)
 
-Create folders/files from refined plan and write content accordingly.
+Create/update only files/folders required by the refined plan and migration actions. Do not delete files in this step.
 
 Authoring constraints:
 
@@ -166,6 +172,7 @@ Validate:
 - output tree matches refined plan
 - cross-links resolve
 - style profile alignment recorded
+- stale deletion ledger is present (deleted + retained + uncertain)
 
 Return a structify sync report with:
 
@@ -181,6 +188,7 @@ Return a structify sync report with:
 - [ ] `rawdocs-analyze-raw` read only `rawdocs/`
 - [ ] `rawdocs-analyze-existing` excluded `rawdocs/`
 - [ ] Combined analyzer coverage had no overlap and no omissions
+- [ ] Stale-only cleanup executed with explicit classification and guard checks
 - [ ] `rawdocs/` was preserved through cleanup
 - [ ] No markdown links target `rawdocs/`
 - [ ] Final output reflects refined plan and continuity strategy
