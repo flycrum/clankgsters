@@ -68,15 +68,16 @@ Run two analysis workflows in separate sub-agents to avoid context bleed:
 Plan priorities:
 
 1. Preserve author meaning and style from rawdocs
-2. Respect continuity from existing structure
-3. Evolve structure only when justified for scaling
-4. Never alter `rawdocs/`
+2. **Subtractive sync:** when rawdocs no longer supports a topic, drop the corresponding non-`rawdocs/` outputs by default (traceable vs orphan classification)
+3. Respect continuity from existing structure **for traceable paths** (habits, anchors, stable shapes)
+4. Evolve structure when rawdocs growth or clarity demands it
+5. Never alter `rawdocs/`
 
 ## Write model
 
 1. Snapshot final plan.
-2. Remove all plugin files and folders except `rawdocs/`.
-3. Rebuild output folders/files from refined plan.
+2. Remove **only** stale paths identified by the plan (never blanket-delete the whole plugin tree); keep `rawdocs/` and all non-stale artifacts per migration ledger.
+3. Reconcile: create/update files per refined plan; do not use the write step for broad deletion.
 4. Validate:
    - no markdown links to `rawdocs/`
    - expected folder shape present
@@ -92,7 +93,7 @@ Plan priorities:
 - **Over-editing risk:** rewriting user voice
   - Mitigation: style profile + low-creativity constraints.
 - **Continuity risk:** structure thrash between structural syncs
-  - Mitigation: continuity anchors and staged restructuring criteria.
+  - Mitigation: continuity anchors for **traceable** content and explicit orphan handling so “keep old files” does not override rawdocs shrinkage.
 
 ## Cross-references
 

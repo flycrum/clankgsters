@@ -16,7 +16,7 @@ user-invocable: false
 
 Analyze all current plugin content except `rawdocs/`, recursively.
 
-This skill provides continuity context and structure guidance for structural sync planning.
+This skill provides continuity context and structure guidance for structural sync planning. **Continuity output is descriptive:** the parent workflow (`rawdocs-struct-sync`) may still classify paths as untraceable to current rawdocs and plan removal; do not imply that every existing file must be preserved.
 
 ## Absolute boundaries
 
@@ -59,7 +59,7 @@ Capture:
 - naming conventions
 - style/tone profile
 - quote/header habits
-- continuity anchors worth preserving
+- continuity anchors worth preserving **when still aligned with rawdocs** (downstream planner performs traceability)
 - areas that appear ready for structural scaling
 
 ## 5) Return output package

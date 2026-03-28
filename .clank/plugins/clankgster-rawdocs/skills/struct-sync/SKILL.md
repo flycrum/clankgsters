@@ -103,9 +103,10 @@ Required planning order:
 
 1. Lock source constraints from `rawdocs-analyze-raw` (meaning, style, and fidelity constraints).
 2. Lock continuity constraints from `rawdocs-analyze-existing` (structure continuity anchors and style continuity anchors).
-3. Draft architecture candidates for target plugin output (outside `rawdocs/` only).
-4. Score and select the best candidate using continuity, scalability, and minimal-churn criteria.
-5. Emit a concrete migration package that can be executed deterministically.
+3. **Orphan and coverage pass:** every existing non-`rawdocs/` path must be classified as `traceable` (maps to at least one source-truth concept/row) or `orphan` (no current rawdocs support). Default migration for `orphan` is `remove` from the target output tree unless the plan records an explicit, justified exception (for example user-flagged hand-maintained files) in the assumptions queue.
+4. Draft architecture candidates for target plugin output (outside `rawdocs/` only). Candidates must not retain `orphan` paths unless an explicit exception is listed.
+5. Score and select the best candidate using the weighted rubric in the plan spec: **source fidelity and subtractive honesty outweigh continuity**; continuity is guidance where rawdocs still supports the topic.
+6. Emit a concrete migration package that can be executed deterministically.
 
 Minimum first-pass output sections:
 
@@ -124,17 +125,18 @@ Hard rules during step 5:
 - no markdown links into `rawdocs/`
 - creativity near zero when mapping rawdocs content into structured files
 - preserve quote/header/tone habits unless change is explicitly justified
+- **do not keep non-`rawdocs/` output solely for continuity** when rawdocs no longer carries that topic; default subtractive sync (`remove`) for untraceable paths
 
 ## 6) Build second-pass refinement plan
 
 Run a refinement pass focused on:
 
-- continuity across repeated structural sync runs
-- minimizing churn in stable structure
-- evolving structure only where growth demands it
-- preserving section styles, tone, quote preferences, and formatting habits
+- **reconciling** continuity with the orphan/coverage decisions from step 5 (do not resurrect `remove` targets unless the user explicitly asked to retain hand-maintained artifacts)
+- minimizing churn in **retained** structure (paths that remain traceable to rawdocs)
+- evolving structure only where growth in rawdocs demands it
+- preserving section styles, tone, quote preferences, and formatting habits for **retained** mapped content
 
-Document why each structural change is or is not applied.
+Document why each structural change is or is not applied. If refinement would undo an orphan removal to “reduce churn,” require explicit user-facing rationale in the report; default is to keep the removal.
 
 ## 7) Remove stale target content (never blanket-wipe)
 
@@ -142,9 +144,9 @@ Using the refined plan and migration map, identify only stale artifacts under `t
 
 Required stale classification before deletion:
 
-- stale = file/folder not present in target output tree, or explicitly marked `remove`/`rename-source` in migration actions
+- stale = file/folder not present in target output tree, or explicitly marked `remove`/`rename-source` in migration actions (including planned `orphan` removals)
 - retain = file/folder in keep-list, planned target output tree, or marked `retain`/`update`/`split`/`merge`
-- uncertain = ambiguous ownership; do not delete automatically, add to run report for user review
+- uncertain = ambiguous ownership **with trace to rawdocs still plausible**; do not delete automatically, add to run report for user review (do not use `uncertain` to avoid deleting paths the plan already classified `orphan` with no source trace)
 
 Apply explicit deletion guards:
 
@@ -191,7 +193,7 @@ Return a structural sync report with:
 - [ ] Stale-only cleanup executed with explicit classification and guard checks
 - [ ] `rawdocs/` was preserved through cleanup
 - [ ] No markdown links target `rawdocs/`
-- [ ] Final output reflects refined plan and continuity strategy
+- [ ] Final output reflects refined plan, orphan/coverage decisions, and continuity where it aligns with rawdocs
 
 ## Cross-references
 

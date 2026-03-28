@@ -25,15 +25,16 @@ When delegating to analyzer sub-agents, prompt must include:
 Merge order:
 
 1. Rawdocs meaning and style constraints
-2. Existing structure continuity anchors
-3. Structural evolution decisions
-4. Final write operations
+2. Traceability / orphan classification (subtractive default for untraceable paths)
+3. Existing structure continuity anchors **for traceable paths only**
+4. Structural evolution decisions
+5. Final write operations
 
 If there is conflict:
 
-- Prefer rawdocs meaning.
-- Prefer existing structure for continuity.
-- Document rationale for any structural break from existing pattern.
+- Prefer rawdocs meaning and **coverage** (what rawdocs still asserts) over retaining legacy files.
+- Prefer existing structure for continuity **only when** the path remains traceable to current rawdocs.
+- Document rationale for any retention of an **orphan** path (explicit exception) or any structural break from an existing traceable pattern.
 
 ## Cleanup guard strategy
 
