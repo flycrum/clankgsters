@@ -1,8 +1,0 @@
-{
-  "name": "clankgster-rawdocs",
-  "version": "0.1.0",
-  "description": "Rawdocs-to-plugin sync system for Clankgster plugins. Converts unstructured `rawdocs/` inputs into organized plugin pathways while preserving style and enforcing strict `rawdocs/` boundaries.",
-  "author": {
-    "name": "clankgster"
-  }
-}
