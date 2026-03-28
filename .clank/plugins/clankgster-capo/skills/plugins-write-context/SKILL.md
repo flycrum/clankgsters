@@ -30,7 +30,7 @@ References hold detailed guidance linked from active skills and rules. Keep one 
 
 ### Docs
 
-Docs are deep/background material that should be read explicitly when needed. Use [plugins-matrix-loading-behavior.md](../../docs/plugins-matrix-loading-behavior.md).
+Docs are deep/background material that should be read explicitly when needed. For the matrix-backed detail set, use the hub list in [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md) (links into `docs/plugins-matrix-*.md`); do not add new cross-links from rules, references, or skills into `docs/` except via that pattern—see [common-plugin-docs-folder-linking.md](../../references/common-plugin-docs-folder-linking.md).
 
 ### Commands
 

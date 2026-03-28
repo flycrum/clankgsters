@@ -21,7 +21,7 @@ Plugin skills differ from standalone skills mainly by where they live, namespace
 
 - Rules: [rule-template.md](docs/rule-template.md)
 - References: [common-progressive-disclosure.md](../../references/common-progressive-disclosure.md)
-- Docs: [plugins-matrix-loading-behavior.md](../../docs/plugins-matrix-loading-behavior.md)
+- Docs: matrix detail index and `docs/plugins-matrix-*.md` links in [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md)
 - Commands: [command-template.md](docs/command-template.md)
 - Agents: [agent-template.md](docs/agent-template.md)
 - Hooks: [hooks-template.md](docs/hooks-template.md)

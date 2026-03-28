@@ -21,6 +21,10 @@
 | Sub-agent persona | `agents/` |
 | Deterministic event automation | `hooks/` |
 
+### `docs/` vs `references/` (markdown links)
+
+`docs/` holds background and deep material you expect someone to open deliberately (and README-style indexes may list those paths). If **another** plugin file—`rules/`, `references/*.md`, or `skills/**`—needs a **followable markdown link** to that prose, the content usually belongs in **`references/`** instead (plugin-wide shared depth). For depth scoped to one skill, prefer that skill’s **`reference.md`** or files under the same `skills/<name>/` tree (`references/` or `docs/` there). Exception: a designated hub in `references/` may link into specific `docs/` children when the set is intentionally split (see [common-plugin-docs-folder-linking.md](../references/common-plugin-docs-folder-linking.md) and **plugins-audit-internal-links**).
+
 ## Naming
 
 Use the plugin's internal naming standard. For `clankgster-capo`, use `plugins-`, `skills-`, `clankmd-`, or `common-` prefixes.

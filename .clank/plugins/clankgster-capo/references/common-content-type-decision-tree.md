@@ -25,7 +25,7 @@ If pathway is `plugins/`, choose file type:
 - convention -> `rules/`
 - workflow -> `skills/`
 - shared depth -> `references/`
-- background docs -> `docs/`
+- background / standalone docs -> `docs/` (do not make other rules, references, or skills link here; if they need to, move the prose to `references/` or the skill’s `reference.md` / skill-owned subtree)
 - persona -> `agents/`
 - deterministic automation -> `hooks/`
 
@@ -42,4 +42,4 @@ If pathway is `plugins/`, choose file type:
 | Skill | Multi-step workflow | `skills/<name>/SKILL.md` |
 | Rule | Convention | `rules/<name>.md` |
 | Reference | Shared detail | `references/<name>.md` |
-| Doc | Background material | `docs/<name>.md` |
+| Doc | Background material (read on purpose; not a default link target from other types) | `docs/<name>.md` |
