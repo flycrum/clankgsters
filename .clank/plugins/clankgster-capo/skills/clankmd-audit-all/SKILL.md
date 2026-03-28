@@ -18,10 +18,8 @@ Run the full CLANK.md audit suite against one `CLANK.md` file.
 
 ## Steps
 
-1. Establish which `CLANK.md` to audit using [clankmd-target-input.md](resources/clankmd-target-input.md):
-   - if user or MCP already names the file path, validate and use (no extra question)
-   - otherwise always `AskUserQuestion` before audits; include focused `CLANK.md` as first option when known, plus other candidates and **Other**
-2. Launch leaf audits via sub-agents:
+1. Apply [clankmd-target-input.md](resources/clankmd-target-input.md): mandatory `AskUserQuestion` first (no Glob/focus/search-derived options); validate user-supplied path; then run audits
+2. Launch leaf audits via sub-agents (**each sub-agent prompt must state the same validated `CLANK.md` path** so leaves use the resource’s sub-agent handoff):
    - `clankmd-audit-content-quality`
    - `clankmd-audit-internal-links`
    - `clankmd-audit-external-links`
@@ -54,7 +52,7 @@ Run the full CLANK.md audit suite against one `CLANK.md` file.
 - [ ] All 5 CLANK.md audits executed through sub-agents
 - [ ] Summary table and full reports are consistent
 - [ ] Grade and badge derived from aggregated findings
-- [ ] Target `CLANK.md` established per target input rules (asked when not explicit)
+- [ ] Target `CLANK.md` taken from mandatory `AskUserQuestion` (or non-interactive explicit path per resource); no discovery-based selection
 - [ ] Healer question asked before update call
 
 ## Cross-references

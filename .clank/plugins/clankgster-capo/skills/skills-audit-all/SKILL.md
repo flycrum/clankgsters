@@ -18,8 +18,8 @@ Run the full standalone `skills/` audit suite against one target skill directory
 
 ## Steps
 
-1. Establish the audit target (standalone skill directory) using [skills-target-input.md](resources/skills-target-input.md) (explicit path or MCP args → validate; else always `AskUserQuestion` with candidate skill dirs + **Other**).
-2. Launch leaf audits via sub-agents:
+1. Apply [skills-target-input.md](resources/skills-target-input.md): mandatory `AskUserQuestion` first (no Glob/focus/search-derived options); validate user-supplied skill directory; then run audits
+2. Launch leaf audits via sub-agents (**each sub-agent prompt must state the same validated skill directory path** so leaves use the resource’s sub-agent handoff):
    - `skills-audit-content-quality`
    - `skills-audit-internal-links`
    - `skills-audit-external-links`
@@ -50,7 +50,7 @@ Run the full standalone `skills/` audit suite against one target skill directory
 ## Verification
 
 - [ ] All 5 standalone-skill audits executed through sub-agents
-- [ ] Target skill directory established per target input rules (asked when not explicit)
+- [ ] Target skill directory from mandatory `AskUserQuestion` (or non-interactive explicit path per resource); no discovery-based selection
 - [ ] Summary aligns to leaf results
 - [ ] Full reports preserved
 - [ ] Grade and badge derived from aggregated findings

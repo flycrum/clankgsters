@@ -1,57 +1,51 @@
 # CLANK.md target input (shared)
 
-Use this decision path before running any `clankmd-audit-*` workflow.
+Use this gate **before** any `clankmd-audit-*` workflow touches a `CLANK.md` file.
 
 ## Why this shape (brief)
 
-Human-in-the-loop agent design treats **ambiguous inputs** and **broad or expensive work** as places to keep the human in control: state the intended target, offer fast structured choices, avoid silent wrong-file audits. Agent SDK documentation similarly emphasizes **user input / approval** before proceeding when scope is not fixed.
+Human-in-the-loop design treats **ambiguous or costly scope** as a place to pause for a human: show what will run, use **clear prompts** (not vague “approve?”), avoid silent wrong-target work. SDK-style agent docs treat **clarifying questions and approvals** as first-class steps before tools run.
 
-Auditing the wrong `CLANK.md` wastes time and erodes trust, so **do not silently pick a file** from editor context or search alone.
+Auditing the wrong `CLANK.md` wastes time and erodes trust. This pathway **does not** infer the file from editor focus, open tabs, “recently viewed,” chat attachments, or repository search — those patterns train wrong picks. **Ask the user directly** for the path, then validate.
 
-## Explicit binding (no disambiguation question)
+## Mandatory first step: `AskUserQuestion`
 
-Skip `AskUserQuestion` **only** when the target is already unambiguous from **this** turn:
+**Always** call `AskUserQuestion` as the **first** substantive step toward choosing a target, before `Glob`, `SemanticSearch`, listing directories, or reading candidate files.
 
-1. **User-named path** — The user message includes a concrete path or `@`-style reference to a file named `CLANK.md`, or unambiguously identifies one repo path.
-2. **Structured tool/MCP args** — The route or tool payload includes a field such as `clankmdPath`, `path`, or `target` pointing at that file.
+- **Question intent (plain language):** Which **`CLANK.md` file** should this audit run against? Ask for a **single** repo path (relative to workspace root or absolute, per host conventions).
+- **Do not** build options from workspace discovery: no `Glob` on `**/CLANK.md`, no “first hit,” no “focused file” shortcut, no ranked suggestions from search.
+- **Options in the UI:** If the host requires multiple choice rows, use **only static, non-discovering** labels (format reminders). Every real path must come from the user — typically **Other** / free text with the full path. Example static rows (adapt wording to the tool): “I will paste the full path in Other,” “Path must be a file named `CLANK.md`.” Do **not** paste paths the agent looked up.
 
-Then: **validate** (path exists, basename is `CLANK.md`), and proceed. If validation fails, ask once with fixed options.
+## Sub-agent handoff (same target, no second question)
 
-## Do not treat as explicit binding
+When a **parent** workflow (e.g. `clankmd-audit-all`) already ran this gate and the **sub-agent prompt for this leaf audit** explicitly states the **validated** `CLANK.md` path to use, **skip** a second `AskUserQuestion` for that leaf. Still **re-validate** the path (exists, basename `CLANK.md`) before reads.
 
-- Focused/active editor file alone
-- “Recently viewed” list alone
-- First hit from `**/CLANK.md` search alone
-- Assuming repo root `CLANK.md` without the user or payload naming it
+Do **not** use this shortcut from vague chat context, `@` mentions alone, editor focus, or search — only from an **explicit path string in the delegated prompt** for this run.
 
-Those may appear as **options** in `AskUserQuestion`, not as automatic selection.
+## Non-interactive runtimes
 
-## Default: AskUserQuestion
+If there is **no** interactive user (batch job, headless MCP), **stop** and require an explicit path from the caller contract (e.g. structured arg). **Never** substitute workspace inference. If the caller gives no path, do not audit.
 
-If explicit binding does not apply, **always** call `AskUserQuestion` before reading or auditing. Do not start work on an assumed file.
+## Validation (after the user answers)
 
-### Option construction
+1. Normalize the answer to a concrete file path.
+2. **Validate:** path exists, is a file, basename is `CLANK.md`.
+3. If validation fails, ask **once** with the same policy (still no discovery-based options): repeat what you need (“one existing `CLANK.md` path”) and use **Other** for the corrected path.
 
-- Offer **2–4** candidate paths from `Glob` on `**/CLANK.md` (prefer project-relevant roots).
-- If host context includes a **focused file** whose path ends with `CLANK.md`, include an option such as: **Use focused file: `<path>`** (same wording every run so behavior is predictable).
-- Always include **Other** for a free-text path.
-- Order options so the focused-file option is first when present (fast confirm), not a silent default.
+## After validation
 
-### After selection
-
-- Parse **Other** into a path; validate existence and `CLANK.md` basename.
-- Echo the chosen path in the report header before leaf audits.
+- Echo the chosen path in the audit report header before leaf work.
 
 ## Flow (summary)
 
-1. Explicit binding? → validate → use
-2. Else → `AskUserQuestion` (focused file as first option when applicable + candidates + Other) → validate → use
+1. **Standalone / user-facing run:** `AskUserQuestion` → user-supplied path (no discovery-built options) → validate → on failure, one retry with the same rules → proceed
+2. **Leaf sub-agent with explicit validated path in prompt:** re-validate only → proceed (no second question)
 
 ## Anti-patterns
 
-- “I'll use the open CLANK.md” without a question when binding was not explicit
-- Skipping the question when multiple `CLANK.md` files exist
-- Auditing without stating which file was chosen
+- Skipping `AskUserQuestion` in an interactive session because the user `@`-mentioned a file, “it’s obvious,” or MCP echoed a path without a human-facing question
+- Using `Glob` / search / focus / recent files to populate or choose the target
+- Auditing without stating which `CLANK.md` was chosen
 
 ## Cross-references (plain paths)
 

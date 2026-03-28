@@ -13,7 +13,7 @@ Audit `docs/common-content-type-comparison-matrix.md` and linked 1:1 detail docs
 
 ## Steps
 
-1. Establish the audit target (plugin directory) per [plugins-target-input.md](../plugins-audit-all/resources/plugins-target-input.md).
+1. Apply [plugins-target-input.md](../plugins-audit-all/resources/plugins-target-input.md): user path gate and validation as written (including sub-agent handoff).
 2. Verify the matrix file exists in plugin docs.
 3. Parse table claims, footnotes, and section links.
 4. Validate cell values against current official docs.

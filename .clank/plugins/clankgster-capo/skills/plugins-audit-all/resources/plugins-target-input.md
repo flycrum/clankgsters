@@ -1,52 +1,62 @@
 # Plugin target input (aggregators and plugin audits)
 
-Use before any `plugins-audit-*` workflow that needs a single plugin root directory.
+Use this gate **before** any `plugins-audit-*` workflow reads plugin markdown or launches sub-agents.
+
+## Allowed roots (validation only)
+
+After the user names a path, the **plugin root** must be a **direct child** directory of one of these plugin containers (same four-way layout as sync-derived paths in `ResolvedSourcePath` / `sync-source-layouts.config.ts`):
+
+- `.clank/plugins/<plugin>/`
+- `.clank/plugins.local/<plugin>/`
+- `.clank-plugins/<plugin>/`
+- `.clank-plugins.local/<plugin>/`
+
+Validation: path exists, is a directory, resolves to a single-plugin root under one of the roots above (not the container alone, e.g. not bare `.clank/plugins/`), and is the folder you intend to audit for this run.
 
 ## Why this shape (brief)
 
-Human-in-the-loop patterns for agents recommend **explicit approval when scope is ambiguous or costly**: show what will run, let the human confirm fast, avoid silent mis-targeting. See general HITL guidance (e.g. when inputs are ambiguous or actions are broad, keep a human confirmation step). Product docs for agent SDKs also treat **user input and approvals** as first-class gates before tool runs.
+Human-in-the-loop patterns recommend **explicit human control** when scope is ambiguous or work is broad: clear prompts, no silent mis-targeting. Agent SDK docs emphasize **user input / approval** before expensive or irreversible tool use.
 
-For audits, **wrong plugin = wrong report**, so default to **AskUserQuestion** unless the target is already explicitly bound.
+**Wrong plugin directory = wrong report.** Do not infer it from editor focus, open tabs, chat context, keyword guesses, or directory search.
 
-## Explicit binding (no disambiguation question)
+## Mandatory first step: `AskUserQuestion`
 
-Skip `AskUserQuestion` **only** when the target is already unambiguous from **this** turn:
+**Always** call `AskUserQuestion` as the **first** substantive step toward choosing a target, before `Glob`, `SemanticSearch`, `list_dir`, or scanning any plugin tree.
 
-1. **User-named path** — The user message includes a concrete path or `@`-style file reference that resolves to a directory under `.clank/plugins/<plugin>/` (or names `<plugin>` unambiguously together with `.clank/plugins/`).
-2. **Structured tool/MCP args** — The invoking route or tool payload includes a field such as `pluginPath`, `plugin`, or `target` that already points at the plugin root directory.
+- **Question intent (plain language):** Which **plugin root folder** should this audit use? It must live under one of the four layouts in **Allowed roots** (nested vs shorthand, regular vs `.local`). Ask for the **directory path** for that plugin, not a file inside it.
+- **Do not** build options from workspace discovery: no `Glob` under those trees for candidates, no “plugin containing focused file,” no candidate list from the tree.
+- **Options in the UI:** If the host requires multiple choice rows, use **only static, non-discovering** labels (e.g. “I will paste the full plugin root path in Other,” “Path must be the directory that contains that plugin’s `skills/`, `rules/`, etc.”). The actual path must come from the user — typically **Other** / free text.
 
-In those cases: **validate** (path exists, is a directory, lies under `.clank/plugins/`), then proceed. If validation fails, ask once with corrected options.
+## Sub-agent handoff (same target, no second question)
 
-## Do not treat as explicit binding
+When a **parent** workflow (e.g. `plugins-audit-all`) already ran this gate and the **sub-agent prompt for this leaf audit** explicitly states the **validated** plugin root directory to use, **skip** a second `AskUserQuestion` for that leaf. Still **re-validate** the path before reads.
 
-- Editor “focused” file alone
-- “Recently viewed” or open-tabs context alone
-- A single `Glob` hit without the user or payload naming that plugin
-- Guessing from chat topic keywords
+Do **not** use this shortcut from vague chat context, `@` mentions alone, editor focus, or tree search — only from an **explicit path string in the delegated prompt** for this run.
 
-Those may inform **options** inside `AskUserQuestion`, not silent selection.
+## Non-interactive runtimes
 
-## Default: AskUserQuestion
+If there is **no** interactive user, **stop** and require an explicit plugin root path from the caller (e.g. structured arg). **Never** substitute tree search or editor inference. If no path, do not audit.
 
-If explicit binding does not apply, **always** call `AskUserQuestion` before launching audits. Never start sub-agents on an assumed plugin.
+## Validation (after the user answers)
 
-### Option construction
+1. Normalize the answer to a concrete directory path.
+2. **Validate** against **Allowed roots**: exists, directory, direct child of exactly one of `.clank/plugins/`, `.clank/plugins.local/`, `.clank-plugins/`, or `.clank-plugins.local/`.
+3. If validation fails, ask **once** with the same policy (still no discovery-based options).
 
-- Include **2–4** concrete plugin directory paths under `.clank/plugins/*/`, each option showing the full path or clear `<plugin>` name.
-- If the focused file (when known) lives under `.clank/plugins/<plugin>/`, add an option such as: **Use plugin containing focused file: `<plugin>`** with the resolved plugin root path.
-- Always include **Other** (free text: full path or plugin folder name).
-- Prefer listing plugins that appear in workspace; use `Glob` on `.clank/plugins/*/` if needed to build options.
+## After validation
 
-### After selection
+- State the chosen plugin root in the audit report header before leaf work.
 
-- Resolve **Other** to an absolute or repo-root-relative path; re-validate under `.clank/plugins/`.
-- State the chosen plugin root in the audit report header before any leaf work.
+## Flow (summary)
+
+1. **Standalone / user-facing run:** `AskUserQuestion` → user-supplied plugin root (no discovery-built options) → validate → on failure, one retry with the same rules → proceed
+2. **Leaf sub-agent with explicit validated path in prompt:** re-validate only → proceed (no second question)
 
 ## Anti-patterns
 
-- Proceeding with “obvious” plugin without a question when binding was not explicit
-- Asking a vague “which plugin?” with no path examples
-- Auditing `.clank/plugins/` itself unless the user explicitly chose that (normally invalid — prefer a single child plugin)
+- Skipping `AskUserQuestion` because the user linked a file under a plugin — still ask for the **root** path in interactive mode
+- Populating `AskUserQuestion` options from `Glob` or directory listing
+- Starting sub-agents on an “obvious” plugin without the question
 
 ## Cross-references (plain paths)
 

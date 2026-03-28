@@ -14,7 +14,7 @@ Shared scope guidance: [external-links-scope.md](../../references/common-audit/e
 
 ## Steps
 
-First establish which `CLANK.md` file to audit per [clankmd-target-input.md](../clankmd-audit-all/resources/clankmd-target-input.md).
+Apply [clankmd-target-input.md](../clankmd-audit-all/resources/clankmd-target-input.md): user path gate and validation as written (including sub-agent handoff); then shared audit steps.
 
 Use shared steps: [external-links-steps.md](../../references/common-audit/external-links-steps.md)
 

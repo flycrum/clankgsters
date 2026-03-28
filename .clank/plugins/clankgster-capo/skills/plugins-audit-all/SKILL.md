@@ -14,12 +14,12 @@ allowed-tools:
 
 ## Scope
 
-Run the full plugin audit suite against one plugin under `.clank/plugins/<plugin>/`.
+Run the full plugin audit suite against one plugin root under any of the four sync layouts (see [plugins-target-input.md](resources/plugins-target-input.md) **Allowed roots**).
 
 ## Steps
 
-1. Establish the audit target (plugin directory) using [plugins-target-input.md](resources/plugins-target-input.md) (explicit path or MCP args → validate; else always `AskUserQuestion` with candidate plugins + **Other**).
-2. Launch each audit as a sub-agent (required):
+1. Apply [plugins-target-input.md](resources/plugins-target-input.md): mandatory `AskUserQuestion` first (no Glob/focus/search-derived options); validate user-supplied plugin root; then run audits
+2. Launch each audit as a sub-agent (required); **each sub-agent prompt must state the same validated plugin root path** so leaves use the resource’s sub-agent handoff:
    - `plugins-audit-content-quality`
    - `plugins-audit-internal-links`
    - `plugins-audit-external-links`
@@ -53,7 +53,7 @@ Run the full plugin audit suite against one plugin under `.clank/plugins/<plugin
 ## Verification
 
 - [ ] All 7 plugin audits executed through sub-agents
-- [ ] Target plugin established per target input rules (asked when not explicit)
+- [ ] Target plugin root from mandatory `AskUserQuestion` (or non-interactive explicit path per resource); no discovery-based selection
 - [ ] Summary table reflects leaf report outcomes
 - [ ] Full reports preserved without data loss
 - [ ] Grade and badge derived from aggregated findings

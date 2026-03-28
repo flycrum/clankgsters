@@ -15,7 +15,7 @@ Shared scope guidance: [content-quality-scope.md](../../references/common-audit/
 
 ## Steps
 
-First establish the audit target (plugin directory) per [plugins-target-input.md](../plugins-audit-all/resources/plugins-target-input.md).
+Apply [plugins-target-input.md](../plugins-audit-all/resources/plugins-target-input.md): user path gate and validation as written (including sub-agent handoff); then shared audit steps.
 
 Use shared steps: [content-quality-steps.md](../../references/common-audit/content-quality-steps.md)
 

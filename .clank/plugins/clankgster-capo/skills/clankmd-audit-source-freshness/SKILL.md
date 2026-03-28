@@ -14,7 +14,7 @@ Shared scope guidance: [source-freshness-scope.md](../../references/common-audit
 
 ## Steps
 
-First establish which `CLANK.md` file to audit per [clankmd-target-input.md](../clankmd-audit-all/resources/clankmd-target-input.md).
+Apply [clankmd-target-input.md](../clankmd-audit-all/resources/clankmd-target-input.md): user path gate and validation as written (including sub-agent handoff); then shared audit steps.
 
 Use shared steps: [source-freshness-steps.md](../../references/common-audit/source-freshness-steps.md)
 
