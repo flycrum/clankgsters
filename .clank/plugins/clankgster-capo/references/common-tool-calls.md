@@ -24,7 +24,7 @@ Reference of known tools across Claude Code, Cursor, and Codex. Use this when wr
 | `Read` | Read file contents, images, PDFs, notebooks | No |
 | `Write` | Create or overwrite files | Yes |
 | `Edit` | Targeted string replacement in files | Yes |
-| `Glob` | Find files by glob pattern (e.g. **`/*.ts`) | No |
+| `Glob` | Find files by glob pattern (e.g. `**/*.ts`) | No |
 | `Grep` | Search file contents with regex | No |
 | `NotebookEdit` | Modify Jupyter notebook cells | Yes |
 
@@ -184,7 +184,7 @@ Use the Agent tool with subagent_type "Explore" to search the codebase.
 
 <examples>
 <example type="good">
-Search for files matching **`/*.test.ts` using the Glob tool.
+Search for files matching `**/*.test.ts` using the Glob tool.
 </example>
 <example type="bad">
 Find the test files somehow.

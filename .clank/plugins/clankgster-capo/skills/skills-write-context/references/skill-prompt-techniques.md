@@ -73,8 +73,9 @@ Request condensed summaries (1,000-2,000 tokens) from sub-agents. Full outputs c
 ```markdown
 Use the Agent tool to verify all cross-references in the plugin. Provide this prompt:
 
-"Scan all files under `.clank/plugins/<plugin>/`. For each markdown link
-(`[text](path)`), verify the target file exists. Return a table:
+"Scan all files under `.clank/plugins/<plugin>/`. For each relative markdown
+link—bracketed visible text followed by a parenthesized path—verify the target
+file exists. Return a table:
 
 | Source file | Link text | Target path | Status |
 | --- | --- | --- | --- |

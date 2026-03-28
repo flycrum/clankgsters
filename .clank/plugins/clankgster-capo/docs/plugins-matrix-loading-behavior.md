@@ -26,7 +26,7 @@ Skill-local support paths such as `reference.md`, `references/`, or `docs/` are 
 
 ## Loaded on demand
 
-**References** load when an active skill or rule links to them. For example, a skill body might contain `[see details](../../references/some-reference.md)`, and the agent reads that file when it follows the link. References never load on their own.
+**References** load when an active skill or rule links to them. For example, a skill body might contain [progressive disclosure](../references/common-progressive-disclosure.md), and the agent reads that file when it follows the link. References never load on their own.
 
 **Docs** load only when someone (user or agent) explicitly reads the file. They are background knowledge and archival content, not wired into any automatic loading mechanism.
 
