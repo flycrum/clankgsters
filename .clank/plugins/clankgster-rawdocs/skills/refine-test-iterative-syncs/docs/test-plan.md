@@ -56,9 +56,10 @@ This separation improves reliability by making each phase explicit, testable, an
 - User may override count.
 - Strict full-budget mode always executes all requested rounds.
 - For each iteration:
+  1. run continuity baseline (run-1)
   1. generate mutation profile
-  1. apply mutation
-  1. run continuity flow (run-1 + mutation window + run-2)
+  1. apply mutation window under `rawdocs/` (taxonomy + continuity edit)
+  1. run post-mutation continuity pass (run-2)
   1. score outputs
   1. patch sync system
 

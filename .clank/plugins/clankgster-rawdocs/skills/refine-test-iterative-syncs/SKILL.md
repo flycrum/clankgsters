@@ -27,6 +27,7 @@ Treat this as `TARGET_PLUGIN_PATH` for all phases.
 ## Hard boundaries
 
 - Never modify `TARGET_PLUGIN_PATH/rawdocs/` during sync execution; only mutate rawdocs in explicit mutation steps.
+- Never edit the fixture’s non-`rawdocs/` paths (`rules/`, `skills/`, `references/`, etc.) to simulate change—only `rawdocs/` may be mutated for scenarios; [`rawdocs-struct-sync`](../struct-sync/SKILL.md) must produce structured output.
 - Never emit markdown links into `rawdocs/`.
 - Keep mutation realism aligned with the seed set in [`step-4-seed-rawdocs.md`](../seed-test-iterative-syncs/references/step-4-seed-rawdocs.md).
 - Prefer changing `struct-sync` behavior over changing test harness behavior.

@@ -1,8 +1,9 @@
 ---
 name: rawdocs-test-iterative-syncs-loop-round
 description: >-
-  Executes one iterative-sync round: mutation profile selection, continuity
-  run-1/run-2 execution, scoring, and evidence-backed patch application.
+  Executes one iterative-sync round with run-1 baseline, rawdocs-only mutation
+  phase, run-2 post-mutation continuity, scoring, and evidence-backed patch
+  application.
 ---
 
 # rawdocs test iterative syncs loop round
@@ -11,9 +12,9 @@ description: >-
 
 Use this skill for exactly one round inside the iterative-sync loop. One round is:
 
-1. generate one mutation profile
-2. apply mutation to `rawdocs/`
-3. run continuity (`run-1` then `run-2`)
+1. run baseline continuity pass (`run-1`)
+2. apply **rawdocs-only** mutations (taxonomy profile + continuity edit)
+3. run post-mutation continuity pass (`run-2`)
 4. score against sync goals
 5. apply targeted evidence-backed patches
 6. return one round report
@@ -31,14 +32,12 @@ Use this skill for exactly one round inside the iterative-sync loop. One round i
 
 ## Steps
 
-1. Generate mutation profile using [`mutation-generation-strategy.md`](../refine-test-iterative-syncs/references/mutation-generation-strategy.md).
-2. Apply only this round's mutation under `TARGET_PLUGIN_PATH/rawdocs/`.
-3. Follow run 1 in [`shared-execution-run-1.md`](../../references/tests/shared-execution-run-1.md), substituting caller `TARGET_PLUGIN_PATH`.
-4. Apply [`shared-execution-mutation-window.md`](../../references/tests/shared-execution-mutation-window.md).
-5. Follow run 2 in [`shared-execution-run-2.md`](../../references/tests/shared-execution-run-2.md) with the same `TARGET_PLUGIN_PATH`.
-6. Produce round report using [`iteration-report-shape.md`](../refine-test-iterative-syncs/references/iteration-report-shape.md).
-7. Score outcomes using [`sync-goals-and-bucketing-criteria.md`](../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md).
-8. Apply targeted improvement patches following [`improvement-application-policy.md`](../refine-test-iterative-syncs/references/improvement-application-policy.md).
+1. **Run 1 baseline.** Follow [`execution-run-1.md`](references/execution-run-1.md), substituting caller `TARGET_PLUGIN_PATH`.
+2. **Mutations (rawdocs only).** Follow [`execution-mutation-window.md`](references/execution-mutation-window.md).
+3. **Run 2 post-mutation.** Follow [`execution-run-2.md`](references/execution-run-2.md) with the same `TARGET_PLUGIN_PATH`.
+4. Produce round report using [`iteration-report-shape.md`](../refine-test-iterative-syncs/references/iteration-report-shape.md).
+5. Score outcomes using [`sync-goals-and-bucketing-criteria.md`](../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md).
+6. Apply targeted improvement patches following [`improvement-application-policy.md`](../refine-test-iterative-syncs/references/improvement-application-policy.md).
 
 ## Required report shape
 
@@ -49,13 +48,16 @@ Follow [`iteration-report-shape.md`](../refine-test-iterative-syncs/references/i
 Apply [`complex-verification.md`](../../references/tests/complex-verification.md) with caller-provided `TARGET_PLUGIN_PATH`.
 
 - [ ] `ROUND_INDEX` included in round report
-- [ ] Exactly one mutation profile used
+- [ ] Step ordering followed: run-1 baseline -> rawdocs mutations -> run-2 post-mutation
+- [ ] Exactly one taxonomy mutation profile used during mutations; continuity edit applied (or no-op)
 - [ ] Both run-1 and run-2 completed
+- [ ] No mutation edits outside `TARGET_PLUGIN_PATH/rawdocs/` during the round
 - [ ] Scorecard includes pass/partial/fail against sync goals
 - [ ] Any applied patch references a concrete failure signature
 
 ## Cross-references
 
+- [`references/execution-mutation-window.md`](references/execution-mutation-window.md)
 - [`../seed-test-iterative-syncs/SKILL.md`](../seed-test-iterative-syncs/SKILL.md)
 - [`../struct-sync/SKILL.md`](../struct-sync/SKILL.md)
 - [`../refine-test-iterative-syncs/references/iteration-report-shape.md`](../refine-test-iterative-syncs/references/iteration-report-shape.md)

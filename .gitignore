@@ -2,6 +2,8 @@
 .clankgster-cache/
 .superagent/
 
+# .clank/plugins/_rawdocs-refine-test-iterative-syncs/
+
 # Library-specific files
 clankgster.local.config.ts
 

@@ -46,20 +46,20 @@ flowchart TD
 ```mermaid
 flowchart TD
   startRound["start round N"]
-  mutationProfile["generate mutation profile"]
-  applyMutation["apply mutation to rawdocs"]
   runOne["run-1 sync and snapshot"]
-  mutationWindow["shared mutation window checks"]
+  mutationProfile["generate mutation profile"]
+  applyMutation["apply mutations to rawdocs"]
+  continuityMutation["apply fixed continuity mutation"]
   runTwo["run-2 sync and snapshot"]
   scoreRound["score against sync goals"]
   patchDecision["apply evidence-backed patches"]
   emitRoundReport["emit iteration-report-shape output"]
 
-  startRound --> mutationProfile
+  startRound --> runOne
+  runOne --> mutationProfile
   mutationProfile --> applyMutation
-  applyMutation --> runOne
-  runOne --> mutationWindow
-  mutationWindow --> runTwo
+  applyMutation --> continuityMutation
+  continuityMutation --> runTwo
   runTwo --> scoreRound
   scoreRound --> patchDecision
   patchDecision --> emitRoundReport
