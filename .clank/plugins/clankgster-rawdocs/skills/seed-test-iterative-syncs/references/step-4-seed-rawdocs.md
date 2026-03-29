@@ -13,11 +13,3 @@ Into:
 * Preserve **filenames** exactly (e.g. `testing-types.readme.md`, `turborepo-general.readme.md`, …).
 * Copy **file contents verbatim**; do not rewrite Mars-relative links for this test harness (they are intentional sample noise for structural sync).
 * Do **not** create `rawdocs/getting-started.md` from the simple template for this skill.
-
-## **Expected filenames (5)**
-
-* `extensions-vscode-cross-reference.readme.md`
-* `testing-types.readme.md`
-* `turborepo-dependencies.readme.md`
-* `turborepo-general.readme.md`
-* `turborepo-new-workspace.readme.md`

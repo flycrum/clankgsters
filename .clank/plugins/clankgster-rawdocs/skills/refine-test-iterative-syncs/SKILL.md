@@ -52,13 +52,13 @@ Treat this as `TARGET_PLUGIN_PATH` for all phases.
 
 ## Improvement application policy
 
-Follow [`improvement-application-policy.md`](references/improvement-application-policy.md).
+Follow [`improvement-application-policy.md`](../test-iterative-syncs-loop-round/references/improvement-application-policy.md).
 
 Do not apply speculative refactors; each patch must cite a failure signature from current round evidence.
 
 ## Success criteria
 
-Follow [`docs/test-plan.md`](docs/test-plan.md) and [`sync-goals-and-bucketing-criteria.md`](references/sync-goals-and-bucketing-criteria.md).
+Follow [`docs/test-plan.md`](docs/test-plan.md) and [`sync-goals-and-bucketing-criteria.md`](../test-iterative-syncs-loop-round/references/sync-goals-and-bucketing-criteria.md).
 
 Key target: improve continuity and subtractive honesty while funneling synced output to the right plugin buckets with minimal unsupported `docs/` placement.
 

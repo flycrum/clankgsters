@@ -58,7 +58,7 @@ This separation improves reliability by making each phase explicit, testable, an
 - For each iteration:
   1. run continuity baseline (run-1)
   1. generate mutation profile
-  1. apply mutation window under `rawdocs/` (taxonomy + continuity edit)
+  1. apply mutation window under `rawdocs/` (two taxonomy-driven passes per `execution-mutation-window.md`)
   1. run post-mutation continuity pass (run-2)
   1. score outputs
   1. patch sync system
@@ -67,7 +67,7 @@ This separation improves reliability by making each phase explicit, testable, an
 
 Primary:
 
-1. improved score trend against [`sync-goals-and-bucketing-criteria.md`](../references/sync-goals-and-bucketing-criteria.md)
+1. improved score trend against [`sync-goals-and-bucketing-criteria.md`](../../test-iterative-syncs-loop-round/references/sync-goals-and-bucketing-criteria.md)
 2. reduced unnecessary churn for traceable paths
 3. stronger subtractive sync behavior when rawdocs removes support
 
@@ -86,8 +86,8 @@ Patch priority order:
 3. [`../../../references/rawdocs-structify-architecture.md`](../../../references/rawdocs-structify-architecture.md)
 4. [`../../test-iterative-syncs-loop-round/SKILL.md`](../../test-iterative-syncs-loop-round/SKILL.md) only when instrumentation/reporting needs improvement
 
-Apply this using [`improvement-application-policy.md`](../references/improvement-application-policy.md).
+Apply this using [`improvement-application-policy.md`](../../test-iterative-syncs-loop-round/references/improvement-application-policy.md).
 
 ## Reporting
 
-Use [`iteration-report-shape.md`](../references/iteration-report-shape.md) per iteration and provide a cumulative final trend summary.
+Use [`iteration-report-shape.md`](../../test-iterative-syncs-loop-round/references/iteration-report-shape.md) per iteration and provide a cumulative final trend summary.
