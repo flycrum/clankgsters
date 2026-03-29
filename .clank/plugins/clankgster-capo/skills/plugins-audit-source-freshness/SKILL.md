@@ -26,6 +26,3 @@ Use shared output format: [source-freshness-output-format.md](../../references/c
 
 Use shared verification: [source-freshness-verification.md](../../references/common-audit/source-freshness-verification.md)
 
-## Cross-references
-
-Use shared references: [source-freshness-cross-references.md](../../references/common-audit/source-freshness-cross-references.md)

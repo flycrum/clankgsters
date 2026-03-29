@@ -52,7 +52,3 @@ Treat this as `TARGET_PLUGIN_PATH`.
 - [ ] All `*.md` files from [`test-complex-rawdocs/`](../../references/test-complex-rawdocs/) exist under `TARGET_PLUGIN_PATH/rawdocs/`
 - [ ] Summary includes handoff to [`rawdocs-test-iterative-syncs-loop`](../test-iterative-syncs-loop/SKILL.md)
 
-## Cross-references
-
-- [`../create-plugin/SKILL.md`](../create-plugin/SKILL.md)
-- [`references/step-4-seed-rawdocs.md`](references/step-4-seed-rawdocs.md)

@@ -61,8 +61,3 @@ Caller must provide:
 - [ ] No script-based loop execution used
 - [ ] Final output contains per-round reports and aggregate trend summary
 
-## Cross-references
-
-- [`../test-iterative-syncs-loop-round/SKILL.md`](../test-iterative-syncs-loop-round/SKILL.md)
-- [`../refine-test-iterative-syncs/references/iteration-report-shape.md`](../refine-test-iterative-syncs/references/iteration-report-shape.md)
-- [`../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md`](../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md)

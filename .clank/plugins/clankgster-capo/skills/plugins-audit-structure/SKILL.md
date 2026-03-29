@@ -33,7 +33,3 @@ Audit one plugin directory whose root validates per [plugins-target-input.md](..
 - [ ] All `SKILL.md` files validated
 - [ ] Placement issues explicitly listed
 
-## Cross-references
-
-- [common-organizing-content.md](../../rules/common-organizing-content.md)
-- [skills-create-rules.md](../../rules/skills-create-rules.md)

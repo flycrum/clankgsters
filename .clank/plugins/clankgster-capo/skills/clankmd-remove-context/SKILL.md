@@ -27,6 +27,3 @@ In-session agents follow this `SKILL.md` body; MCP route `clankmd.remove` (`Clan
 - [ ] Cross references reviewed
 - [ ] Follow-up cleanup proposed if needed
 
-## Cross-references
-
-- [reference.md](reference.md)

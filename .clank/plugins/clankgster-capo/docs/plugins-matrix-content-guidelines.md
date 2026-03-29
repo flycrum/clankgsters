@@ -74,17 +74,6 @@ Verification checklists appear at the end of a skill body and list conditions th
 - **Docs**: Optional.
 - **Agents**: Do not include checklists.
 
-## Cross-references
-
-Cross-referencing links content types together, enabling progressive disclosure and keeping individual files focused.
-
-- **Skills** frequently link to references for detailed guidance. A skill body stays focused on the workflow while delegating explanations to reference files.
-- **Rules** link to references for the rationale or extended examples behind a convention.
-- **Commands** rarely cross-reference. They are self-contained.
-- **References** link to other references, forming a knowledge graph of detail documentation.
-- **Docs** may optionally link to other docs or references.
-- **Agents** rarely cross-reference.
-
 ---
 
 *Parent: [Content type comparison matrix](../references/common-content-type-comparison-matrix.md)*

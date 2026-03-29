@@ -84,17 +84,3 @@ Return:
 - [ ] Any test-harness patch is explicitly justified as instrumentation/reporting need
 - [ ] No script-based automation was used for round execution
 
-## Cross-references
-
-- [`docs/test-plan.md`](docs/test-plan.md)
-- [`docs/flow.md`](docs/flow.md)
-- [`references/iteration-report-shape.md`](references/iteration-report-shape.md)
-- [`references/final-report-shape.md`](references/final-report-shape.md)
-- [`references/mutation-taxonomy.md`](references/mutation-taxonomy.md)
-- [`references/mutation-generation-strategy.md`](references/mutation-generation-strategy.md)
-- [`references/sync-goals-and-bucketing-criteria.md`](references/sync-goals-and-bucketing-criteria.md)
-- [`references/improvement-application-policy.md`](references/improvement-application-policy.md)
-- [`../seed-test-iterative-syncs/SKILL.md`](../seed-test-iterative-syncs/SKILL.md)
-- [`../test-iterative-syncs-loop/SKILL.md`](../test-iterative-syncs-loop/SKILL.md)
-- [`../test-iterative-syncs-loop-round/SKILL.md`](../test-iterative-syncs-loop-round/SKILL.md)
-- [`../struct-sync/SKILL.md`](../struct-sync/SKILL.md)

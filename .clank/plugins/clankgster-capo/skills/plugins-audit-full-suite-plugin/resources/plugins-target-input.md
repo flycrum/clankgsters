@@ -58,6 +58,3 @@ If there is **no** interactive user, **stop** and require an explicit plugin roo
 - Populating `AskUserQuestion` options from `Glob` or directory listing
 - Starting sub-agents on an “obvious” plugin without the question
 
-## Cross-references (plain paths)
-
-- Skill input pattern: `.clank/plugins/clankgster-capo/skills/skills-create-context/docs/skill-asking-for-user-input.md`

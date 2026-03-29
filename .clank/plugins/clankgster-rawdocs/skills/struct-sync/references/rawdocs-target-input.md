@@ -36,6 +36,3 @@ After user response:
 - Inferring target from recent terminal paths
 - Guessing plugin from repository search
 
-## Cross-references
-
-- [../SKILL.md](../SKILL.md)

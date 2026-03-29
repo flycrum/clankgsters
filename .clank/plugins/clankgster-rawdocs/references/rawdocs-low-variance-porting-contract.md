@@ -76,9 +76,3 @@ Use this schema exactly:
 - `evidence`
 - `remediation` (required when `FAIL`)
 
-## Cross-references
-
-- [../skills/analyze-raw/SKILL.md](../skills/analyze-raw/SKILL.md)
-- [../skills/struct-sync/SKILL.md](../skills/struct-sync/SKILL.md)
-- [rawdocs-structify-architecture.md](rawdocs-structify-architecture.md)
-- [../rules/rawdocs-internal-linking.md](../rules/rawdocs-internal-linking.md)

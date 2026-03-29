@@ -28,6 +28,3 @@ In-session agents follow this `SKILL.md` body; MCP route `skills.update` (`Skill
 - [ ] YAML frontmatter remains valid
 - [ ] Description still discoverable
 
-## Cross-references
-
-- [skills-create-context reference hub](../skills-create-context/reference.md)

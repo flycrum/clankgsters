@@ -102,7 +102,3 @@ Return an extensive package with:
 - [ ] Style profile includes quote/header habits
 - [ ] Recommendations preserve low-creativity constraints
 
-## Cross-references
-
-- [../../../clankgster-capo/skills/plugins-create-context/SKILL.md](../../../clankgster-capo/skills/plugins-create-context/SKILL.md)
-- [../struct-sync/SKILL.md](../struct-sync/SKILL.md)

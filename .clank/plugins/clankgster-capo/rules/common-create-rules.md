@@ -22,7 +22,3 @@ Every rule should include:
 - Positive instructions where possible
 - Link to references for deep detail instead of inlining
 
-## Cross-references
-
-- [common-prompt-techniques.md](../references/common-prompt-techniques.md)
-- [common-progressive-disclosure.md](../references/common-progressive-disclosure.md)

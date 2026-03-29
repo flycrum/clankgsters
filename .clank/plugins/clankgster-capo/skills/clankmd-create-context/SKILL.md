@@ -29,6 +29,3 @@ In-session agents follow this `SKILL.md` body; capo MCP route `clankmd.create` (
 - [ ] Content is global, not plugin-local
 - [ ] Links point to deeper material
 
-## Cross-references
-
-- [reference.md](reference.md)

@@ -187,9 +187,3 @@ Use this exact skeleton shape (fill with run-specific content):
 9. Risks and mitigations
 10. Assumptions and open decisions
 
-## Cross-references
-
-- [../SKILL.md](../SKILL.md)
-- [../../../../clankgster-capo/skills/plugins-create-context/SKILL.md](../../../../clankgster-capo/skills/plugins-create-context/SKILL.md)
-- [../../../../clankgster-capo/skills/plugins-create-context/reference.md](../../../../clankgster-capo/skills/plugins-create-context/reference.md)
-- [../../../rules/rawdocs-internal-linking.md](../../../rules/rawdocs-internal-linking.md)

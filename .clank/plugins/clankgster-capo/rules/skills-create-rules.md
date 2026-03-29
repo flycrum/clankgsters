@@ -42,7 +42,3 @@ allowed-tools:
 
 Do not recommend MCP-to-skill orchestration by default. Treat it as an advanced pattern for high-complexity systems only.
 
-## Cross-references
-
-- [description-frontmatter.md](../skills/skills-create-context/docs/description-frontmatter.md)
-- [common-progressive-disclosure.md](../references/common-progressive-disclosure.md)

@@ -30,6 +30,3 @@ Use shared output format: [internal-links-output-format.md](../../references/com
 
 Use shared verification: [internal-links-verification.md](../../references/common-audit/internal-links-verification.md)
 
-## Cross-references
-
-Use shared references: [internal-links-cross-references.md](../../references/common-audit/internal-links-cross-references.md)

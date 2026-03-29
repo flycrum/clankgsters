@@ -28,6 +28,3 @@ In-session agents follow this `SKILL.md` body; MCP route `plugins.update` (`Plug
 - [ ] Cross-links resolve after edits
 - [ ] No stale references remain
 
-## Cross-references
-
-- [reference.md](reference.md)

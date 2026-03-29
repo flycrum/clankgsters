@@ -28,6 +28,3 @@ In-session agents follow this `SKILL.md` body; MCP route `skills.remove` (`Skill
 - [ ] Reference fallout reviewed
 - [ ] Cleanup suggestions included
 
-## Cross-references
-
-- [reference.md](reference.md)

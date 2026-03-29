@@ -29,7 +29,3 @@
 
 Use the plugin's internal naming standard. For `clankgster-capo`, use `plugins-`, `skills-`, `clankmd-`, or `common-` prefixes.
 
-## Cross-references
-
-- [common-content-type-decision-tree.md](../references/common-content-type-decision-tree.md)
-- [common-content-type-comparison-matrix.md](../references/common-content-type-comparison-matrix.md)

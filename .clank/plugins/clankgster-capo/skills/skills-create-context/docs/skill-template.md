@@ -105,10 +105,6 @@ For each piece of content, determine:
 
 <!-- WHY: Cross-references point to detail the skill body intentionally
      omits (progressive disclosure). Agents follow links on demand. -->
-## Cross-references
-
-- [Detailed technique A](../references/skill-prompt-techniques.md)
-- [Detailed technique B](../../../references/common-prompt-techniques.md)
 ````
 
 ## Checklist

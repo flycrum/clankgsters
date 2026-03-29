@@ -58,6 +58,3 @@ If there is **no** interactive user, **stop** and require an explicit skill dire
 - Skipping `AskUserQuestion` because a path was mentioned informally in chat without this gate
 - Using `Glob` or search to populate `AskUserQuestion` options
 
-## Cross-references (plain paths)
-
-- Skill input pattern: `.clank/plugins/clankgster-capo/skills/skills-create-context/docs/skill-asking-for-user-input.md`

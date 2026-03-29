@@ -80,8 +80,3 @@ Return an extensive package with:
 - [ ] Summaries remain high-level and non-extractive
 - [ ] Style profile includes heading and quote conventions
 
-## Cross-references
-
-- [../struct-sync/SKILL.md](../struct-sync/SKILL.md)
-- [../../references/rawdocs-structify-architecture.md](../../references/rawdocs-structify-architecture.md)
-- [../../rules/rawdocs-internal-linking.md](../../rules/rawdocs-internal-linking.md)

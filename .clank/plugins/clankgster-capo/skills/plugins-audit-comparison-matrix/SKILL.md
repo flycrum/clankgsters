@@ -33,7 +33,3 @@ Audit `references/common-content-type-comparison-matrix.md` and linked 1:1 detai
 - [ ] Footnote references and definitions cross-checked both directions
 - [ ] Every section link resolved and validated
 
-## Cross-references
-
-- [common-content-type-comparison-matrix.md](../../references/common-content-type-comparison-matrix.md)
-- [common-content-type-decision-tree.md](../../references/common-content-type-decision-tree.md)

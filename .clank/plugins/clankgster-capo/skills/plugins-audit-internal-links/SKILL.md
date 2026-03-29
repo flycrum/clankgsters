@@ -48,6 +48,3 @@ Use shared verification: [internal-links-verification.md](../../references/commo
 - [ ] `docs/` target policy pass applied per [common-plugin-docs-folder-linking.md](../../references/common-plugin-docs-folder-linking.md) with checklist [internal-links-plugin-docs-folder-policy.md](../../references/common-audit/internal-links-plugin-docs-folder-policy.md)
 - [ ] Plugin `docs/` policy section present in output when any link targets `pluginRoot/docs/` from outside `docs/`
 
-## Cross-references
-
-Use shared references: [internal-links-cross-references.md](../../references/common-audit/internal-links-cross-references.md)

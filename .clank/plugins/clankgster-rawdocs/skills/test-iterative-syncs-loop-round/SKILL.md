@@ -55,10 +55,3 @@ Apply [`complex-verification.md`](../../references/tests/complex-verification.md
 - [ ] Scorecard includes pass/partial/fail against sync goals
 - [ ] Any applied patch references a concrete failure signature
 
-## Cross-references
-
-- [`references/execution-mutation-window.md`](references/execution-mutation-window.md)
-- [`../seed-test-iterative-syncs/SKILL.md`](../seed-test-iterative-syncs/SKILL.md)
-- [`../struct-sync/SKILL.md`](../struct-sync/SKILL.md)
-- [`../refine-test-iterative-syncs/references/iteration-report-shape.md`](../refine-test-iterative-syncs/references/iteration-report-shape.md)
-- [`../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md`](../refine-test-iterative-syncs/references/sync-goals-and-bucketing-criteria.md)

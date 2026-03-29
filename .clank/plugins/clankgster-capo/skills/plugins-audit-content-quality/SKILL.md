@@ -27,6 +27,3 @@ Use shared output format: [content-quality-output-format.md](../../references/co
 
 Use shared verification: [content-quality-verification.md](../../references/common-audit/content-quality-verification.md)
 
-## Cross-references
-
-Use shared references: [content-quality-cross-references.md](../../references/common-audit/content-quality-cross-references.md)

@@ -26,6 +26,3 @@ Use shared output format: [external-links-output-format.md](../../references/com
 
 Use shared verification: [external-links-verification.md](../../references/common-audit/external-links-verification.md)
 
-## Cross-references
-
-Use shared references: [external-links-cross-references.md](../../references/common-audit/external-links-cross-references.md)

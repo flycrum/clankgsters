@@ -68,6 +68,3 @@ Hooks are event-driven automations and should remain deterministic and scoped. U
 - [ ] Rules are conventions (not workflows)
 - [ ] References/docs are linked and non-duplicative
 
-## Cross-references
-
-- [reference.md](reference.md)

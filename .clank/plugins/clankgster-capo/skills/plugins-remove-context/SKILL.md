@@ -29,6 +29,3 @@ In-session agents follow this `SKILL.md` body; MCP route `plugins.remove` (`Plug
 - [ ] Inbound references cleaned or updated
 - [ ] Orphaned-reference decision confirmed by user
 
-## Cross-references
-
-- [reference.md](reference.md)

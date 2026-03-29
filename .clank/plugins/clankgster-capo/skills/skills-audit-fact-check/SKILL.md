@@ -27,6 +27,3 @@ Use shared output format: [fact-check-output-format.md](../../references/common-
 
 Use shared verification: [fact-check-verification.md](../../references/common-audit/fact-check-verification.md)
 
-## Cross-references
-
-Use shared references: [fact-check-cross-references.md](../../references/common-audit/fact-check-cross-references.md)

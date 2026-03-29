@@ -35,6 +35,3 @@ In-session agents follow this `SKILL.md` body; capo MCP route `skills.create` (`
 - [ ] Description is high signal
 - [ ] Output path is in source pathway `skills/`
 
-## Cross-references
-
-- [reference.md](reference.md)

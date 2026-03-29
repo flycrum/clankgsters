@@ -48,7 +48,3 @@ Choose a source pathway, explain why, and hand off to the appropriate create wor
 - [ ] Reasoning included for analyze and recommend selection
 - [ ] Primary handoff: create-context `SKILL.md` read and executed **or** optional MCP call documented when tools were used instead
 
-## Cross-references
-
-- [reference.md](reference.md)
-- [common_internal-in-session-vs-mcp-policy.md](../../references/common_internal-in-session-vs-mcp-policy.md)

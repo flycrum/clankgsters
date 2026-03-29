@@ -196,11 +196,3 @@ Return a structural sync report with:
 - [ ] No markdown links target `rawdocs/`
 - [ ] Final output reflects refined plan, orphan/coverage decisions, and continuity where it aligns with rawdocs
 
-## Cross-references
-
-- [references/rawdocs-execution-notes.md](references/rawdocs-execution-notes.md)
-- [references/rawdocs-target-input.md](references/rawdocs-target-input.md)
-- [references/rawdocs-first-pass-integrated-plan-spec.md](references/rawdocs-first-pass-integrated-plan-spec.md)
-- [../../references/rawdocs-structify-architecture.md](../../references/rawdocs-structify-architecture.md)
-- [../../references/rawdocs-sync-goals.md](../../references/rawdocs-sync-goals.md)
-- [../../rules/rawdocs-internal-linking.md](../../rules/rawdocs-internal-linking.md)

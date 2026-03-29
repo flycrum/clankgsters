@@ -56,9 +56,3 @@ Run the full CLANK.md audit suite against one `CLANK.md` file.
 - [ ] Target `CLANK.md` taken from mandatory `AskUserQuestion` (or non-interactive explicit path per resource); no discovery-based selection
 - [ ] Healer question asked before update; primary path is read-and-follow `clankmd-update-context` unless user chose MCP tool
 
-## Cross-references
-
-- [clankmd-create.md](../../rules/clankmd-create.md)
-- [skill-asking-for-user-input.md](../skills-create-context/docs/skill-asking-for-user-input.md)
-- [audit-grade-assignment.md](../../references/common-audit/audit-grade-assignment.md)
-- [common_internal-in-session-vs-mcp-policy.md](../../references/common_internal-in-session-vs-mcp-policy.md)

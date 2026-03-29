@@ -16,7 +16,3 @@ Canonical priority goals for rawdocs structural sync behavior.
 - Continuity is guidance, not a veto against subtractive sync.
 - Churn should be minimized for retained traceable paths, but not by preserving orphaned files.
 
-## Cross-references
-
-* [`rawdocs-structify-architecture.md`](rawdocs-structify-architecture.md)
-* [`../skills/struct-sync/SKILL.md`](../skills/struct-sync/SKILL.md)

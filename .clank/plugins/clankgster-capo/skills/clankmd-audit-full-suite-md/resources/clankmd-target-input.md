@@ -47,6 +47,3 @@ If there is **no** interactive user (batch job, headless MCP), **stop** and requ
 - Using `Glob` / search / focus / recent files to populate or choose the target
 - Auditing without stating which `CLANK.md` was chosen
 
-## Cross-references (plain paths)
-
-- Skill input pattern: `.clank/plugins/clankgster-capo/skills/skills-create-context/docs/skill-asking-for-user-input.md`

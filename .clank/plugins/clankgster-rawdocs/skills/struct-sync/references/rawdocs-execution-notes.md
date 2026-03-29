@@ -60,9 +60,3 @@ Before deletion:
 7. Cleanup and rebuild outcomes
 8. Validation checklist
 
-## Cross-references
-
-- [../SKILL.md](../SKILL.md)
-- [../../../references/rawdocs-structify-architecture.md](../../../references/rawdocs-structify-architecture.md)
-- [../../../rules/rawdocs-internal-linking.md](../../../rules/rawdocs-internal-linking.md)
-- [../../../../clankgster-capo/skills/plugins-create-context/SKILL.md](../../../../clankgster-capo/skills/plugins-create-context/SKILL.md)

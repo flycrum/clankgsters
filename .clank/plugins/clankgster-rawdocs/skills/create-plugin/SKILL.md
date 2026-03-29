@@ -48,9 +48,3 @@ Follow [`step-5-return-summary.md`](../../references/create-plugin-shared/step-5
 * [ ] `rawdocs/getting-started.md` created from the template
 * [ ] Summary includes the next step to structural sync
 
-## Cross-references
-
-* [`references/create-plugin-shared/`](../../references/create-plugin-shared/) (shared step partials)
-* [`references/seed/getting-started-template.md`](references/seed/getting-started-template.md)
-* [`../struct-sync/SKILL.md`](../struct-sync/SKILL.md)
-* [`../../rules/rawdocs-opt-in-placement.md`](../../rules/rawdocs-opt-in-placement.md)

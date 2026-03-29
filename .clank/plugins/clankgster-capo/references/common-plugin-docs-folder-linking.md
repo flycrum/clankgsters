@@ -21,7 +21,3 @@ When evaluating a relative markdown link, resolve source and target paths from t
 
 **plugins-audit-internal-links** reports violations as **`docs/` target policy** findings (valid on disk but disallowed here); see [internal-links-plugin-docs-folder-policy.md](common-audit/internal-links-plugin-docs-folder-policy.md).
 
-## Cross-references
-
-- [common-organizing-content.md](../rules/common-organizing-content.md)
-- [common-content-type-decision-tree.md](common-content-type-decision-tree.md)

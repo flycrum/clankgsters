@@ -28,6 +28,3 @@ In-session agents follow this `SKILL.md` body; MCP route `clankmd.update` (`Clan
 - [ ] No large procedural expansion added
 - [ ] Updated content remains high-signal
 
-## Cross-references
-
-- [reference.md](reference.md)

@@ -60,10 +60,3 @@ Run the full plugin audit suite against one plugin root under any of the four sy
 - [ ] Grade and badge derived from aggregated findings
 - [ ] Healer prompt shown; primary path read-and-follow `plugins-update-context` unless user chose MCP tool
 
-## Cross-references
-
-- [audit-chain-methodology.md](docs/audit-chain-methodology.md)
-- [audit-grade-assignment.md](../../references/common-audit/audit-grade-assignment.md)
-- [common_internal-in-session-vs-mcp-policy.md](../../references/common_internal-in-session-vs-mcp-policy.md)
-- [plugins-target-input.md](resources/plugins-target-input.md)
-- [skill-asking-for-user-input.md](../skills-create-context/docs/skill-asking-for-user-input.md)
