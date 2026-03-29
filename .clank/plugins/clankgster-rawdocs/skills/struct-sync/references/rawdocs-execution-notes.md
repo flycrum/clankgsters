@@ -36,6 +36,10 @@ If there is conflict:
 - Prefer existing structure for continuity **only when** the path remains traceable to current rawdocs.
 - Document rationale for any retention of an **orphan** path (explicit exception) or any structural break from an existing traceable pattern.
 
+## Bucketing guard (avoid lazy `docs/` defaults)
+
+When a rawdocs file has no clear predecessor in the existing plugin tree, do **not** treat plugin-root `docs/` as the default sink. Prefer `skills/` for procedural or agent-invoked workflows and `rules/` for conventions unless the material is intentionally standalone background per [`rawdocs-sync-goals.md`](../../../references/rawdocs-sync-goals.md) and the capo decision-tree references linked from [`../SKILL.md`](../SKILL.md).
+
 ## Cleanup guard strategy
 
 Before deletion:
