@@ -1,5 +1,7 @@
 # Clankgster sync output (regenerated locally; not source of truth)
 .clankgster-cache/
+.clank/.cache/
+.clank/.logs/
 .superagent/
 
 # Library-specific files

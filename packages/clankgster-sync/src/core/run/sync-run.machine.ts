@@ -188,6 +188,7 @@ export const syncRunMachine = setup({
                 loggingEnabled: output.resolvedConfig.loggingEnabled,
                 outputRoot: output.resolvedConfig.syncOutputRoot,
                 repoRoot: context.input.repoRoot,
+                sourceDir: output.resolvedConfig.sourceDefaults.sourceDir,
               });
               clankLogger.getLogger().info({ sources: output.sourcesLoaded }, 'config resolved');
               const symlinkModeBehaviors = syncArtifactModeConfig.listSymlinkModeBehaviors(
