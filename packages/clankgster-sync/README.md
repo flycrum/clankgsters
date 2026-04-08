@@ -17,23 +17,27 @@ The name “Clankgster”, though playing off of a derogatory term “Clankers�
   alt="Three-panel pixel comic: a small robot with a glowing face and wild blue hair looks puzzled at Claude, Codex, and Cursor; then powers up with the names; then floats at ease as the tools orbit calmly."
 />
 
-## Getting Started (Local Tarball)
+## Getting Started
 
-Use this flow when `@clankgster/sync` has not been published to npm yet and you want to test from a real install in another repo.
+### 1) Install `@clankgster/sync`
 
-### 1) Install tarball in the target project
-
-Copy the `.tgz` tarball into your target project's local tarball folder (for example `./.local-tarballs/`), then run this from the target project root:
+From npm—prereleases ride the **`alpha`** dist-tag until we promote something stable:
 
 ```bash
-pnpm add -w "./.local-tarballs/clankgster-sync-0.0.1.tgz"
+pnpm add -w @clankgster/sync@alpha
 ```
 
-If your target project is not a pnpm workspace root, drop `-w`.
+```bash
+npm install @clankgster/sync@alpha
+```
+
+If your project is not a pnpm workspace root, drop `-w` (pnpm is particular about where the workspace thinks it lives).
+
+
 
 ### 2) Add config files in the target project root
 
-Create `clankgster.config.ts` (team-shared defaults) and `clankgster.local.config.ts` (developer-only overrides).
+Drop two files next to each other: `clankgster.config.ts` (team defaults) and `clankgster.local.config.ts` (your machine only). I am told this pattern reduces “oops, I committed my Cursor-off switch.”
 
 Example `clankgster.config.ts`:
 
@@ -69,39 +73,103 @@ export default clankgsterLocal;
 
 Recommendation: commit `clankgster.config.ts`; keep `clankgster.local.config.ts` uncommitted for personal overrides.
 
-### 3) Call sync scripts from `node_modules` in the target project
+### 3) Call sync scripts from `node_modules`
 
-Because the package ships script entry files under `scripts/`, you can run them directly with `tsx` from your target project's `package.json`:
+The package ships runnable entry files under `scripts/`; **`tsx`** is the lightweight bridge from `package.json` to TypeScript. (No magic—just paths.)
+
+#### Project with a root `package.json`
+
+Use this when `package.json`, `node_modules/`, and `clankgster.config.ts` all agree on the same directory as “home.”
 
 ```json
 {
   "scripts": {
     "clankgster-sync:clear": "tsx ./node_modules/@clankgster/sync/scripts/clankgster-sync.clear.ts",
-    "clankgster-sync:run": "tsx ./node_modules/@clankgster/sync/scripts/clankgster-sync.run.ts",
-    "clankgster-sync:refresh": "pnpm run clankgster-sync:clear && pnpm run clankgster-sync:run"
+    "clankgster-sync:run": "tsx ./node_modules/@clankgster/sync/scripts/clankgster-sync.run.ts"
   }
 }
 ```
 
-Then run:
+#### Monorepo without a root `package.json` (e.g. Rush)
+
+**Field note:** some Earth repos install dependencies under a *package* folder while `clankgster.config.ts` still lives at the **repository root**. Point sync at that root with `CLANKGSTER_REPO_ROOT` (tune the relative path until the universe stops arguing):
+
+```json
+{
+  "scripts": {
+    "clankgster-sync:clear": "CLANKGSTER_REPO_ROOT=../../ tsx ./node_modules/@clankgster/sync/scripts/clankgster-sync.clear.ts",
+    "clankgster-sync:run": "CLANKGSTER_REPO_ROOT=../../ tsx ./node_modules/@clankgster/sync/scripts/clankgster-sync.run.ts"
+  }
+}
+```
+
+Then run (from the same package that owns these scripts):
 
 ```bash
 pnpm run clankgster-sync:run
 ```
 
+Use `npm run` or your monorepo’s task runner if you are not on pnpm.
+
+## What sync reads and writes
+
+**Hypothesis (still mapping edge cases):** you edit **`.clank/`**, optional shorthand siblings (**`.clank-plugins/`**, **`.clank-skills/`**), **`CLANK.md`**, and **`clankgster.config.ts`**. Sync materializes the agent-facing trees—rules, skills, marketplace JSON, the settings keys it owns—plus **`.clankgster-cache/`** for bookkeeping.
+
+Which folders appear depends on **enabled agents** (Claude, Cursor, Codex). Table below is the **default mental model**: **left = source**, **right = generated** after **`clankgster-sync:run`**.
+
+<table>
+<thead>
+<tr>
+<th scope="col">Sources (you edit)</th>
+<th scope="col">Generated (run <code>clankgster-sync:run</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+
+<pre><code>repo-root/
+├── .clank-plugins/    … optional shorthand
+├── .clank-skills/     … optional shorthand
+├── .clank/
+│   ├── plugins/
+│   └── skills/        … or nested skills layout
+├── CLANK.md
+└── clankgster.config.ts
+</code></pre>
+
+</td>
+<td valign="top">
+
+<pre><code>repo-root/
+├── .clankgster-cache/
+│   └── sync-manifest.json
+├── .claude-plugin/
+├── .claude/
+├── .cursor-plugin/
+├── .cursor/
+├── AGENTS.override.md
+└── CLAUDE.md
+</code></pre>
+
+</td>
+</tr>
+</tbody>
+</table>
+
 ## Technicals
 
 ### `@clankgster/sync`
 
-Node-first package for Clankgster sync logic: implementation lives under **`src/`**; **`scripts/`** holds CLI entry files run with **`tsx`** (see `package.json` → `clankgster-sync:*`), and the **publishable surface** is built with **`vp pack src/index.ts`** into `dist/`.
+This is the **Node runtime + config surface**: `import { clankgsterConfig } from '@clankgster/sync'`, run the **`scripts/`** entries with **`tsx`**, or invoke **`clankgster-sync`** from `PATH` after install.
 
-Default artifact mode is now **copy-first** (`artifactMode: 'copy'`), with optional `artifactMode: 'symlink'` for legacy filesystem behavior. Copy mode runs the new **sync-fs-transforms** pipeline (`transforms.registry`, `transforms.hooks`, `transforms.options`, `transforms.templateVariables`) and supports optional `syncOutputReadOnly`.
+**Artifact mode** defaults to **copy-first** (`artifactMode: 'copy'`) so markdown can be rewritten on the way out—links, template tokens, optional XML hooks. **`artifactMode: 'symlink'`** remains for symlink-era workflows. Examples live in the next section.
 
 ## Copy-first transform examples
 
-- **Link rewrite:** relative links in synced markdown can be rewritten from destination context (great for plugin `references/` docs that are intentionally not copied).
-- **Template variables:** built-ins like `[[[clankgster_agent_name]]]` and `[[[clankgster_time]]]`, plus custom variables via `transforms.hooks.SyncFsTransformMarkdownTemplateVariablesPreset.onTemplateVariable`.
-- **XML segments:** tags like `<thinking phase="draft">...</thinking>` can be transformed via `transforms.hooks.SyncFsTransformMarkdownXmlSegmentsPreset.onXmlTransform`.
+- **Link rewrite:** relative links can be adjusted for the destination tree (handy when plugin `references/` should not ship verbatim).
+- **Template variables:** built-ins like `[[[clankgster_agent_name]]]` and `[[[clankgster_time]]]`, or your own via `transforms.hooks.SyncFsTransformMarkdownTemplateVariablesPreset.onTemplateVariable`.
+- **XML segments:** e.g. `<thinking phase="draft">...</thinking>` via `transforms.hooks.SyncFsTransformMarkdownXmlSegmentsPreset.onXmlTransform`.
 
 Example shape in `clankgster.config.ts`:
 
@@ -122,55 +190,32 @@ const config = clankgsterConfig.define({
 });
 ```
 
-## Commands (from repo root)
-
-```bash
-vp run --filter @clankgster/sync test
-vp run --filter @clankgster/sync build
-```
-
-Or `cd` into this package and run the same `vp` / `pnpm` scripts locally.
-
-See the [Vite+ guide](https://viteplus.dev/guide/) for the full toolchain.
-
 ## Repo root resolution
 
-Sync loads `clankgster.config.ts` from the **repository root** (the tree that contains your source layouts such as `.clank/` and shorthand siblings like `.clank-plugins`), not from `process.cwd()` alone.
+**Field note:** sync does **not** trust naked `process.cwd()` for “where is the repo?”—it walks from the installed **`@clankgster/sync`** package until it finds the tree that holds **`clankgster.config.ts`**, **`.clank/`**, shorthand **`.clank-*`**, and **`CLANK.md`**.
 
-- **Default:** repo root is derived from the `@clankgster/sync` package location (so `pnpm -F @clankgster/sync run clankgster-sync:run` from the monorepo root still finds the root `clankgster.config.ts`).
-- **`CLANKGSTER_REPO_ROOT`:** optional absolute path override (sandboxes, tests, or when you need an explicit root).
-- **Published CLI:** `clankgster-sync` (see `package.json` → `bin`) sets `CLANKGSTER_REPO_ROOT` to the **current working directory** and runs the sync entry with this package’s `tsx` loader (for global or linked installs).
-
-Implementation details live in `src/common/path-helpers.ts` (TSDoc).
+- **`CLANKGSTER_REPO_ROOT`:** set when `node_modules` lives somewhere that is *not* the repo root (Rush-shaped layouts, etc.). Value = directory containing **`clankgster.config.ts`**.
+- **`clankgster-sync` CLI:** global or `npx` run uses your **current working directory** as the repo root (Earth standard).
 
 ## Trust sync (edit `.clank/`, not `.cursor/` / `.claude/`)
 
-- **Sources:** `.clank/plugins/`, `.clank/skills*` (and layouts in config), `clankgster.config.ts`
-- **Do not** manually symlink, copy, or “register” rules, commands, skills, or plugins under `.cursor/`, `.claude/`, Codex outputs, or marketplace JSON — **run sync** and fix the pipeline if something is missing
-- **Command:** read **`packages/clankgster-sync/package.json`** (this package) for the current **`clankgster-sync:run`** / **`clankgster-sync:clear`** scripts, then run from the repo root; verify outputs afterward
-- **Detail:** [clankgster-sync-trust-sync-workflow.md](.clank/plugins/clankgster-sync/rules/clankgster-sync-trust-sync-workflow.md) (driver plugin under this package; path is valid in a monorepo checkout)
+- **Sources:** `.clank/plugins/`, `.clank/skills*` (plus whatever layouts your config names), `clankgster.config.ts`
+- **Please don’t** hand-edit Clankgster’s rules, skills, or marketplace JSON under **`.cursor/`**, **`.claude/`**, Codex outputs, or generated files—fix **`.clank/`**, re-run sync, let the pipeline be the boring authority.
+- **Longer workflow prose:** [clankgster-sync-trust-sync-workflow.md](https://github.com/flycrum/clankgster/blob/main/packages/clankgster-sync/.clank/plugins/clankgster-sync/rules/clankgster-sync-trust-sync-workflow.md) (Clankgster monorepo).
 
-## Field note: sync is not a hostile takeover
+## Clear vs. run (your files stay)
 
-**Hypothesis (tested, confidence: high):** `clankgster-sync` is **not** an all-or-nothing wipe of Claude, Cursor, or Codex context. You can **eat your human cake and have it too!**—keep the skills, commands, rules, plugins, marketplaces, and odd folders you (or your agent) added by hand, **and** let Clankgster materialize its slice from `.clank/` and `clankgster.config.ts` beside them.
+**Clear** removes **Clankgster-managed** outputs only; it is **not** a “delete every agent file” switch. Your own skills, plans, and unrelated rules should remain.
 
-**What we observed in this monorepo (real paths, not a toy diagram):**
+**Run** repaints the managed slice: rules, synced skills, **`.claude-plugin/marketplace.json`**, the keys sync owns in **`.claude/settings.json`**, and friends. Treat **`.claude-plugin/marketplace.json`** as **output**, not a scratchpad—edit **`.clank/`**, sync again.
 
-- After **`clankgster-sync:clear`**, trees like **`.cursor/plans/`** and manually curated **`.cursor/skills/*`** (for example the Vite+ skill packs) were still present; so were files such as **`.claude/skills/vibe-check.md`** and unrelated rule folders under **`.claude/rules/`**. Nothing in that “human/agent-native” neighborhood was deleted just because we cleared sync outputs.
-- After **`clankgster-sync:run`**, the same files were **still there**, **plus** the Clankgster-managed material (for example **`.claude/rules/clankgster-sync/`**, **`.cursor/rules/clankgster-sync/`**, synced skill folders, **`.claude-plugin/marketplace.json`** when that behavior is enabled). Picture roommates moving furniture in—**your** shelves stayed; **ours** appeared next to them.
+**Shared JSON:** sync merges only the keys it owns in **`.claude/settings.json`**; **clear** removes those keys and leaves the rest of your JSON intact.
 
-**Shared JSON, handled with care:**
-
-- **`.claude/settings.json`:** sync **reads** whatever JSON is already there, then writes the keys it owns (`extraKnownMarketplaces`, `enabledPlugins`). On **clear**, it **removes only those keys** and leaves the rest of the object intact—so extra fields you add keep round-tripping. (On a stock repo, clear can leave **`{}`**; run fills the managed keys back in.)
-- **`.claude-plugin/marketplace.json`:** this file is the **generated listing** for the local Clankgster marketplace: sync **rewrites** it from what it discovers under **`.clank/`**. Treat **`.clank/`** as the source of truth for that listing; do not rely on hand-editing this JSON as a permanent side channel—edit plugins in `.clank/` and re-run sync.
-
-**Idempotent (we checked the receipts):** from the repo root we ran **`clankgster-sync:clear`**, captured a full file list plus **SHA-256** hashes for every file under **`.claude/`**, **`.claude-plugin/`**, and **`.cursor/`**, then ran **`clankgster-sync:run`** and captured again. We ran **clear** a second time: the snapshot matched the **first clear byte-for-byte** (same paths, same hashes). We ran **run** again: snapshot matched the **first run** the same way. So: **`clear → clear`** and **`run → run`** are stable on this tree—nothing mysteriously drifted or got “cleaned up” extra.
-
-**Bottom line:** a lot of care went into **not** treating your agent directories as disposable scratch space. Sync adds and removes the **Clankgster-managed** surfaces; **your** context files are expected to live next to them, season after season.
+**Idempotent (we checked the receipts):** from the repo root we ran **`clankgster-sync:clear`**, captured a full file list plus **SHA-256** hashes for every file under **`.claude/`**, **`.claude-plugin/`**, and **`.cursor/`**, then ran **`clankgster-sync:run`** and captured again. We ran **clear** a second time: the snapshot matched the **first clear byte-for-byte** (same paths, same hashes). We ran **run** again: snapshot matched the **first run** the same way. So: **`clear → clear`** and **`run → run`** are stable on this tree—nothing mysteriously drifted or got "cleaned up" extra.
 
 ## Licensing
 
-This package is intended to be practical to adopt in open-source and enterprise projects.
+**Status:** practical for open-source and internal use; the legal atoms are still dry on purpose (no robot jokes in the fine print).
 
 - The published npm artifact for `@clankgster/sync` is licensed under MIT (see [LICENSE](./LICENSE) next to this README in the package).
 - Repository source in the monorepo follows the PolyForm Noncommercial License 1.0.0 (see the repo root [LICENSE](../../LICENSE)).
