@@ -23,7 +23,7 @@
   - **`artifactMode: 'symlink'`** remains for older symlink workflows.
   - Optional **read-only** flag on generated files after write.
 - **Manifest + cache**
-  - **`.clankgster-cache/sync-manifest.json`** keeps discovery, run, and teardown aligned.
+  - **`${sourceDir}/.cache/sync-manifest.json`** keeps discovery, run, and teardown aligned (default **`sourceDir`**: **`.clank`** → **`.clank/.cache/sync-manifest.json`**).
   - **Clear** removes Clankgster-managed outputs and that cache footprint; it is **not** designed to wipe unrelated files you added beside agent folders.
 
 [0.1.0-alpha.0]: https://github.com/flycrum/clankgster/releases/tag/v0.1.0-alpha.0
