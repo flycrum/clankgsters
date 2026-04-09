@@ -17,8 +17,8 @@
   "devDependencies": {
     "@clankgster/typescript-config": "workspace:*",
     "@types/node": "catalog:",
-    "oxfmt": "0.41.0",
-    "oxlint": "1.56.0",
+    "oxfmt": "0.43.0",
+    "oxlint": "1.58.0",
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   }
