@@ -1,6 +1,6 @@
 {
   "name": "@clankgster/sync",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "description": "Node tooling and TypeScript scripts for Clankgster sync workflows (publishable).",
   "license": "MIT",
   "repository": {
@@ -35,6 +35,8 @@
     "pack-local:tarball": "bash internal/scripts/local-tarball-pack.sh",
     "prepack": "vp pack src/index.ts",
     "prepublishOnly": "vp pack src/index.ts",
+    "release:preflight": "bash internal/scripts/npm-release-preflight.sh",
+    "release:publish:alpha": "bash internal/scripts/npm-release-publish-from-pack.sh alpha",
     "test": "vp test"
   },
   "dependencies": {
