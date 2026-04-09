@@ -36,11 +36,11 @@ Create a reusable local tarball for `@clankgster/sync` from `packages/clankgster
    pnpm --dir packages/clankgster-sync pack --pack-destination "${TARGET_PROJECT_ROOT}/.local-tarballs"
    ```
 
-4. Install from the target project using its local tarball path:
+4. Install from the target project using its local tarball path (the **`.tgz` filename includes the version** from `packages/clankgster-sync/package.json`, e.g. `clankgster-sync-<version>.tgz`; use the file `pnpm pack` actually wrote):
 
    ```bash
    cd "${TARGET_PROJECT_ROOT}"
-   pnpm add -w "./.local-tarballs/clankgster-sync-0.0.1.tgz"
+   pnpm add -w "./.local-tarballs/clankgster-sync-<version>.tgz"
    ```
 
 5. Optional: pin the tarball in `package.json` for repeatable local testing:
@@ -48,7 +48,7 @@ Create a reusable local tarball for `@clankgster/sync` from `packages/clankgster
    ```json
    {
      "dependencies": {
-       "@clankgster/sync": "file:./.local-tarballs/clankgster-sync-0.0.1.tgz"
+       "@clankgster/sync": "file:./.local-tarballs/clankgster-sync-<version>.tgz"
      }
    }
    ```
