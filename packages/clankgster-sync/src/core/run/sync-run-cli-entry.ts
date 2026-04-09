@@ -33,7 +33,7 @@ export const syncRunCli = {
     }
     console.log(
       chalk.green(`[clankgster] ${mode} complete`),
-      chalk.dim(`outcomes=${output.outcomes.length}`)
+      chalk.dim(`processed ${output.outcomes.length} agent(s)`)
     );
   },
 
