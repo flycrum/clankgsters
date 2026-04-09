@@ -76,11 +76,11 @@ const envSource: ClankgsterConfigSource = {
 };
 
 export const clankgsterConfigSources = {
-  /** Default resolution order: team `clankgster.config.ts`, then `clankgster.local.config.ts`, then environment overrides. */
+  /** Default resolution order: team `clankgster.config.ts`, then `clankgster.config.local.ts`, then environment overrides. */
   defaults(): ClankgsterConfigSource[] {
     return [
       buildTypeScriptSource('team-ts-config', 10, 'clankgster.config.ts'),
-      buildTypeScriptSource('local-ts-config', 20, 'clankgster.local.config.ts'),
+      buildTypeScriptSource('local-ts-config', 20, 'clankgster.config.local.ts'),
       envSource,
     ];
   },

@@ -36,7 +36,7 @@ type ProcessAgentQueueMachineEvent = { type: 'xstate.init' };
  * Processes the agent queue: each entry in `resolvedConfig.agents` **in order**, one at a time (no overlap between agents).
  *
  * **Queue:** `agentTypes.buildQueue(resolvedConfig)` turns `resolvedConfig.agents` (named entries in
- * `clankgster.config.ts` / `clankgster.local.config.ts`, e.g. per–coding-agent front-ends) into a deterministic list. Each item
+ * `clankgster.config.ts` / `clankgster.config.local.ts`, e.g. per–coding-agent front-ends) into a deterministic list. Each item
  * is handed to {@link processAgentBehaviorsMachine}, which runs that agent’s sync behaviors for the current `mode` (`sync` or
  * `clear`).
  *

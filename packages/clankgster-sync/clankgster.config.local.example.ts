@@ -1,4 +1,4 @@
-/** Example local override template; remove `.example` from the filename to activate as repo-root `clankgster.local.config.ts`. */
+/** Example local override template; remove `.example` from the filename to activate as repo-root `clankgster.config.local.ts`. */
 const clankgsterLocal = {
   loggingEnabled: true,
   agents: {

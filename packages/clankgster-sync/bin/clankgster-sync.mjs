@@ -47,7 +47,10 @@ const argv =
 const result = spawnSync(process.execPath, argv, {
   stdio: 'inherit',
   cwd: process.cwd(),
-  env: { ...process.env, CLANKGSTER_REPO_ROOT: process.cwd() },
+  env: {
+    ...process.env,
+    CLANKGSTER_REPO_ROOT: process.env.CLANKGSTER_REPO_ROOT ?? process.cwd(),
+  },
 });
 
 const exitCode =

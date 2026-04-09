@@ -24,7 +24,7 @@ const clankgster = clankgsterConfig.define({
   //     return payload;
   //   },
   // },
-  loggingEnabled: true,
+  loggingEnabled: false,
 });
 
 export default clankgster;
